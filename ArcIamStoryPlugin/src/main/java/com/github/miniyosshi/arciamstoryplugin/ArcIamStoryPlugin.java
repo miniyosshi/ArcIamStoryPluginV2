@@ -1,3 +1,5 @@
+//aaaa
+
 package com.github.miniyosshi.arciamstoryplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
