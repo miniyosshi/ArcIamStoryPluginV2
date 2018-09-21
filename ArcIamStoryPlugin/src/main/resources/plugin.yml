@@ -1,0 +1,4 @@
+name: ArcIamStoryPlugin
+main: com.github.miniyosshi.arciamstoryplugin.ArcIamStoryPlugin
+version: 1.0
+commands:
