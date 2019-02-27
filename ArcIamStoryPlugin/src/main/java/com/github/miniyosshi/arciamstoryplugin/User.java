@@ -3,7 +3,7 @@ package com.github.miniyosshi.arciamstoryplugin;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class User   { 
+public class User   {
 	Player player;
 	String name;
 	Location savedlocation;

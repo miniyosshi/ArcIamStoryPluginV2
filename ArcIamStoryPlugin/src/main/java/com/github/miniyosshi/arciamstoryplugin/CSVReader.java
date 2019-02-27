@@ -14,6 +14,7 @@ import org.bukkit.World;
 public class CSVReader {
 	
 	public static ArrayList<AreaData> areadata = new ArrayList<AreaData>();
+	public static ArrayList<ChapterData> chapterdata = new ArrayList<ChapterData>();
 	public static ArrayList<User> userdata = new ArrayList<User>();
 	
 	public void read(String filename){
@@ -55,6 +56,19 @@ public class CSVReader {
 					userdata.add(element);
 				}
 				//System.out.println(userdata.get(0).getName()+"PlayerData.csvのやつ");
+				break;
+				
+				
+			case "ChapterData.csv":
+				
+				while ((line = br.readLine()) != null) {
+					String[] data = line.split(",");
+					
+					ChapterData element = new ChapterData(Integer.parseInt(data[0]),Integer.parseInt(data[1]),Integer.parseInt(data[2]),data[3],data[4]);
+					
+					chapterdata.add(element);
+				}
+				
 				break;
 			
 			}

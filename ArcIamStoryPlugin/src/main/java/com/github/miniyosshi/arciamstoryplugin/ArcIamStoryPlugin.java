@@ -1,6 +1,6 @@
-//aaaa
-
 package com.github.miniyosshi.arciamstoryplugin;
+
+import java.io.File;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,11 +9,22 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
-		//CSV reader
-		CSVReader cr = new CSVReader();
-		cr.read("AreaData.csv");
-		cr.read("PlayerData.csv");
 		
+		CSVReader cr = new CSVReader();
+		
+		//file check
+		File f1 = new File("AreaData.csv");
+		File f2 = new File("PlayerData.csv");
+		if (f1.exists()&&f2.exists()){
+			//CSVReader
+			cr.read("AreaData.csv");
+			cr.read("PlayerData.csv");
+		}
+		else{ 
+		    System.out.println("CSVファイルのどれかが存在しません");
+		}
+		
+		//EventSet
 		new EnterAreaEvent(this);
 		new OnPlayerJoin(this);
 

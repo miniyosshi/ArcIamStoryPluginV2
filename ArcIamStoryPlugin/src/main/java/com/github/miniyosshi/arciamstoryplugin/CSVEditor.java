@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class CSVEditor {
 	
+	//プレーヤーのセーブ地点、章節をCSVファイルに出力
 	public static void exportCSV() {
 		try {
 			   File f = new File("PlayerData.csv");
