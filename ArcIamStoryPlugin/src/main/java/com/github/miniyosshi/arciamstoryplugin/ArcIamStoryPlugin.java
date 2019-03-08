@@ -9,16 +9,18 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
-		
 		CSVReader cr = new CSVReader();
 		
 		//file check
 		File f1 = new File("AreaData.csv");
-		File f2 = new File("PlayerData.csv");
-		if (f1.exists()&&f2.exists()){
+		File f2 = new File("ChapterData.csv");
+		File f3 = new File("UserData.csv");
+		
+		if (f1.exists()&&f2.exists()&&f3.exists()){
 			//CSVReader
 			cr.read("AreaData.csv");
-			cr.read("PlayerData.csv");
+			cr.read("ChapterData.csv");
+			cr.read("UserData.csv");
 		}
 		else{ 
 		    System.out.println("CSVファイルのどれかが存在しません");
@@ -26,9 +28,11 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		
 		//EventSet
 		new EnterAreaEvent(this);
+		new ClickEvent(this);
 		new OnPlayerJoin(this);
 
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
+		
 	}
 	
 	@Override

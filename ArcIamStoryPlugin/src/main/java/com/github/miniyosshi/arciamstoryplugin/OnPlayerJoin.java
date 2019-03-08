@@ -19,15 +19,17 @@ public class OnPlayerJoin implements Listener {
 		
 		boolean a = false;
 		
+		//System.out.print("ここのワールドは"+e.getPlayer().getWorld().getName());
+		
 		for (User u : CSVReader.userdata) {
 			if (u.getName().equals(e.getPlayer().getName())) {
-				//User user = CSVReader.userdata.get(i);
-				//user.player = e.getPlayer();
-				//user.pastarea = user.isInAreaOf();
 				
 				u.player = e.getPlayer(); //StringだけでなくPlayer型も登録
 				u.pastarea = u.isInAreaOf();
-				System.out.println("初めの場所は"+u.pastarea.getName());
+				System.out.println(u.getName()+"のログイン時のエリアは"+u.pastarea.getName());
+				
+				
+				
 				//System.out.println(CSVReader.userdata.get(0).name+" "+CSVReader.userdata.get(0).pastarea.getName());
 				//userdataの表への書き込みもできてるっぽい？
 				
@@ -37,9 +39,9 @@ public class OnPlayerJoin implements Listener {
 			}
 		}
 		
-		//おはつの人
+		//初回ログインの人向け
 		if(a == false){
-			World world = Bukkit.getServer().getWorld("world");
+			World world = Bukkit.getServer().getWorld(CSVReader.areadata.get(0).getName());
 			Location loc = new Location(world,0,0,0);
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1);
 			CSVReader.userdata.add(newuser);
@@ -47,7 +49,7 @@ public class OnPlayerJoin implements Listener {
 			
 			newuser.player = e.getPlayer(); //StringだけでなくPlayer型も登録
 			newuser.pastarea = newuser.isInAreaOf();
-			System.out.println("お初の方の初めの場所は"+newuser.pastarea.getName());
+			System.out.println("お初の方のログインエリアは"+newuser.pastarea.getName());
 		}
 		
 	}

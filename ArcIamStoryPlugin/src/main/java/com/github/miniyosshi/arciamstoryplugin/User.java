@@ -27,6 +27,18 @@ public class User   {
 	String getName() {
 		return name;
 	}
+	int getChapter() {
+		return chapter;
+	}
+	int getSection() {
+		return section;
+	}
+	void setChapter(int i) {
+		this.chapter = i;
+	}
+	void setSection(int i) {
+		this.section = i;
+	}
 	
 	/*
 	@SuppressWarnings("deprecation")
@@ -60,7 +72,9 @@ public class User   {
 				 return area;
 			 }
 		 }
-		 return null; //天才
+		 //System.out.println("nullくるよ");
+		 //return null; //天才ではなかった
+		 return CSVReader.areadata.get(0);
 	}
 	
 	public void saveLocation() {

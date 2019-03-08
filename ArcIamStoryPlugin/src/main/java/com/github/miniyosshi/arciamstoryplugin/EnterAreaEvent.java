@@ -26,8 +26,10 @@ public class EnterAreaEvent implements Listener {
 					//System.out.println(user.pastarea+"から"+presentarea);
 					
 					if (presentarea != u.pastarea) {
-						if(presentarea != null) {
+						if(presentarea != CSVReader.areadata.get(0)) {
 							e.getPlayer().sendMessage("エリア"+presentarea.getName()+"に来ました");
+							StoryProcessor.eventCheck("enter");
+							
 						}
 						u.pastarea = presentarea;
 					}
@@ -37,4 +39,6 @@ public class EnterAreaEvent implements Listener {
 			}
 		}	
 	}
+	
+	
 }
