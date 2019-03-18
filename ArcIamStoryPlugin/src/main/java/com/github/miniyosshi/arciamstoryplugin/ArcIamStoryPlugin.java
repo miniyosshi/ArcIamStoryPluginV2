@@ -5,7 +5,7 @@ import java.io.File;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArcIamStoryPlugin extends JavaPlugin {
-
+	
 	@Override
 	public void onEnable() {
 		
@@ -39,17 +39,6 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 	public void onDisable() {
 		getLogger().info("Plugin ArcIamStoryPlugin has been disabled.");
 	}
-	
-	
-	
-	/*
-	@EventHandler
-	public void onEnterArea(PlayerMoveEvent e) {
-		
-		System.out.println("aaaaa");
-		System.out.println(eae.enterAreaEvent().getName()+"に移動しました");
-	}
-	*/
 	
 		
 }

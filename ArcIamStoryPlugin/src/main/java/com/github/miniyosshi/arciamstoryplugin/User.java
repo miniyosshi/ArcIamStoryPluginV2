@@ -83,7 +83,7 @@ public class User   {
 				u.savedlocation = u.player.getLocation();
 				
 				//ここでcsvに書き込み
-				CSVEditor.exportCSV();
+				CSVExporter.exportCSV();
 				
 			}
 		}

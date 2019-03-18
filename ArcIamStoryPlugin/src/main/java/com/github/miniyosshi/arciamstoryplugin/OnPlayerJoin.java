@@ -45,7 +45,7 @@ public class OnPlayerJoin implements Listener {
 			Location loc = new Location(world,0,0,0);
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1);
 			CSVReader.userdata.add(newuser);
-			CSVEditor.exportCSV();
+			CSVExporter.exportCSV();
 			
 			newuser.player = e.getPlayer(); //StringだけでなくPlayer型も登録
 			newuser.pastarea = newuser.isInAreaOf();
