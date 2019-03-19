@@ -16,21 +16,36 @@ public class StoryProcessor {
 					u.setSection(1);
 				}
 			}	
-		}
-		
+		}	
 	}
 	
-	
-	
-	public static void eventCheck(String trigger) {
+	public static void eventCheck(User u, String trigger) {
 		
-		if(trigger.equals("click")) {
-			
+		for(ChapterData cd: CSVReader.chapterdata) {
+			if(cd.getChapter()==u.getChapter()&&cd.getSection()==u.getSection()) {
+				
+				if(trigger.equals("click")&&cd.getTrigger().equals("click")) {
+					u.getPlayer().sendMessage("clickイベント");
+					
+					
+					
+				}
+				
+				if(trigger.equals("enter")&&cd.getTrigger().equals("enter")) {
+					u.getPlayer().sendMessage("enterイベント");
+				}
+				
+				if(trigger.equals("auto")&&cd.getTrigger().equals("auto")) {
+					u.getPlayer().sendMessage("autoイベント");
+				}
+				
+				
+				
+			}
 		}
 		
-		if(trigger.equals("enter")) {
-			
-		}
+		
+		
 	}
 	
 }

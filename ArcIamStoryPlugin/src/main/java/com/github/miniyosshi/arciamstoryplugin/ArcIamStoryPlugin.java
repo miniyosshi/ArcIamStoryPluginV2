@@ -27,9 +27,13 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		}
 		
 		//EventSet
-		new EnterAreaEvent(this);
 		new ClickEvent(this);
+		new EnterAreaEvent(this);
 		new OnPlayerJoin(this);
+		
+		//commnadSet
+		getCommand("setarea").setExecutor(new OnCommand());
+		getCommand("showarea").setExecutor(new OnCommand());
 
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
 		

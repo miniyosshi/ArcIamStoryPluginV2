@@ -17,8 +17,9 @@ public class OnPlayerLogout {
 		
 		
 		if (horrorOn == true) {
-			Horror.reviver(e.getPlayer());
+			//Horror.reviver(e.getPlayer());
 		}
+	}
 	
 
 }

@@ -2,4 +2,10 @@ name: ArcIamStoryPlugin
 main: com.github.miniyosshi.arciamstoryplugin.ArcIamStoryPlugin
 version: 1.0
 commands:
-  setpoint:
+  showarea:
+    descripstion: See set areas.
+  
+  setarea:
+    description: Set your location as the one corner of an area.
+    usage: "/setarea [name of area] 0or1"
+    

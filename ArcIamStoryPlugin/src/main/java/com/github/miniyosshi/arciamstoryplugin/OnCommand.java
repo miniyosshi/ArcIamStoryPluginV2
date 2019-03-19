@@ -11,9 +11,10 @@ public class OnCommand implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {	
 				
-		//地点登録
-		if (cmd.getName().equalsIgnoreCase("setpoint")){
+		//エリア登録
+		if (cmd.getName().equalsIgnoreCase("setarea")){
 			if(sender instanceof Player) {
+												
 				if(args.length >= 2) {
 					
 					boolean exist = false;
@@ -22,10 +23,8 @@ public class OnCommand implements CommandExecutor{
 					for (AreaData a : CSVReader.areadata) {
 						if (a.getName().equalsIgnoreCase(args[0])) {
 							
-							a.setLocation(Integer.parseInt(args[1]),loc);
-													
+							a.setLocation(Integer.parseInt(args[1]),loc);					
 							exist = true;
-							
 							sender.sendMessage("登録しました。");
 						}
 					}
@@ -34,18 +33,17 @@ public class OnCommand implements CommandExecutor{
 						
 						AreaData a = new AreaData(args[0], loc, loc);
 						CSVReader.areadata.add(a);
-						
-						sender.sendMessage("新しい名前の場所を登録しました。");
+						sender.sendMessage("新しい名前の場所, "+a.getName()+"を登録しました。");
 					}
 					
 					//ここでcsvに書き込み
 					CSVExporter.exportCSV("AreaData.csv");
-					
-					
+										
 					return true;
 				}
 				else {
-					sender.sendMessage("/setpoint + name of location + 0or1");
+					//不要
+					//sender.sendMessage("/setarea + name of area + 0or1");
 					return false;
 				}
 			}
@@ -55,6 +53,21 @@ public class OnCommand implements CommandExecutor{
 				}
 			
 		}
+		
+		if(cmd.getName().equalsIgnoreCase("showarea")){
+			for(AreaData a : CSVReader.areadata) {
+				sender.sendMessage(a.getName());
+			}
+			return true;
+		}
+		
+		if(cmd.getName().equalsIgnoreCase("deletearea")){
+			
+			sender.sendMessage("まだできません笑！");
+			
+			return true;
+		}
+		
 		else
 			sender.sendMessage("そのようなコマンドは存在しません。");
 			return false;

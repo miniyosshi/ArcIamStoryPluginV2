@@ -41,11 +41,16 @@ public class OnPlayerJoin implements Listener {
 		
 		//初回ログインの人向け
 		if(a == false){
-			World world = Bukkit.getServer().getWorld(CSVReader.areadata.get(0).getName());
+			CSVExporter.exportCSV("初回ログインの人向けの操作");
+						
+			World world = Bukkit.getServer().getWorld(CSVReader.areadata.get(0).getcornerA().getWorld().getName());
+			
 			Location loc = new Location(world,0,0,0);
+			
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1);
 			CSVReader.userdata.add(newuser);
-			CSVExporter.exportCSV();
+			
+			CSVExporter.exportCSV("UserData.csv");
 			
 			newuser.player = e.getPlayer(); //StringだけでなくPlayer型も登録
 			newuser.pastarea = newuser.isInAreaOf();

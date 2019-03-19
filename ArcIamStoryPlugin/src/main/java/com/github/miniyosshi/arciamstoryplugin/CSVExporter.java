@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+
 public class CSVExporter {
 	
 	//プレーヤーのセーブ地点、章節をCSVファイルに出力
@@ -15,12 +18,14 @@ public class CSVExporter {
 			      
 			   switch(filename) {
 			   case "AreaData.csv" :
-				   
-				   
-				   
-				   
-				   
-				   
+				   for(int i = 0; i < CSVReader.areadata.size(); i++) {
+				    	  
+				    	  AreaData elem = CSVReader.areadata.get(i);
+				    	  bw.write(elem.getcornerA().getWorld().getName()+ "," + elem.getcornerA().getWorld() + "," + elem.getcornerA().getX() + "," + elem.getcornerA().getY() + "," + elem.getcornerA().getZ() + "," + elem.getcornerB().getX() + "," + elem.getcornerB().getY() + "," + elem.getcornerB().getZ() );
+					      bw.newLine();
+				   }
+				      
+				   				   
 			   case "UserData.csv" :
 				   for(int i = 0; i < CSVReader.userdata.size(); i++) {
 				    	  

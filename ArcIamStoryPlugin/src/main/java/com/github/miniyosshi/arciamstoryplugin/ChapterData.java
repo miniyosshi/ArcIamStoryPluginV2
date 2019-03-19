@@ -24,6 +24,14 @@ public class ChapterData {
 		return title;
 	}
 	
+	String getGoal() {
+		return goal;
+	}
+	
+	String getTrigger() {
+		return trigger;
+	}
+	
 	int getChapter() {
 		return chapter;
 	}

@@ -18,6 +18,14 @@ public class AreaData{
 		return name;
 	}
 	
+	Location getcornerA() {
+		return cornerA;
+	}
+	
+	Location getcornerB() {
+		return cornerB;
+	}
+	
 	public void setLocation(int i, Location loc) {
 		if(i == 0) {
 			this.cornerA = loc;

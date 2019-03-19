@@ -23,6 +23,23 @@ public class User   {
 		this.player = player;
 	}
 	
+	//User→Player
+	Player getPlayer() {
+		return player;
+	}
+	
+	//Player→User
+	static User getUser(Player p) {
+		for (User u : CSVReader.userdata) {
+			if (u.getName().equals(p.getPlayer().getName())) {
+				return u;
+			}
+		}
+		System.out.println("Player→User操作におけるエラーです。0番を返します。");
+		return 	CSVReader.userdata.get(0);	
+	}
+	
+		
 	
 	String getName() {
 		return name;
@@ -83,7 +100,7 @@ public class User   {
 				u.savedlocation = u.player.getLocation();
 				
 				//ここでcsvに書き込み
-				CSVExporter.exportCSV();
+				CSVExporter.exportCSV("UserData.csv");
 				
 			}
 		}

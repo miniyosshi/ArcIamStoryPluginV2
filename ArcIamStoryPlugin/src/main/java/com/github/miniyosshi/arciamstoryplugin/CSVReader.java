@@ -30,16 +30,16 @@ public class CSVReader {
 				
 				while ((line = br.readLine()) != null) {
 					String[] data = line.split(",");
-					
+													
 					World w = Bukkit.getServer().getWorld(data[1]);
-					Location cornerA = new Location(w,Integer.parseInt(data[2]),Integer.parseInt(data[3]),Integer.parseInt(data[4]));
-					Location cornerB = new Location(w,Integer.parseInt(data[5]),Integer.parseInt(data[6]),Integer.parseInt(data[7]));
+					Location cornerA = new Location(w,(int)Float.parseFloat(data[2]),(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]));
+					Location cornerB = new Location(w,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]),(int)Float.parseFloat(data[7]));
 					
 					AreaData element = new AreaData(data[0],cornerA, cornerB);
 					
 					areadata.add(element);
 				}
-				//System.out.println(areadata.get(0).getName());
+				System.out.println("AreaData.csvを読み込みました。");
 				break;
 				
 				
@@ -52,7 +52,7 @@ public class CSVReader {
 					
 					chapterdata.add(element);
 				}
-				
+				System.out.println("ChapterData.csvを読み込みました。");
 				break;
 			
 				
@@ -77,6 +77,7 @@ public class CSVReader {
 					
 				}
 				//System.out.println(userdata.get(0).getName()+"PlayerData.csvのやつ");
+				System.out.println("UserData.csvを読み込みました。");
 				break;
 				
 				
