@@ -25,18 +25,23 @@ public class StoryProcessor {
 			if(cd.getChapter()==u.getChapter()&&cd.getSection()==u.getSection()) {
 				
 				if(trigger.equals("click")&&cd.getTrigger().equals("click")) {
-					u.getPlayer().sendMessage("clickイベント");
+					
+					if() {
+
+						u.getPlayer().sendMessage("clickイベントあり");
+						
+					}
 					
 					
 					
 				}
 				
 				if(trigger.equals("enter")&&cd.getTrigger().equals("enter")) {
-					u.getPlayer().sendMessage("enterイベント");
+					u.getPlayer().sendMessage("enterイベントあり");
 				}
 				
 				if(trigger.equals("auto")&&cd.getTrigger().equals("auto")) {
-					u.getPlayer().sendMessage("autoイベント");
+					u.getPlayer().sendMessage("autoイベントあり");
 				}
 				
 				

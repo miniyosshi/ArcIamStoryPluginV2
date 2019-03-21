@@ -17,8 +17,13 @@ public class ClickEvent implements Listener {
 	public void clickEvent(PlayerInteractEntityEvent e) {
 		User u = User.getUser(e.getPlayer());
 		
+		System.out.println(e.getRightClicked());
+		System.out.println(e.getRightClicked().getName());
+		System.out.println(e.getRightClicked().toString());
+		
+		
 		//ストーリー進行
-		StoryProcessor.eventCheck(u,"click");
+		StoryProcessor.eventCheck(u,"click", );
 		
 		//mob会話
 		if(e.getRightClicked().getName().equals("村人A")) {
