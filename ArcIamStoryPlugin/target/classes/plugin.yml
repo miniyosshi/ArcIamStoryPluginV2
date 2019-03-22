@@ -2,6 +2,13 @@ name: ArcIamStoryPlugin
 main: com.github.miniyosshi.arciamstoryplugin.ArcIamStoryPlugin
 version: 1.0
 commands:
+  
+  deletearea:
+    descripstion: Delete an area.
+  
+  reloadcsv:
+    descripstion: Reload all csv files.
+  
   showarea:
     descripstion: See set areas.
   

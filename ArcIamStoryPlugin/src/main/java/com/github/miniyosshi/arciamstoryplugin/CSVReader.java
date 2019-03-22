@@ -15,9 +15,10 @@ public class CSVReader {
 	
 	public static ArrayList<AreaData> areadata = new ArrayList<AreaData>();
 	public static ArrayList<ChapterData> chapterdata = new ArrayList<ChapterData>();
+	public static ArrayList<ScenarioData> scenariodata = new ArrayList<ScenarioData>();
 	public static ArrayList<User> userdata = new ArrayList<User>();
 	
-	public void read(String filename){
+	public static void read(String filename){
 		
 		try {
 			File f = new File(filename);
@@ -55,6 +56,20 @@ public class CSVReader {
 				System.out.println("ChapterData.csvを読み込みました。");
 				break;
 			
+			case "ScenarioData.csv":
+				
+				while ((line = br.readLine()) != null) {
+					String[] data = line.split(",");
+					
+					ScenarioData element = new ScenarioData(data[0], data[1]);
+					
+					scenariodata.add(element);
+				}
+				System.out.println("ScenarioData.csvを読み込みました。");
+				break;	
+				
+				
+			
 				
 			case "UserData.csv":
 				
@@ -69,9 +84,9 @@ public class CSVReader {
 					
 					//System.out.println(w);
 					
-					Location savedlocation = new Location(w,Integer.parseInt(data[2]),Integer.parseInt(data[3]),Integer.parseInt(data[4]));
+					Location savedlocation = new Location(w,(int)Float.parseFloat(data[2]),(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]));
 					
-					User element = new User(data[0],savedlocation,Integer.parseInt(data[5]),Integer.parseInt(data[6]));
+					User element = new User(data[0],savedlocation,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]));
 					
 					userdata.add(element);
 					
@@ -80,14 +95,26 @@ public class CSVReader {
 				System.out.println("UserData.csvを読み込みました。");
 				break;
 				
-				
-				
 			}
 						
 			br.close();
 		}catch(IOException error) {
 			System.out.println(error);
 		}
+	}
+	
+	public static void reload() {
+		System.out.println("reload start.");
+		areadata.clear();
+		chapterdata.clear();
+		scenariodata.clear();
+		userdata.clear();
+		
+		read("AreaData.csv");
+		read("ChapterData.csv");
+		read("ScenarioData.csv");
+		read("UserData.csv");
+		
 	}
 
 }

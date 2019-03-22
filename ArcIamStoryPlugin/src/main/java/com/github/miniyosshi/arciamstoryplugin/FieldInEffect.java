@@ -21,8 +21,5 @@ public class FieldInEffect extends TimerTask {
 		
 	}
 	
-	void setUser(User u) {
-		this.u = u;
-	}
 	
 }

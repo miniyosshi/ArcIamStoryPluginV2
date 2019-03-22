@@ -28,7 +28,7 @@ public class EnterAreaEvent implements Listener {
 					if (presentarea != u.pastarea) {
 						if(presentarea != CSVReader.areadata.get(0)) {
 							e.getPlayer().sendMessage("エリア"+presentarea.getName()+"に来ました");
-							StoryProcessor.eventCheck(u, "enter");
+							StoryProcessor.eventCheck(u, "enter", presentarea.getName());
 							
 						}
 						u.pastarea = presentarea;

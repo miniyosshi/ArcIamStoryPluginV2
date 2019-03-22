@@ -10,7 +10,11 @@ public class OnCommand implements CommandExecutor{
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {	
-				
+		
+		
+		//main classへの登録をお忘れなく！
+		
+		
 		//エリア登録
 		if (cmd.getName().equalsIgnoreCase("setarea")){
 			if(sender instanceof Player) {
@@ -63,8 +67,16 @@ public class OnCommand implements CommandExecutor{
 		
 		if(cmd.getName().equalsIgnoreCase("deletearea")){
 			
-			sender.sendMessage("まだできません笑！");
+			sender.sendMessage("まだ対応していません。");
 			
+			return true;
+		}
+		
+		
+		if(cmd.getName().equalsIgnoreCase("reloadcsv")){
+			
+			CSVReader.reload();
+			sender.sendMessage("delete completed.");
 			return true;
 		}
 		

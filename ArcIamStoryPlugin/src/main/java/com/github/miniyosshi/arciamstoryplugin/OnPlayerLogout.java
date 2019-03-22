@@ -10,6 +10,16 @@ public class OnPlayerLogout {
 	
 	@EventHandler
 	public void onPlayerLogout (PlayerQuitEvent e) {
+		//ストーリーイベント途中で落ちた場合
+		
+		
+		//quit disconnect userがnullの可能性ある
+		if(User.getUser(e.getPlayer()).getInStoryEvent()==true) {
+			System.out.println("さんはストーリーイベント途中で切断されました。");
+			//文章止める
+			//chapter section 進めない
+		}
+		
 		
 		//save
 		

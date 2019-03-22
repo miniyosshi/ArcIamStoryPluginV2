@@ -10,6 +10,7 @@ public class User   {
 	int chapter;
 	int section;
 	AreaData pastarea;
+	boolean instoryevent = false;
 	
 	
 	User(String name, Location savedlocation, int chapter, int section){
@@ -40,7 +41,6 @@ public class User   {
 	}
 	
 		
-	
 	String getName() {
 		return name;
 	}
@@ -50,11 +50,20 @@ public class User   {
 	int getSection() {
 		return section;
 	}
+	
+	boolean getInStoryEvent() {
+		return instoryevent;
+	}
+	
 	void setChapter(int i) {
-		this.chapter = i;
+		chapter = i;
 	}
 	void setSection(int i) {
-		this.section = i;
+		section = i;
+	}
+	
+	void setInStoryEvent(boolean b) {
+		instoryevent = b;
 	}
 	
 	/*

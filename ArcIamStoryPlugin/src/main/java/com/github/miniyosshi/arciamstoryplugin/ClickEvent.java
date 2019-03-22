@@ -23,7 +23,7 @@ public class ClickEvent implements Listener {
 		
 		
 		//ストーリー進行
-		StoryProcessor.eventCheck(u,"click", );
+		StoryProcessor.eventCheck(u,"click", e.getRightClicked().getName());
 		
 		//mob会話
 		if(e.getRightClicked().getName().equals("村人A")) {

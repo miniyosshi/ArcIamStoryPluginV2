@@ -8,6 +8,8 @@ com\github\miniyosshi\arciamstoryplugin\EnterAreaEvent.class
 com\github\miniyosshi\arciamstoryplugin\StoryProcessor.class
 com\github\miniyosshi\arciamstoryplugin\FieldInEffect.class
 com\github\miniyosshi\arciamstoryplugin\ChapterData.class
+com\github\miniyosshi\arciamstoryplugin\ScenarioData.class
 com\github\miniyosshi\arciamstoryplugin\ClickEvent.class
+com\github\miniyosshi\arciamstoryplugin\TimerTaskLine.class
 com\github\miniyosshi\arciamstoryplugin\User.class
 com\github\miniyosshi\arciamstoryplugin\ArcIamStoryPlugin.class

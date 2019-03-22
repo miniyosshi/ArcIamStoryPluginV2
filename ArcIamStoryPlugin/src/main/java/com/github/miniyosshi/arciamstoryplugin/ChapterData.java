@@ -22,12 +22,11 @@ public class ChapterData {
 		
 	}
 	
-	String getTitle() {
-		return title;
+	int getChapter() {
+		return chapter;
 	}
-	
-	String getGoal() {
-		return goal;
+	int getSection() {
+		return section;
 	}
 	
 	String getTrigger() {
@@ -38,10 +37,18 @@ public class ChapterData {
 		return triggerobject;
 	}
 	
-	int getChapter() {
-		return chapter;
+	int getNumberOfLines() {
+		return numberofline;
 	}
-	int getSection() {
-		return section;
+	
+
+	String getTitle() {
+		return title;
 	}
+	
+	String getGoal() {
+		return goal;
+	}
+	
+	
 }
