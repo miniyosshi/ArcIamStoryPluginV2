@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-
 public class CSVExporter {
 	
 	//プレーヤーのセーブ地点、章節をCSVファイルに出力
@@ -25,7 +22,6 @@ public class CSVExporter {
 					      bw.newLine();
 				   }
 				
-				      
 				   				   
 			   	case "UserData.csv" :
 				   for(int i = 0; i < CSVReader.userdata.size(); i++) {

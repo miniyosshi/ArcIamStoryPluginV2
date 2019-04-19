@@ -17,33 +17,36 @@ public class ClickEvent implements Listener {
 	public void clickEvent(PlayerInteractEntityEvent e) {
 		User u = User.getUser(e.getPlayer());
 		
-		System.out.println(e.getRightClicked());
-		System.out.println(e.getRightClicked().getName());
-		System.out.println(e.getRightClicked().toString());
+		System.out.println(e.getRightClicked().getName()+"getName");
+		System.out.println(e.getRightClicked().toString()+"toString");
 		
-		
-		//ストーリー進行
-		StoryProcessor.eventCheck(u,"click", e.getRightClicked().getName());
-		
-		//mob会話
-		if(e.getRightClicked().getName().equals("村人A")) {
-			e.getPlayer().sendMessage("こんにちは");
+		//ストーリー進行中でなければ
+		if(u.getInStoryEvent()==false) {
+			//ストーリー進行
+			StoryProcessor.eventCheck(u,"click", e.getRightClicked().getName());
+			
+			//mob会話
+			if(e.getRightClicked().getName().equals("村人")) {
+				e.getPlayer().sendMessage("こんにちは");
+			}
+			
+			//待合所から転送
+			
+			if(e.getRightClicked().getName().equals("転送係")) {
+				e.getPlayer().sendMessage("５秒後に転送します");
+				
+				
+				FieldLoginEffect tc =new FieldLoginEffect(User.getUser(e.getPlayer()));
+				
+				Timer timer = new Timer();
+
+				timer.schedule(tc, 5000);
+				
+							
+			}	
 		}
 		
-		//待合所から転送
 		
-		if(e.getRightClicked().getName().equals("転送係")) {
-			e.getPlayer().sendMessage("５秒後に転送します");
-			
-			
-			FieldInEffect tc =new FieldInEffect(User.getUser(e.getPlayer()));
-			
-			Timer timer = new Timer();
-
-			timer.schedule(tc, 5000);
-			
-						
-		}	
 		
 		
 	}

@@ -18,6 +18,16 @@ public class AreaData{
 		return name;
 	}
 	
+	static AreaData getAreaData(String name) {
+		for (AreaData a : CSVReader.areadata) {
+			if (a.getName().equalsIgnoreCase(name)) {
+				return a;
+			}
+		}
+		return null;
+
+	}
+	
 	Location getcornerA() {
 		return cornerA;
 	}

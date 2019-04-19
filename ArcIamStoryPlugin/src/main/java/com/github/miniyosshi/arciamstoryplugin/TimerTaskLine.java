@@ -22,10 +22,17 @@ public class TimerTaskLine extends TimerTask {
 		
 		lineno += 1;
 		
+		if(u.getPlayer().isOnline()==false) {
+			this.cancel();
+			timer.cancel();
+		}
+		
 		if(lineno == k ) {
 			this.cancel();
 			timer.cancel();
 			u.setInStoryEvent(false);
+			StoryProcessor.addChapterSectionNumber(u);
+			
 		}
 		
 	}

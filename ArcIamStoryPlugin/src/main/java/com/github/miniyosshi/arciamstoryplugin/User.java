@@ -50,6 +50,9 @@ public class User   {
 	int getSection() {
 		return section;
 	}
+	Location getSavedLocation() {
+		return savedlocation;
+	}
 	
 	boolean getInStoryEvent() {
 		return instoryevent;

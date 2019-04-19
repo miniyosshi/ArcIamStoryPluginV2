@@ -26,7 +26,7 @@ public class OnPlayerJoin implements Listener {
 				
 				u.player = e.getPlayer(); //StringだけでなくPlayer型も登録
 				u.pastarea = u.isInAreaOf();
-				System.out.println(u.getName()+"のログイン時のエリアは"+u.pastarea.getName());
+				System.out.println(u.getName()+" has logged in "+u.pastarea.getName());
 				
 				
 				
@@ -54,7 +54,7 @@ public class OnPlayerJoin implements Listener {
 			
 			newuser.player = e.getPlayer(); //StringだけでなくPlayer型も登録
 			newuser.pastarea = newuser.isInAreaOf();
-			System.out.println("お初の方のログインエリアは"+newuser.pastarea.getName());
+			System.out.println(e.getPlayer().getName()+" has newly logged in the server!");
 		}
 		
 	}

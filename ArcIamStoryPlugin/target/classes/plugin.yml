@@ -2,12 +2,15 @@ name: ArcIamStoryPlugin
 main: com.github.miniyosshi.arciamstoryplugin.ArcIamStoryPlugin
 version: 1.0
 commands:
+  charactercode:
+    description: search if or not UTF-8
   
   deletearea:
     descripstion: Delete an area.
+    usage: "/deletearea [name of area]"
   
   reloadcsv:
-    descripstion: Reload all csv files.
+    descripstion: Reload all CSV files.
   
   showarea:
     descripstion: See set areas.
@@ -15,4 +18,7 @@ commands:
   setarea:
     description: Set your location as the one corner of an area.
     usage: "/setarea [name of area] 0or1"
+    
+  userlist:
+    description: See all users.
     

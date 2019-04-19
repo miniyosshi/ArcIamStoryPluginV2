@@ -32,7 +32,6 @@ public class StoryProcessor {
 			i++;
 		}
 		
-		
 		//timertask, timer はインスタンスの再利用ができないらしい
 		
 		Timer timer = new Timer();
@@ -55,9 +54,8 @@ public class StoryProcessor {
 						u.getPlayer().sendMessage("clickイベントあり");
 						u.setInStoryEvent(true);
 						processLine(u);
-						System.out.println("よりあとの部分が先に出る。");
-						//addChapterSectionNumber(u);
-						//eventCheck(u, "auto", "auto");
+						//System.out.println("よりあとの部分が先に出る。")
+						eventCheck(u, "auto", "auto");
 						
 												
 					}
@@ -71,7 +69,7 @@ public class StoryProcessor {
 						u.getPlayer().sendMessage("enterイベントあり");
 						
 						processLine(u);
-						addChapterSectionNumber(u);
+						
 						eventCheck(u, "auto", "auto");
 					}
 				}
@@ -80,7 +78,7 @@ public class StoryProcessor {
 					u.getPlayer().sendMessage("autoイベントあり");
 					
 					processLine(u);
-					addChapterSectionNumber(u);
+					
 					eventCheck(u, "auto", "auto");
 					
 				}

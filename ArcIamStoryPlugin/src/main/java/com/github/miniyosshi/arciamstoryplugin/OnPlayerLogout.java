@@ -1,10 +1,17 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 
 
-public class OnPlayerLogout {
+public class OnPlayerLogout implements Listener {
+	
+	public OnPlayerLogout(Plugin plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+	
 	
 	public boolean horrorOn = false;
 	
@@ -12,12 +19,9 @@ public class OnPlayerLogout {
 	public void onPlayerLogout (PlayerQuitEvent e) {
 		//ストーリーイベント途中で落ちた場合
 		
-		
-		//quit disconnect userがnullの可能性ある
 		if(User.getUser(e.getPlayer()).getInStoryEvent()==true) {
-			System.out.println("さんはストーリーイベント途中で切断されました。");
-			//文章止める
-			//chapter section 進めない
+			System.out.println(e.getPlayer().getName()+"has logged out half way through a story event...");
+			//不要　文章止める			
 		}
 		
 		

@@ -2,6 +2,7 @@ package com.github.miniyosshi.arciamstoryplugin;
 
 import com.github.miniyosshi.arciamstoryplugin.User;
 
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -27,7 +28,8 @@ public class EnterAreaEvent implements Listener {
 					
 					if (presentarea != u.pastarea) {
 						if(presentarea != CSVReader.areadata.get(0)) {
-							e.getPlayer().sendMessage("エリア"+presentarea.getName()+"に来ました");
+							e.getPlayer().sendMessage("エリア"+presentarea.getName()+"にやって来ました");
+							u.getPlayer().playSound(u.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 							StoryProcessor.eventCheck(u, "enter", presentarea.getName());
 							
 						}
