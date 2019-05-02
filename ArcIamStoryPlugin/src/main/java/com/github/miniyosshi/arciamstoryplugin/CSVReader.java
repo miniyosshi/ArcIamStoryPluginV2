@@ -2,10 +2,8 @@ package com.github.miniyosshi.arciamstoryplugin;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -21,22 +19,28 @@ public class CSVReader {
 	public static ArrayList<User> userdata = new ArrayList<User>();
 	
 	public static void read(String filename){
-		
-				
+						
 		try {
 			File f = new File(filename);
 					
 			if(f.exists()) {
 				BufferedReader br = new BufferedReader(new FileReader(f));
 				
-				String line;
-				
+				String line;				
+								
 				switch (filename) {
 				case "AreaData.csv" :
 					
 					while ((line = br.readLine()) != null) {
 						String[] data = line.split(",");
-														
+						
+						//csvの型の判定
+						/*
+						if(isIntChangable(data[2])) {
+							
+						}
+						*/
+						
 						World w = Bukkit.getServer().getWorld(data[1]);
 						Location cornerA = new Location(w,(int)Float.parseFloat(data[2]),(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]));
 						Location cornerB = new Location(w,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]),(int)Float.parseFloat(data[7]));
@@ -92,7 +96,6 @@ public class CSVReader {
 						userdata.add(element);
 						
 					}
-					//System.out.println(userdata.get(0).getName()+"PlayerData.csvのやつ");
 					break;
 					
 				}
@@ -114,18 +117,43 @@ public class CSVReader {
 	
 	public static void reload() {
 		
-		System.out.println("Reload is started.");
+		System.out.println("Reload started.");
 		areadata.clear();
 		chapterdata.clear();
 		scenariodata.clear();
 		userdata.clear();
 		
+		System.out.println("Cleared old cache.");
+		
 		read("AreaData.csv");
 		read("ChapterData.csv");
 		read("ScenarioData.csv");
 		read("UserData.csv");
-		
+		System.out.println("Reload completed.");
 	}
+	
+	
+	
+	boolean isIntChangable(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+	}
+	
+	boolean isFloatChangable(String s) {
+		try {
+			Float.parseFloat(s);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+	}
+	
+	
+	
 
 }
 

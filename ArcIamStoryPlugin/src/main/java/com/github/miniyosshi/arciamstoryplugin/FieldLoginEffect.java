@@ -2,6 +2,7 @@ package com.github.miniyosshi.arciamstoryplugin;
 
 import java.util.TimerTask;
 
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 
 public class FieldLoginEffect extends TimerTask {
@@ -12,13 +13,12 @@ public class FieldLoginEffect extends TimerTask {
 		this.u = u;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void run(){
 		//u.getPlayer().sendMessage("開始！");
 		//u.getPlayer().sendTitle("第一章", "知らない天井");
-		//u.getPlayer().addPotionEffect(arg0);
-		u.getPlayer().sendTitle("You've logged in", "at " + u.getSavedLocation());
+		u.getPlayer().sendTitle("You've logged in", "at " + u.isInAreaOf().getName() + ".", 10, 70, 20);
 		u.getPlayer().playSound(u.getPlayer().getLocation(), Sound.BLOCK_END_PORTAL_SPAWN, 1, 1);
+		u.getPlayer().spawnParticle(Particle.PORTAL, u.getPlayer().getLocation(), 30);
 		
 	}
 	

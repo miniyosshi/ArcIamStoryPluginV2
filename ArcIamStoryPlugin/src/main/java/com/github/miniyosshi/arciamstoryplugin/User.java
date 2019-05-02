@@ -3,14 +3,14 @@ package com.github.miniyosshi.arciamstoryplugin;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class User   {
-	Player player;
-	String name;
-	Location savedlocation;
-	int chapter;
-	int section;
-	AreaData pastarea;
-	boolean instoryevent = false;
+public class User implements IsInAreaOf {
+	private Player player;
+	private String name;
+	private Location savedlocation;
+	private int chapter;
+	private int section;
+	private AreaData pastarea;
+	private boolean instoryevent = false;
 	
 	
 	User(String name, Location savedlocation, int chapter, int section){
@@ -36,10 +36,9 @@ public class User   {
 				return u;
 			}
 		}
-		System.out.println("Player→User操作におけるエラーです。0番を返します。");
+		System.out.println("Player to User error. So 0th player is returned.");
 		return 	CSVReader.userdata.get(0);	
 	}
-	
 		
 	String getName() {
 		return name;
@@ -58,6 +57,14 @@ public class User   {
 		return instoryevent;
 	}
 	
+	AreaData getPastArea() {
+		return pastarea;
+	}
+	
+	void setPlayer(Player player) {
+		this.player = player;
+	}
+	
 	void setChapter(int i) {
 		chapter = i;
 	}
@@ -69,6 +76,10 @@ public class User   {
 		instoryevent = b;
 	}
 	
+	void setPastarea(AreaData a) {
+		pastarea = a;
+	}
+	
 	/*
 	@SuppressWarnings("deprecation")
 	Player getPlayer() {
@@ -76,6 +87,26 @@ public class User   {
 	}
 	*/
 
+	public void addChapterSectionNumber() {
+		
+		for(int i=0; i<100; i++) {
+			//chapter,sectionが一致したら
+			if(CSVReader.chapterdata.get(i).getChapter()== getChapter()&&CSVReader.chapterdata.get(i).getSection()== getSection()) {
+				//次のchapterかどうか
+				if(CSVReader.chapterdata.get(i).getChapter()==CSVReader.chapterdata.get(i+1).getChapter()) {
+					setSection(getSection()+1);
+				}
+				else {
+					setChapter(getChapter()+1);
+					setSection(1);
+				}
+			break;
+			}	
+		}
+		CSVExporter.exportCSV("UserData.csv");
+	}
+	
+	
 	//座標判定メソッド改訂版
 	
 	//ある数字がある二つの数字の間にあるかどうかp--a--q,q--a--p
@@ -86,13 +117,17 @@ public class User   {
 			return false;
 		}
 
-		
-	public boolean isInAreaOf(AreaData area) {
+	
+	@Override
+	public boolean isInAreaOf(AreaData a) {
 		 //プレーヤーが特定の場所にいるかどうか返す
-		return numberBetweeness(player.getLocation().getX(), area.cornerA.getX(), area.cornerB.getX())
-				 && numberBetweeness(player.getLocation().getZ(), area.cornerA.getZ(), area.cornerB.getZ());
-	 }
+		Location loc = player.getLocation();
 		
+		return numberBetweeness(loc.getX(), a.getcornerA().getX(), a.getcornerB().getX())
+				 && numberBetweeness(loc.getZ(), a.getcornerA().getZ(), a.getcornerB().getZ());
+	 }
+	
+	@Override
 	public AreaData isInAreaOf() {
 		 //プレーヤーがどの場所にいるか返す(データセットで帰ってくる)
 		 for (AreaData area : CSVReader.areadata) {
@@ -101,8 +136,7 @@ public class User   {
 				 return area;
 			 }
 		 }
-		 //System.out.println("nullくるよ");
-		 //return null; //天才ではなかった
+		 System.out.println("Such AreaData does not exist. So 0th AreaData is returned.");
 		 return CSVReader.areadata.get(0);
 	}
 	

@@ -31,7 +31,7 @@ public class TimerTaskLine extends TimerTask {
 			this.cancel();
 			timer.cancel();
 			u.setInStoryEvent(false);
-			StoryProcessor.addChapterSectionNumber(u);
+			u.addChapterSectionNumber();
 			
 		}
 		

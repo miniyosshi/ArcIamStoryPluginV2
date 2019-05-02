@@ -18,20 +18,13 @@ public class OnPlayerJoin implements Listener {
 	public void onPlayerJoin (PlayerJoinEvent e) {
 		
 		boolean a = false;
-		
-		//System.out.print("ここのワールドは"+e.getPlayer().getWorld().getName());
-		
+				
 		for (User u : CSVReader.userdata) {
 			if (u.getName().equals(e.getPlayer().getName())) {
 				
-				u.player = e.getPlayer(); //StringだけでなくPlayer型も登録
-				u.pastarea = u.isInAreaOf();
-				System.out.println(u.getName()+" has logged in "+u.pastarea.getName());
-				
-				
-				
-				//System.out.println(CSVReader.userdata.get(0).name+" "+CSVReader.userdata.get(0).pastarea.getName());
-				//userdataの表への書き込みもできてるっぽい？
+				u.setPlayer(e.getPlayer()); //StringだけでなくPlayer型も登録
+				u.setPastarea(u.isInAreaOf());
+				System.out.println(u.getName()+" has logged in "+u.getPastArea().getName());
 				
 				a = true;
 				
@@ -41,19 +34,19 @@ public class OnPlayerJoin implements Listener {
 		
 		//初回ログインの人向け
 		if(a == false){
-			CSVExporter.exportCSV("初回ログインの人向けの操作");
-						
 			World world = Bukkit.getServer().getWorld(CSVReader.areadata.get(0).getcornerA().getWorld().getName());
 			
 			Location loc = new Location(world,0,0,0);
 			
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1);
+			
 			CSVReader.userdata.add(newuser);
 			
 			CSVExporter.exportCSV("UserData.csv");
 			
-			newuser.player = e.getPlayer(); //StringだけでなくPlayer型も登録
-			newuser.pastarea = newuser.isInAreaOf();
+			//StringだけでなくPlayer型も登録
+			newuser.setPlayer(e.getPlayer());
+			newuser.setPastarea(newuser.isInAreaOf());
 			System.out.println(e.getPlayer().getName()+" has newly logged in the server!");
 		}
 		

@@ -2,13 +2,13 @@ package com.github.miniyosshi.arciamstoryplugin;
 
 
 public class ChapterData {
-	int chapter;
-	int section;
-	String trigger;
-	String triggerobject;
-	int numberofline;
-	String title;
-	String goal;
+	private int chapter;
+	private int section;
+	private String trigger;
+	private String triggerobject;
+	private int numberofline;
+	private String title;
+	private String goal;
 	
 	
 	ChapterData(int chapter, int section, String trigger, String triggerobject, int numberofline, String title, String goal){

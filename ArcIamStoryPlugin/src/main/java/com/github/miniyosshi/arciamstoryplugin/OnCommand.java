@@ -11,7 +11,6 @@ public class OnCommand implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {	
 		
-		
 		//main classへの登録をお忘れなく！
 		
 		if(cmd.getName().equalsIgnoreCase("charactercode")){
@@ -29,18 +28,17 @@ public class OnCommand implements CommandExecutor{
 				
 				if(a!=null) {
 					String s = a.getName();
-					CSVReader.areadata.remove(Integer.parseInt(args[0]));
+					
+					CSVReader.areadata.remove(a);
+					
 					CSVExporter.exportCSV("AreaData.csv");
 					sender.sendMessage(s + " is removed.");
 					return true;
 				}
 				else {
 					return false;
-				}
-								
-			}
-			
-			
+				}					
+			}		
 			else {
 				return false;
 			}
@@ -61,15 +59,19 @@ public class OnCommand implements CommandExecutor{
 												
 				if(args.length >= 2) {
 					
-					boolean exist = false;
+					//boolean exist = false;
 					Location loc = ((Player) sender).getLocation();
 					
 					
 					AreaData a = AreaData.getAreaData(args[0]);
 					if(a!=null) {
 						a.setLocation(Integer.parseInt(args[1]),loc);					
-						exist = true;
 						sender.sendMessage("上書き、もしくはもう片方の地点を新しく登録しました。");
+					}
+					else {
+						a = new AreaData(args[0], loc, loc);
+						CSVReader.areadata.add(a);
+						sender.sendMessage("新しい名前の場所, "+a.getName()+"を登録しました。");
 					}
 					
 					/*
@@ -82,15 +84,15 @@ public class OnCommand implements CommandExecutor{
 						}
 					}
 					*/
-					
-					
 					//新しい名前の場所
+					/*
 					if(exist == false) {
 						a = new AreaData(args[0], loc, loc);
 						//AreaData a = new AreaData(args[0], loc, loc);
 						CSVReader.areadata.add(a);
 						sender.sendMessage("新しい名前の場所, "+a.getName()+"を登録しました。");
 					}
+					*/
 					
 					//ここでcsvに書き込み
 					CSVExporter.exportCSV("AreaData.csv");
@@ -98,8 +100,6 @@ public class OnCommand implements CommandExecutor{
 					return true;
 				}
 				else {
-					//不要
-					//sender.sendMessage("/setarea + name of area + 0or1");
 					return false;
 				}
 			}

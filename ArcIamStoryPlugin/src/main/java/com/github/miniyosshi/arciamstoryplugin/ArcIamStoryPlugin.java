@@ -6,22 +6,8 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		
-		/*
-		//file check
-		File f1 = new File("AreaData.csv");
-		File f2 = new File("ChapterData.csv");
-		File f3 = new File("ScenarioData.csv");
-		File f4 = new File("UserData.csv");
-		
-		if (f1.exists()&&f2.exists()&&f3.exists()&&f4.exists()){
-			//CSVReader
-		}
-		else{ 
-		    System.out.println("CSVファイルのどれかが存在しません");
-		}
-		*/
-		System.out.println(System.getProperty("file.encoding"));
+				
+		System.out.println("This server uses "+System.getProperty("file.encoding")+" as a default character code.");
 		//CSVReader
 		CSVReader.read("AreaData.csv");
 		CSVReader.read("ChapterData.csv");

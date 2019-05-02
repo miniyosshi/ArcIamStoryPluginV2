@@ -1,8 +1,8 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
 public class ScenarioData {
-	String utterer;
-	String line;
+	private String utterer;
+	private String line;
 	
 	ScenarioData(String utterer, String line){
 		this.utterer = utterer;

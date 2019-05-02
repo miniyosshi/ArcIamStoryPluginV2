@@ -4,9 +4,10 @@ import org.bukkit.Location;
 
 
 public class AreaData{
-	String name;
-	Location cornerA;
-	Location cornerB;
+	private String name;
+	private Location cornerA;
+	private Location cornerB;
+	
 	
 	AreaData(String name, Location cornerA, Location cornerB){
 		this.name = name;
@@ -14,19 +15,32 @@ public class AreaData{
 		this.cornerB = cornerB;
 	}
 	
+	
 	String getName() {
 		return name;
 	}
 	
 	static AreaData getAreaData(String name) {
 		for (AreaData a : CSVReader.areadata) {
-			if (a.getName().equalsIgnoreCase(name)) {
+			if (a.getName().equals(name)) {
 				return a;
 			}
 		}
+		//NULL
 		return null;
-
 	}
+	/*
+	static AreaData getAreaData(Location loc) {
+		for (AreaData a : CSVReader.areadata) {
+			if (a) {
+				return a;
+			}
+		}
+		
+		return CSVReader.areadata.get(0);
+	}
+	*/
+	
 	
 	Location getcornerA() {
 		return cornerA;

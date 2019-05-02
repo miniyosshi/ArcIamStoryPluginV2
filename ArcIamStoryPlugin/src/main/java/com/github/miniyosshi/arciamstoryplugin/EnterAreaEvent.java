@@ -2,6 +2,7 @@ package com.github.miniyosshi.arciamstoryplugin;
 
 import com.github.miniyosshi.arciamstoryplugin.User;
 
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,27 +19,22 @@ public class EnterAreaEvent implements Listener {
 	@EventHandler
 	public void enterAreaEvent(PlayerMoveEvent e) {
 		
-		if (e.getTo().getX()!=e.getFrom().getX() || e.getTo().getY()!=e.getFrom().getY() || e.getTo().getZ()!=e.getFrom().getZ()) {
+		Location from = e.getFrom();
+		Location to = e.getTo();
+		
+		if (from != to) {
 			
-			for (User u : CSVReader.userdata) {
-				
-				if (u.getName().equals(e.getPlayer().getName())) {
-					AreaData presentarea = u.isInAreaOf();
-					//System.out.println(user.pastarea+"から"+presentarea);
-					
-					if (presentarea != u.pastarea) {
-						if(presentarea != CSVReader.areadata.get(0)) {
-							e.getPlayer().sendMessage("エリア"+presentarea.getName()+"にやって来ました");
-							u.getPlayer().playSound(u.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-							StoryProcessor.eventCheck(u, "enter", presentarea.getName());
-							
-						}
-						u.pastarea = presentarea;
-					}
-					
-					break;
+			User u = User.getUser(e.getPlayer());
+			AreaData presentarea = u.isInAreaOf();
+			if (presentarea != u.getPastArea()) {
+				if(presentarea != CSVReader.areadata.get(0)) {
+					e.getPlayer().sendMessage("エリア"+presentarea.getName()+"にやって来ました");
+					u.getPlayer().playSound(u.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+					StoryProcessor.eventCheck(u, "enter", presentarea.getName());
 				}
+				u.setPastarea(presentarea);
 			}
+			
 		}	
 	}
 	
