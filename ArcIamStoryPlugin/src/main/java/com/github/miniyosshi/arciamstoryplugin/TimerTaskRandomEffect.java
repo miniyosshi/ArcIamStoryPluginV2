@@ -14,6 +14,6 @@ public class TimerTaskRandomEffect extends TimerTask {
 	}
 	
 	public void run(){
-		u.getPlayer().sendTitle("", "Teleport Phase : "+RandomStringUtils.randomAlphabetic(10), 0, tick*50, 0);
+		u.getPlayer().sendTitle("", "Teleport Phase : " + RandomStringUtils.randomAlphabetic(10), 0, tick*20, 1);
 	}
 }

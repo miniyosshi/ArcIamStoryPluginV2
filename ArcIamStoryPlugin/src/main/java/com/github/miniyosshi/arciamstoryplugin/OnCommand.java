@@ -73,28 +73,15 @@ public class OnCommand implements CommandExecutor{
 						CSVReader.areadata.add(a);
 						sender.sendMessage("新しい名前の場所, "+a.getName()+"を登録しました。");
 					}
-					
-					/*
-					for (AreaData a : CSVReader.areadata) {
-						if (a.getName().equalsIgnoreCase(args[0])) {
-							
-							a.setLocation(Integer.parseInt(args[1]),loc);					
-							exist = true;
-							sender.sendMessage("登録しました。");
-						}
-					}
-					*/
-					//新しい名前の場所
-					/*
-					if(exist == false) {
-						a = new AreaData(args[0], loc, loc);
-						//AreaData a = new AreaData(args[0], loc, loc);
-						CSVReader.areadata.add(a);
-						sender.sendMessage("新しい名前の場所, "+a.getName()+"を登録しました。");
-					}
-					*/
-					
+									
 					//ここでcsvに書き込み
+					
+					System.out.println("書き込み前");
+					for (AreaData area : CSVReader.areadata) {
+						System.out.println(area.getName());
+					}
+					
+					
 					CSVExporter.exportCSV("AreaData.csv");
 										
 					return true;

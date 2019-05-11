@@ -36,8 +36,8 @@ public class User implements IsInAreaOf {
 				return u;
 			}
 		}
-		System.out.println("Player to User error. So 0th player is returned.");
-		return 	CSVReader.userdata.get(0);	
+		System.out.println("Player to User error. So NULL is returned.");
+		return null;
 	}
 		
 	String getName() {
@@ -136,7 +136,6 @@ public class User implements IsInAreaOf {
 				 return area;
 			 }
 		 }
-		 System.out.println("Such AreaData does not exist. So 0th AreaData is returned.");
 		 return CSVReader.areadata.get(0);
 	}
 	

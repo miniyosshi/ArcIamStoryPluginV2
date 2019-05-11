@@ -23,6 +23,7 @@ public class CSVExporter {
 				    	  bw.write(elem.getName()+ "," + elem.getcornerA().getWorld().getName() + "," + elem.getcornerA().getX() + "," + elem.getcornerA().getY() + "," + elem.getcornerA().getZ() + "," + elem.getcornerB().getX() + "," + elem.getcornerB().getY() + "," + elem.getcornerB().getZ() );
 					      bw.newLine();
 				   }
+				   break;
 				
 				   				   
 			   	case "UserData.csv" :
@@ -39,6 +40,7 @@ public class CSVExporter {
 				    	  bw.write(elem.getName() + "," + s1 + "," + s2 + "," + s3 + "," + s4 + "," + elem.getChapter() + "," + elem.getSection());
 					      bw.newLine();
 				   }
+				   break;
 			   
 			   }
 			      bw.close();
