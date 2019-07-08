@@ -36,6 +36,7 @@ public class OnCommand implements CommandExecutor{
 					return true;
 				}
 				else {
+					System.out.println("removeできてないよ");
 					return false;
 				}					
 			}		
