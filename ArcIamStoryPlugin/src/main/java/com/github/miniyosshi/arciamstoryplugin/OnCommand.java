@@ -31,6 +31,8 @@ public class OnCommand implements CommandExecutor{
 					
 					CSVReader.areadata.remove(a);
 					
+					System.out.println(CSVReader.areadata.toString());
+					
 					CSVExporter.exportCSV("AreaData.csv");
 					sender.sendMessage(s + " is removed.");
 					return true;

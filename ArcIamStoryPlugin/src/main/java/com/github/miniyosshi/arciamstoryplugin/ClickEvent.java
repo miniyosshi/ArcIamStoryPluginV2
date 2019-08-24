@@ -14,7 +14,7 @@ public class ClickEvent implements Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
-	
+
 	
 	@EventHandler
 	public void clickEvent(PlayerInteractEntityEvent e) {
@@ -25,13 +25,17 @@ public class ClickEvent implements Listener {
 			System.out.println(e.getRightClicked().getName()+"getName");
 			System.out.println(e.getRightClicked().toString()+"toString");
 			
+			
+			
+			
+			
 			//ストーリー進行中でなければ
 			if(u.getInStoryEvent()==false) {
 				//ストーリー進行
 				StoryProcessor.eventCheck(u,"click", e.getRightClicked().getName());
 				
-				//mob会話
-				if(e.getRightClicked().getName().equals("村人")) {
+				//mob会話				
+				if(e.getRightClicked().getName().equals(Mob.村人A.toString())) {
 					e.getPlayer().sendMessage("こんにちは");
 				}
 
