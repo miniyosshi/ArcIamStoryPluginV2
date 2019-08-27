@@ -17,9 +17,9 @@ public class CSVExporter {
 			      
 			   switch(filename) {
 			   case "AreaData.csv" :
-				   for(int i = 0; i < CSVReader.areadata.size(); i++) {
+				   for(int i = 0; i < List.areadata.size(); i++) {
 				    	  
-				    	  AreaData elem = CSVReader.areadata.get(i);
+				    	  AreaData elem = List.areadata.get(i);
 				    	  bw.write(elem.getName()+ "," + elem.getcornerA().getWorld().getName() + "," + elem.getcornerA().getX() + "," + elem.getcornerA().getY() + "," + elem.getcornerA().getZ() + "," + elem.getcornerB().getX() + "," + elem.getcornerB().getY() + "," + elem.getcornerB().getZ() );
 					      bw.newLine();
 				   }
@@ -27,9 +27,9 @@ public class CSVExporter {
 				
 				   				   
 			   	case "UserData.csv" :
-				   for(int i = 0; i < CSVReader.userdata.size(); i++) {
+				   for(int i = 0; i < List.userdata.size(); i++) {
 				    	  
-				    	  User elem = CSVReader.userdata.get(i);
+				    	  User elem = List.userdata.get(i);
 				    	  
 				    	  Location l = elem.getSavedLocation();
 				    	  String s1 = l.getWorld().getName();

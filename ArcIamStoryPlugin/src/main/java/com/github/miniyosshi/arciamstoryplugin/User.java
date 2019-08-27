@@ -31,7 +31,7 @@ public class User implements IsInAreaOf {
 	
 	//Player→User
 	static User getUser(Player p) {
-		for (User u : CSVReader.userdata) {
+		for (User u : List.userdata) {
 			if (u.getName().equals(p.getPlayer().getName())) {
 				return u;
 			}
@@ -91,9 +91,9 @@ public class User implements IsInAreaOf {
 		
 		for(int i=0; i<100; i++) {
 			//chapter,sectionが一致したら
-			if(CSVReader.chapterdata.get(i).getChapter()== getChapter()&&CSVReader.chapterdata.get(i).getSection()== getSection()) {
+			if(List.chapterdata.get(i).getChapter()== getChapter()&&List.chapterdata.get(i).getSection()== getSection()) {
 				//次のchapterかどうか
-				if(CSVReader.chapterdata.get(i).getChapter()==CSVReader.chapterdata.get(i+1).getChapter()) {
+				if(List.chapterdata.get(i).getChapter()==List.chapterdata.get(i+1).getChapter()) {
 					setSection(getSection()+1);
 				}
 				else {
@@ -130,17 +130,17 @@ public class User implements IsInAreaOf {
 	@Override
 	public AreaData isInAreaOf() {
 		 //プレーヤーがどの場所にいるか返す(データセットで帰ってくる)
-		 for (AreaData area : CSVReader.areadata) {
+		 for (AreaData area : List.areadata) {
 			 
 			 if (isInAreaOf(area) == true) {
 				 return area;
 			 }
 		 }
-		 return CSVReader.areadata.get(0);
+		 return List.areadata.get(0);
 	}
 	
 	public void saveLocation() {
-		for (User u : CSVReader.userdata) {
+		for (User u : List.userdata) {
 			if (u.getName().equals(name)) {
 				u.savedlocation = u.player.getLocation();
 				

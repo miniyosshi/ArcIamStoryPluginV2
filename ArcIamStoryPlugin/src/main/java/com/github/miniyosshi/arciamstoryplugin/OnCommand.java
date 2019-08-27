@@ -24,14 +24,14 @@ public class OnCommand implements CommandExecutor{
 			
 			if (args.length>=1) {
 				
-				AreaData a = AreaData.getAreaData(args[0]);
+				AreaData a = List.getAreaData(args[0]);
 				
 				if(a!=null) {
 					String s = a.getName();
 					
-					CSVReader.areadata.remove(a);
+					List.areadata.remove(a);
 					
-					System.out.println(CSVReader.areadata.toString());
+					System.out.println(List.areadata.toString());
 					
 					CSVExporter.exportCSV("AreaData.csv");
 					sender.sendMessage(s + " is removed.");
@@ -66,21 +66,21 @@ public class OnCommand implements CommandExecutor{
 					Location loc = ((Player) sender).getLocation();
 					
 					
-					AreaData a = AreaData.getAreaData(args[0]);
+					AreaData a = List.getAreaData(args[0]);
 					if(a!=null) {
 						a.setLocation(Integer.parseInt(args[1]),loc);					
 						sender.sendMessage("上書き、もしくはもう片方の地点を新しく登録しました。");
 					}
 					else {
 						a = new AreaData(args[0], loc, loc);
-						CSVReader.areadata.add(a);
+						List.areadata.add(a);
 						sender.sendMessage("新しい名前の場所, "+a.getName()+"を登録しました。");
 					}
 									
 					//ここでcsvに書き込み
 					
 					System.out.println("書き込み前");
-					for (AreaData area : CSVReader.areadata) {
+					for (AreaData area : List.areadata) {
 						System.out.println(area.getName());
 					}
 					
@@ -101,14 +101,14 @@ public class OnCommand implements CommandExecutor{
 		}
 		
 		if(cmd.getName().equalsIgnoreCase("showarea")){
-			for(AreaData a : CSVReader.areadata) {
+			for(AreaData a : List.areadata) {
 				sender.sendMessage(a.getName() + " : " +a.getcornerA().toString() + " to "+a.getcornerB().toString());
 			}
 			return true;
 		}
 		
 		if(cmd.getName().equalsIgnoreCase("userlist")){
-			for(User u : CSVReader.userdata) {
+			for(User u : List.userdata) {
 				sender.sendMessage(u.getName()+" : Chapter"+u.getChapter()+", Section"+u.getSection());
 			}
 			return true;

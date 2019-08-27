@@ -18,7 +18,7 @@ public class TimerTaskLine extends TimerTask {
 	
 	
 	public void run(){
-		u.getPlayer().sendMessage(CSVReader.scenariodata.get(lineno).getUtterer() + " : " + CSVReader.scenariodata.get(lineno).getLine());
+		u.getPlayer().sendMessage(List.scenariodata.get(lineno).getUtterer() + " : " + List.scenariodata.get(lineno).getLine());
 		
 		lineno += 1;
 		

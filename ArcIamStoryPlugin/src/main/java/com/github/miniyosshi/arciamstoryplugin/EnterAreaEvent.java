@@ -27,7 +27,7 @@ public class EnterAreaEvent implements Listener {
 			User u = User.getUser(e.getPlayer());
 			AreaData presentarea = u.isInAreaOf();
 			if (presentarea != u.getPastArea()) {
-				if(presentarea != CSVReader.areadata.get(0)) {
+				if(presentarea != List.areadata.get(0)) {
 					e.getPlayer().sendMessage("エリア"+presentarea.getName()+"にやって来ました");
 					u.getPlayer().playSound(u.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 					StoryProcessor.eventCheck(u, "enter", presentarea.getName());

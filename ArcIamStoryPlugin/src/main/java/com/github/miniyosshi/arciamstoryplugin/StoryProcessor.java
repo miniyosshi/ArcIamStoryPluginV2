@@ -9,15 +9,15 @@ public class StoryProcessor {
 		
 		int i = 0;
 		int lineno = 0;
-		while(CSVReader.chapterdata.get(i).getChapter()<=u.getChapter()&&CSVReader.chapterdata.get(i).getSection()<u.getSection() ) {
-			lineno += CSVReader.chapterdata.get(i).getNumberOfLines();
+		while(List.chapterdata.get(i).getChapter()<=u.getChapter()&&List.chapterdata.get(i).getSection()<u.getSection() ) {
+			lineno += List.chapterdata.get(i).getNumberOfLines();
 			i++;
 		}
 		
 		//timertask, timer はインスタンスの再利用ができないらしい
 		
 		Timer timer = new Timer();
-		TimerTaskLine ttl = new TimerTaskLine(u, lineno, CSVReader.chapterdata.get(i).getNumberOfLines(), timer);
+		TimerTaskLine ttl = new TimerTaskLine(u, lineno, List.chapterdata.get(i).getNumberOfLines(), timer);
 		timer.schedule(ttl,0,5000);	
 				
 	}
@@ -26,7 +26,7 @@ public class StoryProcessor {
 	
 	public static void eventCheck(User u, String trigger, String triggerobject) {
 		
-		for(ChapterData cd: CSVReader.chapterdata) {
+		for(ChapterData cd: List.chapterdata) {
 			if(cd.getChapter()==u.getChapter()&&cd.getSection()==u.getSection()) {
 				
 				if(trigger.equals("click")&&cd.getTrigger().equals("click")) {

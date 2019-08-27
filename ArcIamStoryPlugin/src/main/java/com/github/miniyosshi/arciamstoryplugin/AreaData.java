@@ -20,15 +20,7 @@ public class AreaData{
 		return name;
 	}
 	
-	static AreaData getAreaData(String name) {
-		for (AreaData a : CSVReader.areadata) {
-			if (a.getName().equals(name)) {
-				return a;
-			}
-		}
-		//NULL
-		return null;
-	}
+	
 	/*
 	static AreaData getAreaData(Location loc) {
 		for (AreaData a : CSVReader.areadata) {

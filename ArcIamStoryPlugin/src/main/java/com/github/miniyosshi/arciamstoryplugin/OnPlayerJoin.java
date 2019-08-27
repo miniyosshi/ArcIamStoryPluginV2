@@ -19,7 +19,7 @@ public class OnPlayerJoin implements Listener {
 		
 		boolean a = false;
 				
-		for (User u : CSVReader.userdata) {
+		for (User u : List.userdata) {
 			if (u.getName().equals(e.getPlayer().getName())) {
 				
 				u.setPlayer(e.getPlayer()); //StringだけでなくPlayer型も登録
@@ -34,13 +34,13 @@ public class OnPlayerJoin implements Listener {
 		
 		//初回ログインの人向け
 		if(a == false){
-			World world = Bukkit.getServer().getWorld(CSVReader.areadata.get(0).getcornerA().getWorld().getName());
+			World world = Bukkit.getServer().getWorld(List.areadata.get(0).getcornerA().getWorld().getName());
 			
 			Location loc = new Location(world,0,0,0);
 			
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1);
 			
-			CSVReader.userdata.add(newuser);
+			List.userdata.add(newuser);
 			
 			CSVExporter.exportCSV("UserData.csv");
 			

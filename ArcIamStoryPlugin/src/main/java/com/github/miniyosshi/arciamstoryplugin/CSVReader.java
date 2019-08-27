@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,10 +12,7 @@ import org.bukkit.World;
 
 public class CSVReader {
 	
-	public static ArrayList<AreaData> areadata = new ArrayList<AreaData>();
-	public static ArrayList<ChapterData> chapterdata = new ArrayList<ChapterData>();
-	public static ArrayList<ScenarioData> scenariodata = new ArrayList<ScenarioData>();
-	public static ArrayList<User> userdata = new ArrayList<User>();
+	
 	
 	public static void read(String filename){
 						
@@ -47,7 +43,8 @@ public class CSVReader {
 						
 						AreaData element = new AreaData(data[0],cornerA, cornerB);
 						
-						areadata.add(element);
+						List.areadata.add(element);
+						
 					}
 					break;
 					
@@ -59,7 +56,7 @@ public class CSVReader {
 						
 						ChapterData element = new ChapterData(Integer.parseInt(data[0]),Integer.parseInt(data[1]),data[2], data[3], Integer.parseInt(data[4]),data[5],data[6]);
 						
-						chapterdata.add(element);
+						List.chapterdata.add(element);
 					}
 					break;
 				
@@ -70,7 +67,7 @@ public class CSVReader {
 						
 						ScenarioData element = new ScenarioData(data[0], data[1]);
 						
-						scenariodata.add(element);
+						List.scenariodata.add(element);
 					}
 					break;	
 					
@@ -93,7 +90,7 @@ public class CSVReader {
 						
 						User element = new User(data[0],savedlocation,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]));
 						
-						userdata.add(element);
+						List.userdata.add(element);
 						
 					}
 					break;
@@ -118,10 +115,13 @@ public class CSVReader {
 	public static void reload() {
 		
 		System.out.println("Reload started.");
-		areadata.clear();
-		chapterdata.clear();
-		scenariodata.clear();
-		userdata.clear();
+		
+		
+		
+		List.areadata.clear();
+		List.chapterdata.clear();
+		List.scenariodata.clear();
+		List.userdata.clear();
 		
 		System.out.println("Cleared old cache.");
 		
