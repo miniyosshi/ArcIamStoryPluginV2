@@ -21,4 +21,7 @@ commands:
     
   userlist:
     description: See all users.
+
+permissions:
+  default: op
     

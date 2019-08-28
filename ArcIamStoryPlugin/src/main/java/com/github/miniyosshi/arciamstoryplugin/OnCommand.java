@@ -13,15 +13,14 @@ public class OnCommand implements CommandExecutor{
 		
 		//main classへの登録をお忘れなく！
 		
-		if(cmd.getName().equalsIgnoreCase("charactercode")){
-			
+		
+		switch(cmd.getName()) {
+		case "charactercode" :
 			sender.sendMessage("The character code used here is "+ System.getProperty("file.encoding"));
 			return true;
-			
-		}
 		
-		if(cmd.getName().equalsIgnoreCase("deletearea")){
-			
+		
+		case "deletearea" :
 			if (args.length>=1) {
 				
 				AreaData a = List.getAreaData(args[0]);
@@ -44,22 +43,18 @@ public class OnCommand implements CommandExecutor{
 			}		
 			else {
 				return false;
-			}
-		}
+				}
+				
 		
-
-		
-		if(cmd.getName().equalsIgnoreCase("reloadcsv")){
-			
+		case "reloadcsv" :
 			CSVReader.reload();
-			sender.sendMessage("delete completed.");
+			sender.sendMessage("Reload completed.");
 			return true;
-		}
-		
-		//エリア登録
-		if (cmd.getName().equalsIgnoreCase("setarea")){
+			
+			
+		case "setarea" :
 			if(sender instanceof Player) {
-												
+				
 				if(args.length >= 2) {
 					
 					//boolean exist = false;
@@ -76,9 +71,9 @@ public class OnCommand implements CommandExecutor{
 						List.areadata.add(a);
 						sender.sendMessage("新しい名前の場所, "+a.getName()+"を登録しました。");
 					}
-									
+										
 					//ここでcsvに書き込み
-					
+						
 					System.out.println("書き込み前");
 					for (AreaData area : List.areadata) {
 						System.out.println(area.getName());
@@ -98,26 +93,24 @@ public class OnCommand implements CommandExecutor{
 				return false;
 				}
 			
-		}
-		
-		if(cmd.getName().equalsIgnoreCase("showarea")){
+				
+		case "showarea" :
 			for(AreaData a : List.areadata) {
 				sender.sendMessage(a.getName() + " : " +a.getcornerA().toString() + " to "+a.getcornerB().toString());
 			}
 			return true;
-		}
-		
-		if(cmd.getName().equalsIgnoreCase("userlist")){
+				
+		case "userlist" :
 			for(User u : List.userdata) {
 				sender.sendMessage(u.getName()+" : Chapter"+u.getChapter()+", Section"+u.getSection());
 			}
 			return true;
-		}
-		
-		
-		else
+
+				
+		default :
 			sender.sendMessage("This command does not exist.");
 			return false;
+		}
 	}
 		
 }

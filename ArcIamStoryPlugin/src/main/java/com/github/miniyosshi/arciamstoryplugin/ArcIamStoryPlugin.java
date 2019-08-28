@@ -1,8 +1,15 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArcIamStoryPlugin extends JavaPlugin {
+	
+	//初期設定
+	//メッセージ接頭文字列
+	public static String prefix = ChatColor.GOLD + "[ArcIam]";
+	
+	
 	
 	@Override
 	public void onEnable() {
@@ -32,6 +39,8 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
 		
 	}
+	
+	
 	
 	@Override
 	public void onDisable() {

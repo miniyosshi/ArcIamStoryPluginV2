@@ -116,8 +116,6 @@ public class CSVReader {
 		
 		System.out.println("Reload started.");
 		
-		
-		
 		List.areadata.clear();
 		List.chapterdata.clear();
 		List.scenariodata.clear();
@@ -129,6 +127,9 @@ public class CSVReader {
 		read("ChapterData.csv");
 		read("ScenarioData.csv");
 		read("UserData.csv");
+		
+		//OnPlayer Joinとおなじ操作が必要？
+		
 		System.out.println("Reload completed.");
 	}
 	

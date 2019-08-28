@@ -1,4 +1,4 @@
-package economy;
+package com.github.miniyosshi.economy;
 
 //import com.github.miniyosshi.arciamstoryplugin.User;
 

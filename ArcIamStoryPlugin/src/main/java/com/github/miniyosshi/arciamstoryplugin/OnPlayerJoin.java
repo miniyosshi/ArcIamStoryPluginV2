@@ -32,7 +32,7 @@ public class OnPlayerJoin implements Listener {
 			}
 		}
 		
-		//初回ログインの人向け
+		//初回ログインの人向け初期化
 		if(a == false){
 			World world = Bukkit.getServer().getWorld(List.areadata.get(0).getcornerA().getWorld().getName());
 			
@@ -41,6 +41,7 @@ public class OnPlayerJoin implements Listener {
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1);
 			
 			List.userdata.add(newuser);
+			
 			
 			CSVExporter.exportCSV("UserData.csv");
 			
