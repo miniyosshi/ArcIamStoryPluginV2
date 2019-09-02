@@ -1,5 +1,6 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
+import org.bukkit.Location;
 
 public class ChapterData {
 	private int chapter;
@@ -9,6 +10,7 @@ public class ChapterData {
 	private int numberofline;
 	private String title;
 	private String goal;
+	private Location viewpoint;
 	
 	
 	ChapterData(int chapter, int section, String trigger, String triggerobject, int numberofline, String title, String goal){
@@ -18,7 +20,10 @@ public class ChapterData {
 		this.triggerobject = triggerobject;
 		this.numberofline = numberofline;
 		this.title = title;
-		this.goal = goal;		
+		this.goal = goal;			
+	}
+	
+	ChapterData(int chapter, int section, Location loc){
 		
 	}
 	
@@ -48,6 +53,14 @@ public class ChapterData {
 	
 	String getGoal() {
 		return goal;
+	}
+	
+	void setViewPoint(Location loc) {
+		this.viewpoint = loc;
+	}
+	
+	Location getViewPoint() {
+		return viewpoint;
 	}
 	
 	

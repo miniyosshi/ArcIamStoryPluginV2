@@ -21,14 +21,9 @@ public class OnPlayerLogout implements Listener {
 		
 		if(User.getUser(e.getPlayer()).getInStoryEvent()==true) {
 			System.out.println(e.getPlayer().getName()+"has logged out half way through a story event...");
-			//不要　文章止める			
+			//文章止める
+			//User.getUser(e.getPlayer()).subtractChapterSectionNumber();
 		}
-		
-		
-		//save
-		
-		
-		
 		
 		if (horrorOn == true) {
 			//Horror.reviver(e.getPlayer());

@@ -9,15 +9,27 @@ public class StoryProcessor {
 		
 		int i = 0;
 		int lineno = 0;
+		//どこの行数からはじまるか
 		while(List.chapterdata.get(i).getChapter()<=u.getChapter()&&List.chapterdata.get(i).getSection()<u.getSection() ) {
 			lineno += List.chapterdata.get(i).getNumberOfLines();
 			i++;
 		}
 		
+		ChapterData cd = List.chapterdata.get(i);
+		
 		//timertask, timer はインスタンスの再利用ができないらしい
 		
+		//視点決
+		
+		/*
+		if(cd.getViewPoint() != null) {
+			u.getPlayer().setWalkSpeed(0);
+			u.getPlayer().teleport(cd.getViewPoint());
+		}
+		*/
+		
 		Timer timer = new Timer();
-		TimerTaskLine ttl = new TimerTaskLine(u, lineno, List.chapterdata.get(i).getNumberOfLines(), timer);
+		TimerTaskLine ttl = new TimerTaskLine(u, cd, lineno, List.chapterdata.get(i).getNumberOfLines(), timer);
 		timer.schedule(ttl,0,5000);	
 				
 	}
@@ -49,7 +61,7 @@ public class StoryProcessor {
 					if(cd.getTriggerObject().equals(triggerobject)) {
 
 						u.getPlayer().sendMessage("enterイベントあり");
-						
+						u.setInStoryEvent(true);
 						processLine(u);
 						
 						eventCheck(u, "auto", "auto");
@@ -58,7 +70,7 @@ public class StoryProcessor {
 				
 				if(trigger.equals("auto")&&cd.getTrigger().equals("auto")) {
 					u.getPlayer().sendMessage("autoイベントあり");
-					
+					u.setInStoryEvent(true);
 					processLine(u);
 					
 					eventCheck(u, "auto", "auto");

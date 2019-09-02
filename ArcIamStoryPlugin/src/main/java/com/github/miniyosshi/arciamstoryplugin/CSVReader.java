@@ -8,24 +8,38 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import com.github.miniyosshi.economy.*;
 
 
 public class CSVReader {
 	
 	
+	//引数変更, .csv不要
 	
-	public static void read(String filename){
+	
+	public static void read(String fileheadname){
 						
 		try {
+			String filename = fileheadname + ".csv";
+			
 			File f = new File(filename);
-					
+			
 			if(f.exists()) {
 				BufferedReader br = new BufferedReader(new FileReader(f));
 				
 				String line;				
 								
-				switch (filename) {
-				case "AreaData.csv" :
+				switch (CSVFiles.valueOf(fileheadname)) {
+				case MoneyAccount :
+					while ((line = br.readLine()) != null) {
+						String[] data = line.split(",");
+						Account element = new Account(data[0], Double.parseDouble(data[1]));
+						List.moneyaccount.add(element);
+					}					
+					break;		
+				
+				
+				case AreaData :
 					
 					while ((line = br.readLine()) != null) {
 						String[] data = line.split(",");
@@ -49,7 +63,7 @@ public class CSVReader {
 					break;
 					
 					
-				case "ChapterData.csv":
+				case ChapterData :
 					
 					while ((line = br.readLine()) != null) {
 						String[] data = line.split(",");
@@ -60,7 +74,7 @@ public class CSVReader {
 					}
 					break;
 				
-				case "ScenarioData.csv":
+				case ScenarioData :
 					
 					while ((line = br.readLine()) != null) {
 						String[] data = line.split(",");
@@ -73,7 +87,7 @@ public class CSVReader {
 					
 				
 					
-				case "UserData.csv":
+				case UserData :
 					
 					//System.out.println(Bukkit.getServer().getWorlds().get(0).getName());
 					//System.out.println(Bukkit.getServer().getWorlds().get(0).toString());
@@ -94,6 +108,21 @@ public class CSVReader {
 						
 					}
 					break;
+				
+				case ViewPoint :
+					while ((line = br.readLine()) != null) {
+						String[] data = line.split(",");
+						
+						World w = Bukkit.getServer().getWorld(data[2]);
+						Location point = new Location(w,(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]),(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]),(int)Float.parseFloat(data[7]));
+						
+						List.setChapterViewPoint(Integer.parseInt(data[0]), Integer.parseInt(data[1]), point);
+						
+						
+					}
+					break;
+					
+					
 					
 				}
 				
@@ -116,18 +145,24 @@ public class CSVReader {
 		
 		System.out.println("Reload started.");
 		
+				
 		List.areadata.clear();
 		List.chapterdata.clear();
+		List.moneyaccount.clear();
 		List.scenariodata.clear();
 		List.userdata.clear();
 		
 		System.out.println("Cleared old cache.");
 		
-		read("AreaData.csv");
-		read("ChapterData.csv");
-		read("ScenarioData.csv");
-		read("UserData.csv");
-		
+		for (CSVFiles f : CSVFiles.values()) {
+			read(f.toString());
+		}
+		/*
+		read("AreaData");
+		read("ChapterData");
+		read("ScenarioData");
+		read("UserData");
+		*/
 		//OnPlayer Joinとおなじ操作が必要？
 		
 		System.out.println("Reload completed.");

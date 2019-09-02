@@ -4,19 +4,24 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import org.bukkit.Location;
+import com.github.miniyosshi.economy.*;
 
 public class CSVExporter {
 	
 	//プレーヤーのセーブ地点、章節をCSVファイルに出力
-	public static void exportCSV(String filename) {
+	public static void exportCSV(String fileheadname) {
 		try {
-			   File f = new File(filename);
+			
+			String filename = fileheadname + ".csv";
+			
+			File f = new File(filename);
 			   BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			      
-			   switch(filename) {
-			   case "AreaData.csv" :
+			   switch(CSVFiles.valueOf(fileheadname)) {
+			   case AreaData :
 				   for(int i = 0; i < List.areadata.size(); i++) {
 				    	  
 				    	  AreaData elem = List.areadata.get(i);
@@ -25,8 +30,17 @@ public class CSVExporter {
 				   }
 				   break;
 				
+				   
+			   case MoneyAccount :
+				   for(int i = 0; i < List.moneyaccount.size(); i++) {
+				    	  
+				    	  Account elem = List.moneyaccount.get(i);
+				    	  bw.write(elem.getName() + "," + BigDecimal.valueOf(elem.getBalance()).toPlainString());
+				    	  bw.newLine();
+				   }
+				   break;
 				   				   
-			   	case "UserData.csv" :
+			   	case UserData :
 				   for(int i = 0; i < List.userdata.size(); i++) {
 				    	  
 				    	  User elem = List.userdata.get(i);
@@ -41,6 +55,9 @@ public class CSVExporter {
 					      bw.newLine();
 				   }
 				   break;
+			default:
+				System.out.println("Exporterでエラー");
+				break;
 			   
 			   }
 			      bw.close();

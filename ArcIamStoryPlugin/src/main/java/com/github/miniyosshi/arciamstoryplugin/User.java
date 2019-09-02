@@ -89,9 +89,15 @@ public class User implements IsInAreaOf {
 
 	public void addChapterSectionNumber() {
 		
-		for(int i=0; i<100; i++) {
+		for(int i=0; i<List.chapterdata.size(); i++) {
 			//chapter,sectionが一致したら
-			if(List.chapterdata.get(i).getChapter()== getChapter()&&List.chapterdata.get(i).getSection()== getSection()) {
+			if(List.chapterdata.get(i).getChapter() == getChapter()&&List.chapterdata.get(i).getSection()== getSection()) {
+				
+				ChapterData ncd = List.chapterdata.get(i+1);
+				
+				setChapter(ncd.getChapter());
+				setSection(ncd.getSection());
+				/*
 				//次のchapterかどうか
 				if(List.chapterdata.get(i).getChapter()==List.chapterdata.get(i+1).getChapter()) {
 					setSection(getSection()+1);
@@ -100,10 +106,28 @@ public class User implements IsInAreaOf {
 					setChapter(getChapter()+1);
 					setSection(1);
 				}
+				*/
+				
 			break;
 			}	
 		}
-		CSVExporter.exportCSV("UserData.csv");
+		CSVExporter.exportCSV(CSVFiles.UserData.toString());
+	}
+	
+	public void subtractChapterSectionNumber() {
+		for(int i=0; i<List.chapterdata.size(); i++) {
+			//chapter,sectionが一致したら
+			if(List.chapterdata.get(i).getChapter() == getChapter()&&List.chapterdata.get(i).getSection()== getSection()) {
+				
+				ChapterData pcd = List.chapterdata.get(i-1);
+				
+				setChapter(pcd.getChapter());
+				setSection(pcd.getSection());
+				
+			break;
+			}
+		}
+			CSVExporter.exportCSV(CSVFiles.UserData.toString());
 	}
 	
 	
@@ -145,7 +169,7 @@ public class User implements IsInAreaOf {
 				u.savedlocation = u.player.getLocation();
 				
 				//ここでcsvに書き込み
-				CSVExporter.exportCSV("UserData.csv");
+				CSVExporter.exportCSV("UserData");
 				
 			}
 		}

@@ -1,9 +1,12 @@
 name: ArcIamStoryPlugin
 main: com.github.miniyosshi.arciamstoryplugin.ArcIamStoryPlugin
 version: 1.0
+description: This is only for ArcIam server.
+author: miniyosshi
+
 commands:
   charactercode:
-    description: search if or not UTF-8
+    description: search if UTF-8 or not
   
   deletearea:
     descripstion: Delete an area.
@@ -22,6 +25,4 @@ commands:
   userlist:
     description: See all users.
 
-permissions:
-  default: op
     

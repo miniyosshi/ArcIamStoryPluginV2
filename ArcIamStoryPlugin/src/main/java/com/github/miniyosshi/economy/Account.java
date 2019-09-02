@@ -4,32 +4,32 @@ package com.github.miniyosshi.economy;
 
 public class Account {
 	private String name;
-	private long balance;
+	private double balance;
 	
-	Account(String name, long balance){
+	public Account(String name, double balance){
 		this.name = name;
 		this.balance = balance;
 	}
 	
-	Account(String name){
+	public Account(String name){
 		this.name = name;
 		//this.balance = 
 	}
 	
 	
-	String getName(){
+	public String getName(){
 		return name;
 	}
 	
-	long getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 	
-	void withdraw(long x) {
+	public void withdraw(long x) {
 		balance -= x;
 	}
 	
-	void deposit(long x) {
+	public void deposit(long x) {
 		balance += x;
 	}
 	

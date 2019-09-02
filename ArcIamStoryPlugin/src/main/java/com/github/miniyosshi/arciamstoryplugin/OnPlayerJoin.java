@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
+import com.github.miniyosshi.economy.*;
 
 public class OnPlayerJoin implements Listener {
 	
@@ -35,15 +36,15 @@ public class OnPlayerJoin implements Listener {
 		//初回ログインの人向け初期化
 		if(a == false){
 			World world = Bukkit.getServer().getWorld(List.areadata.get(0).getcornerA().getWorld().getName());
-			
 			Location loc = new Location(world,0,0,0);
-			
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1);
+			List.userdata.add(newuser);	
 			
-			List.userdata.add(newuser);
+			Account newaccount = new Account(e.getPlayer().getName(), 0);
+			List.moneyaccount.add(newaccount);
 			
-			
-			CSVExporter.exportCSV("UserData.csv");
+			CSVExporter.exportCSV(CSVFiles.UserData.toString());
+			CSVExporter.exportCSV(CSVFiles.MoneyAccount.toString());
 			
 			//StringだけでなくPlayer型も登録
 			newuser.setPlayer(e.getPlayer());

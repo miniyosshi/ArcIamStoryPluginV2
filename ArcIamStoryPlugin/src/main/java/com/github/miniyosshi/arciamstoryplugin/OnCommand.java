@@ -14,13 +14,13 @@ public class OnCommand implements CommandExecutor{
 		//main classへの登録をお忘れなく！
 		
 		
-		switch(cmd.getName()) {
-		case "charactercode" :
+		switch(Commands.valueOf(cmd.getName())) {
+		case charactercode :
 			sender.sendMessage("The character code used here is "+ System.getProperty("file.encoding"));
 			return true;
 		
 		
-		case "deletearea" :
+		case deletearea :
 			if (args.length>=1) {
 				
 				AreaData a = List.getAreaData(args[0]);
@@ -32,7 +32,7 @@ public class OnCommand implements CommandExecutor{
 					
 					System.out.println(List.areadata.toString());
 					
-					CSVExporter.exportCSV("AreaData.csv");
+					CSVExporter.exportCSV("AreaData");
 					sender.sendMessage(s + " is removed.");
 					return true;
 				}
@@ -46,13 +46,13 @@ public class OnCommand implements CommandExecutor{
 				}
 				
 		
-		case "reloadcsv" :
+		case reloadcsv :
 			CSVReader.reload();
 			sender.sendMessage("Reload completed.");
 			return true;
 			
 			
-		case "setarea" :
+		case setarea :
 			if(sender instanceof Player) {
 				
 				if(args.length >= 2) {
@@ -94,13 +94,13 @@ public class OnCommand implements CommandExecutor{
 				}
 			
 				
-		case "showarea" :
+		case showarea :
 			for(AreaData a : List.areadata) {
 				sender.sendMessage(a.getName() + " : " +a.getcornerA().toString() + " to "+a.getcornerB().toString());
 			}
 			return true;
 				
-		case "userlist" :
+		case userlist :
 			for(User u : List.userdata) {
 				sender.sendMessage(u.getName()+" : Chapter"+u.getChapter()+", Section"+u.getSection());
 			}
