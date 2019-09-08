@@ -1,7 +1,12 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 public class ArcIamStoryPlugin extends JavaPlugin {
 	
@@ -46,6 +51,10 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		getCommand("showarea").setExecutor(new OnCommand());
 		getCommand("userlist").setExecutor(new OnCommand());
 		*/
+		
+		
+	
+	
 
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
 		

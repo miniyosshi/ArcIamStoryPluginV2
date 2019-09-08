@@ -37,55 +37,59 @@ public class OnPlayerClickEvent implements Listener {
 				//mob会話・転入転出・ボタンクリック等
 				
 				//switchではnullは使えないようだ
-				System.out.println(Mob.valueOf(e.getRightClicked().getName())+"名前");
-				if (Mob.valueOf(e.getRightClicked().getName()) != null) {
-					
-					switch (Mob.valueOf(e.getRightClicked().getName())) {
-					case 村人A :
-						e.getPlayer().sendMessage("こんにちは"+ u.getChapter() + "章のお方");
-						break;
-					case 村人B:
-						e.getPlayer().sendMessage("やあ、気分はどうかね"+ u.getChapter() + "章のお方。");
-						break;
-					case 村人C:
-						break;
-					case 転入係:
-						e.getPlayer().sendMessage("５秒後に"+"転送します。");
-						
-						FieldLoginEffect tc =new FieldLoginEffect(User.getUser(e.getPlayer()));
-						Timer timer = new Timer();
-						timer.schedule(tc, 5000);
-						
-						Random rnd = new Random();
-						int sumtime = 0;
-						while(sumtime<4500) {
-							int randomtick = rnd.nextInt(20) + 1;
-							Timer timer2 = new Timer();
-							TimerTaskRandomEffect ttre = new TimerTaskRandomEffect(User.getUser(e.getPlayer()), randomtick);
-							sumtime += randomtick*20;
-							//System.out.println(sumtime);
-							timer2.schedule(ttre, sumtime);
-						}
-						break;
-					case 転出係:
-						e.getPlayer().sendMessage("５秒後に転送します");
-						
-						//エフェクト変える
-						FieldLoginEffect tc2 =new FieldLoginEffect(User.getUser(e.getPlayer()));
-						Timer timer2 = new Timer();
-						timer2.schedule(tc2, 5000);
-						break;
-					case 商人 :
-						e.getPlayer().sendMessage("やあ、いいもの揃っているよ");
-					
-					//default:
-						//e.getPlayer().sendMessage("僕「この人誰だろう」");
-						//break;
-					
-					}
+				//以下の文すらNullPointerExceptionになる
+				//System.out.println(Mob.valueOf(e.getRightClicked().getName())+"名前");
+				Mob m = Mob.Unknown;
+				boolean tf = Mob.checkExistence(e.getRightClicked().getName());
+				if(tf == true) {
+					m = Mob.valueOf(e.getRightClicked().getName());
 				}
-				else {
+					
+				switch (m) {
+				case 村人A :
+					e.getPlayer().sendMessage("こんにちは"+ u.getChapter() + "章のお方");
+					break;
+				case 村人B:
+					e.getPlayer().sendMessage("やあ、気分はどうかね"+ u.getChapter() + "章のお方。");
+					break;
+				case 村人C:
+					break;
+				case 転入係:
+					e.getPlayer().sendMessage("５秒後に"+"転送します。");
+					
+					FieldLoginEffect tc =new FieldLoginEffect(User.getUser(e.getPlayer()));
+					Timer timer = new Timer();
+					timer.schedule(tc, 5000);
+					
+					Random rnd = new Random();
+					int sumtime = 0;
+					while(sumtime<4500) {
+						int randomtick = rnd.nextInt(20) + 1;
+						Timer timer2 = new Timer();
+						TimerTaskRandomEffect ttre = new TimerTaskRandomEffect(User.getUser(e.getPlayer()), randomtick);
+						sumtime += randomtick*20;
+						//System.out.println(sumtime);
+						timer2.schedule(ttre, sumtime);
+					}
+					break;
+				case 転出係:
+					e.getPlayer().sendMessage("５秒後に転送します");
+					
+					//エフェクト変える
+					FieldLoginEffect tc2 =new FieldLoginEffect(User.getUser(e.getPlayer()));
+					Timer timer2 = new Timer();
+					timer2.schedule(tc2, 5000);
+					break;
+				case 商人 :
+					e.getPlayer().sendMessage("やあ、いいもの揃っているよ");
+				case Unknown:
 					e.getPlayer().sendMessage("僕「この人誰だろう」");
+					break;
+				
+				//default:
+					//e.getPlayer().sendMessage("僕「この人誰だろう」");
+					//break;
+				
 				}
 				
 				
