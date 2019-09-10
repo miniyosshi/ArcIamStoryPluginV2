@@ -2,6 +2,7 @@ package com.github.miniyosshi.arciamstoryplugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -53,9 +54,10 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		*/
 		
 		
-	
-	
-
+		//mob walk
+		Mob m = 
+		
+		
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
 		
 	}

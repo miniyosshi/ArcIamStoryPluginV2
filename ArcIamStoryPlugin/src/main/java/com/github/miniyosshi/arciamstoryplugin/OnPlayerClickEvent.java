@@ -39,10 +39,10 @@ public class OnPlayerClickEvent implements Listener {
 				//switchではnullは使えないようだ
 				//以下の文すらNullPointerExceptionになる
 				//System.out.println(Mob.valueOf(e.getRightClicked().getName())+"名前");
-				Mob m = Mob.Unknown;
-				boolean tf = Mob.checkExistence(e.getRightClicked().getName());
+				MobName m = MobName.Unknown;
+				boolean tf = MobName.checkExistence(e.getRightClicked().getName());
 				if(tf == true) {
-					m = Mob.valueOf(e.getRightClicked().getName());
+					m = MobName.valueOf(e.getRightClicked().getName());
 				}
 					
 				switch (m) {

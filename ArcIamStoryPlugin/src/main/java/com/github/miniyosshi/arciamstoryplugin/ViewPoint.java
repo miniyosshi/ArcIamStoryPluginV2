@@ -13,5 +13,17 @@ public class ViewPoint {
 		this.loc = loc;
 	}
 	
+	Location getLocation() {
+		return loc;
+	}
+	
+	int getChapter() {
+		return chapter;
+	}
+	
+	int getSection() {
+		return section;
+	}
+	
 	
 }

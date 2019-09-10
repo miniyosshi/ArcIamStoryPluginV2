@@ -22,7 +22,6 @@ public class StoryProcessor {
 		
 		//timertask, timer はインスタンスの再利用ができないらしい
 		
-		//視点決
 		
 		/*
 		if(cd.getViewPoint() != null) {
