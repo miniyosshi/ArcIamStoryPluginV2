@@ -43,6 +43,7 @@ public class TimerTaskLine extends TimerTask {
 			u.addChapterSectionNumber();
 			
 			//Scoreboard
+			
 			Score s = u.getPlayer().getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore("節:");
 			s.setScore(u.getSection());
 			

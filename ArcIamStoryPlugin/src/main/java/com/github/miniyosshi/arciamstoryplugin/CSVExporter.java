@@ -50,8 +50,14 @@ public class CSVExporter {
 				    	  String s2 = String.valueOf(l.getX());
 				    	  String s3 = String.valueOf(l.getY());
 				    	  String s4 = String.valueOf(l.getZ());
+				    	  
+				    	  int skillx = elem.getSkill()[0];
+				    	  int skilly = elem.getSkill()[1];
+				    	  int skillz = elem.getSkill()[2];
+				    	  
+				    	  String h = String.valueOf(elem.getHardmode());
 				    	 				    	  
-				    	  bw.write(elem.getName() + "," + s1 + "," + s2 + "," + s3 + "," + s4 + "," + elem.getChapter() + "," + elem.getSection());
+				    	  bw.write(elem.getName() + "," + s1 + "," + s2 + "," + s3 + "," + s4 + "," + elem.getChapter() + "," + elem.getSection() + "," + skillx + "," + skilly + "," + skillz + "," + h );
 					      bw.newLine();
 				   }
 				   break;

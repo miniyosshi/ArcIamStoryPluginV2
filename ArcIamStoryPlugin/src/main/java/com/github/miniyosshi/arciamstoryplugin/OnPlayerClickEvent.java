@@ -82,13 +82,19 @@ public class OnPlayerClickEvent implements Listener {
 					break;
 				case 商人 :
 					e.getPlayer().sendMessage("やあ、いいもの揃っているよ");
+				
+				case セーブクラーク:
+					User.getUser(e.getPlayer()).saveCurrentLocation();
+					break;
+				
 				case Unknown:
 					e.getPlayer().sendMessage("僕「この人誰だろう」");
 					break;
 				
-				//default:
+				
+				default:
 					//e.getPlayer().sendMessage("僕「この人誰だろう」");
-					//break;
+					break;
 				
 				}
 				

@@ -1,12 +1,22 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
 public enum CSVFiles {
-	AreaData,
-	ChapterData,
-	MoneyAccount,
-	ScenarioData,
-	UserData,
-	ViewPoint;
+	AreaData(8),
+	ChapterData(7),
+	MoneyAccount(2),
+	ScenarioData(2),
+	UserData(11),
+	ViewPoint(8);
+	
+	private int numberofdata;
+	
+	private CSVFiles (int numberofdata){
+		this.numberofdata = numberofdata;
+	}
+	
+	int getNumberofData() {
+		return numberofdata;
+	}
 	//ChapterDataが読み込まれてはじめてViewpoitnも読み込むべき(この順で記述するべきだろう？？)
 	
 }

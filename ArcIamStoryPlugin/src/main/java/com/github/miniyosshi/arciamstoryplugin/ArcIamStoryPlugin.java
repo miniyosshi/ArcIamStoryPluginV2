@@ -1,13 +1,8 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.*;
+//import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
 
 public class ArcIamStoryPlugin extends JavaPlugin {
 	
@@ -18,8 +13,8 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-				
-		System.out.println("This server uses "+System.getProperty("file.encoding")+" as a default character code.");
+		
+		getLogger().info("This server uses "+System.getProperty("file.encoding")+" as a default character code.");
 		//CSVReader
 		/*
 		CSVReader.read("AreaData");
@@ -31,15 +26,13 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 			CSVReader.read(f.toString());
 		}
 		
-		
-		
 		//EventSet
 		new OnPlayerClickEvent(this);
 		new EnterAreaEvent(this);
 		new OnPlayerJoin(this);
 		new OnPlayerLogout(this);
 		
-		//commnadSet
+		//commandSet
 		for (Commands cmd : Commands.values()) {
 			getCommand(cmd.toString()).setExecutor(new OnCommand());
 		}
@@ -54,9 +47,6 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		*/
 		
 		
-		//mob walk
-		Mob m = 
-		
 		
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
 		
@@ -64,6 +54,10 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
+		
+		
+		
+		
 		getLogger().info("Plugin ArcIamStoryPlugin has been disabled.");
 	}
 	

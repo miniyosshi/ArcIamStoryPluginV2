@@ -9,15 +9,22 @@ public class User implements IsInAreaOf {
 	private Location savedlocation;
 	private int chapter;
 	private int section;
+	
+	private int[] skill;
+	private boolean hardmode;
+	
+	
 	private AreaData pastarea;
 	private boolean instoryevent = false;
 	
 	
-	User(String name, Location savedlocation, int chapter, int section){
+	User(String name, Location savedlocation, int chapter, int section, int[] skill, boolean hardmode){
 		this.name = name;
 		this.savedlocation = savedlocation;
 		this.chapter = chapter;
 		this.section = section;
+		this.skill = skill;
+		this.hardmode = hardmode;
 	}
 	
 	User(Player player){
@@ -49,6 +56,15 @@ public class User implements IsInAreaOf {
 	int getSection() {
 		return section;
 	}
+	
+	int[] getSkill() {
+		return skill;
+	}
+	
+	boolean getHardmode() {
+		return hardmode;
+	}
+	
 	Location getSavedLocation() {
 		return savedlocation;
 	}
@@ -65,11 +81,26 @@ public class User implements IsInAreaOf {
 		this.player = player;
 	}
 	
+	void saveCurrentLocation() {
+		this.savedlocation = player.getLocation();
+		CSVExporter.exportCSV("UserData");
+	}
+	
 	void setChapter(int i) {
 		chapter = i;
 	}
 	void setSection(int i) {
 		section = i;
+	}
+	
+	void setSkill(int x, int y, int z) {
+		skill[0] = x;
+		skill[1] = y;
+		skill[2] = z;
+	}
+	
+	void setHardmode(boolean x) {
+		hardmode = x; 
 	}
 	
 	void setInStoryEvent(boolean b) {
@@ -161,18 +192,6 @@ public class User implements IsInAreaOf {
 			 }
 		 }
 		 return List.areadata.get(0);
-	}
-	
-	public void saveLocation() {
-		for (User u : List.userdata) {
-			if (u.getName().equals(name)) {
-				u.savedlocation = u.player.getLocation();
-				
-				//ここでcsvに書き込み
-				CSVExporter.exportCSV("UserData");
-				
-			}
-		}
 	}
 		
 

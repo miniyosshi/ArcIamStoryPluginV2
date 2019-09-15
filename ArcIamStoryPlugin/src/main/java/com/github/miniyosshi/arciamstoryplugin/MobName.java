@@ -9,6 +9,7 @@ public enum MobName {
 	転入係,
 	転出係,
 	商人,
+	セーブクラーク,
 	Unknown;
 	
 	public static boolean checkExistence(String name){

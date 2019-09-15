@@ -15,9 +15,6 @@ public class StoryProcessor {
 			i++;
 		}
 		
-		
-		u.getPlayer().sendMessage("linenoとi:"+lineno+"と"+i);
-		
 		ChapterData cd = List.chapterdata.get(i);
 		
 		//timertask, timer はインスタンスの再利用ができないらしい
@@ -29,15 +26,13 @@ public class StoryProcessor {
 			u.getPlayer().teleport(cd.getViewPoint());
 		}
 		*/
-		u.getPlayer().sendMessage("taskのやつcd.sectionとnumberofLines"+cd.getSection()+"と"+cd.getNumberOfLines());
 		
 		Timer timer = new Timer();
 		TimerTaskLine ttl = new TimerTaskLine(u, cd, lineno, cd.getNumberOfLines(), timer);
 		
 		u.getPlayer().setWalkSpeed(0);
 		
-		timer.schedule(ttl,0,5000);	
-				
+		timer.schedule(ttl,0,5000);			
 	}
 	
 	

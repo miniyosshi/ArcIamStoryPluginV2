@@ -1,8 +1,16 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
+
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
 
@@ -13,21 +21,49 @@ public class OnPlayerLogout implements Listener {
 	}
 	
 	
-	public boolean horrorOn = false;
-	
 	@EventHandler
 	public void onPlayerLogout (PlayerQuitEvent e) {
+		
+		Player p = e.getPlayer();
+		User u = User.getUser(e.getPlayer());
+		
 		//ストーリーイベント途中で落ちた場合
-		
-		if(User.getUser(e.getPlayer()).getInStoryEvent()==true) {
+		if(u.getInStoryEvent()==true) {
 			System.out.println(e.getPlayer().getName()+"has logged out half way through a story event...");
-			//文章止める
-			//User.getUser(e.getPlayer()).subtractChapterSectionNumber();
+			//文章止める(不要)
 		}
 		
-		if (horrorOn == true) {
-			//Horror.reviver(e.getPlayer());
+		//名前のあるエリア外でログアウトで...
+		
+		if(u.isInAreaOf().getName().equals(List.areadata.get(0).getName()) ) {
+			
+			//ゾンビ出現
+			
+			ItemStack skull = new ItemStack(Material.SKELETON_SKULL,1);
+			SkullMeta sm = (SkullMeta) skull.getItemMeta();
+			sm.setOwningPlayer(p);
+			skull.setItemMeta(sm);
+			
+			Location loc =p.getLocation();
+			
+			Zombie s = (Zombie) p.getWorld().spawnEntity(loc, EntityType.SKELETON);
+			s.setCustomNameVisible(true);
+			s.setCustomName(p.getName() + "の哀れな姿");
+			s.getEquipment().setHelmet(skull);
+			s.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD,1));
+			
+			//ハードコア向けアイテムロスト
+			
+			if(u.getHardmode() == true) {
+				//一応記録
+				
+				
+				p.getInventory().clear();
+			}
+			
+			
 		}
+		
 	}
 	
 
