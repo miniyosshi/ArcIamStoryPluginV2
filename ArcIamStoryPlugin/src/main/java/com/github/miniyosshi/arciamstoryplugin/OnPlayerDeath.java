@@ -23,7 +23,8 @@ public class OnPlayerDeath implements Listener {
 			//
 			p.getInventory().clear();
 			u.setSkill(180, 180, 180);
-			p.teleport(u.getSavedLocation());
+			//べっどいるみたいp.setBedSpawnLocation(arg0);
+			p.teleport(List.spawnpoints.get(1).getLocation());
 			
 		}
 		else {

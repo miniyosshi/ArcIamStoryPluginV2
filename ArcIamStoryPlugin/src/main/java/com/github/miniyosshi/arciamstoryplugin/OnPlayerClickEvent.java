@@ -57,7 +57,7 @@ public class OnPlayerClickEvent implements Listener {
 				case 転入係:
 					e.getPlayer().sendMessage("５秒後に"+"転送します。");
 					
-					FieldLoginEffect tc =new FieldLoginEffect(User.getUser(e.getPlayer()));
+					TeleportEffect tc =new TeleportEffect(User.getUser(e.getPlayer()));
 					Timer timer = new Timer();
 					timer.schedule(tc, 5000);
 					
@@ -76,7 +76,7 @@ public class OnPlayerClickEvent implements Listener {
 					e.getPlayer().sendMessage("５秒後に転送します");
 					
 					//エフェクト変える
-					FieldLoginEffect tc2 =new FieldLoginEffect(User.getUser(e.getPlayer()));
+					TeleportEffect tc2 =new TeleportEffect(User.getUser(e.getPlayer()));
 					Timer timer2 = new Timer();
 					timer2.schedule(tc2, 5000);
 					break;

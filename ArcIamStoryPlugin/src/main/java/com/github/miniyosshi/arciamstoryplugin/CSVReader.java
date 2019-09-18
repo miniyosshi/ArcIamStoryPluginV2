@@ -32,6 +32,7 @@ public class CSVReader {
 					String[] data = line.split(",");
 					
 					if(data.length == CSVFiles.valueOf(fileheadname).getNumberofData()) {
+						//本体
 						readLinetoArrayList(CSVFiles.valueOf(fileheadname), data);
 					}
 					else {
@@ -109,7 +110,19 @@ public class CSVReader {
 				List.scenariodata.add(element);
 				break;	
 			}
-					
+			
+			
+			
+			case SpawnPoints : {
+				
+				World w = Bukkit.getServer().getWorld(data[1]);
+				Location loc = new Location(w,(int)Float.parseFloat(data[2]),(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]));
+				
+				SpawnPoints element = new SpawnPoints(data[0], loc);
+				
+				List.spawnpoints.add(element);
+				break;	
+			}
 			
 			
 			case UserData : {

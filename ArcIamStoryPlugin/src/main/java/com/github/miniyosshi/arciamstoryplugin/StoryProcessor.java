@@ -20,17 +20,18 @@ public class StoryProcessor {
 		//timertask, timer はインスタンスの再利用ができないらしい
 		
 		
-		/*
+		u.getPlayer().setWalkSpeed(0);
+		
+		//視点変更
 		if(cd.getViewPoint() != null) {
-			u.getPlayer().setWalkSpeed(0);
 			u.getPlayer().teleport(cd.getViewPoint());
 		}
-		*/
+		
 		
 		Timer timer = new Timer();
 		TimerTaskLine ttl = new TimerTaskLine(u, cd, lineno, cd.getNumberOfLines(), timer);
 		
-		u.getPlayer().setWalkSpeed(0);
+		
 		
 		timer.schedule(ttl,0,5000);			
 	}

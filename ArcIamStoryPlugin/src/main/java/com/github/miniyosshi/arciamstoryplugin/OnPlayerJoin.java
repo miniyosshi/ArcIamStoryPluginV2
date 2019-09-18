@@ -1,9 +1,9 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,10 +49,10 @@ public class OnPlayerJoin implements Listener {
 		
 		//初回ログインの人向け初期化
 		if(a == false){
-			World world = Bukkit.getServer().getWorld(List.areadata.get(0).getcornerA().getWorld().getName());
-			
-			Location loc = new Location(world,0,0,0);
+			//初期値
+			Location loc = List.spawnpoints.get(0).getLocation();
 			int[] x = {180, 180, 180};
+			
 			
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1, x, false);
 			List.userdata.add(newuser);	
@@ -69,7 +69,7 @@ public class OnPlayerJoin implements Listener {
 			
 			createScoreboard(e.getPlayer());
 			
-			System.out.println(e.getPlayer().getName()+" has newly logged in the server!");
+			Bukkit.getLogger().info(e.getPlayer().getName()+" has newly logged in the server!");
 		}
 		
 		

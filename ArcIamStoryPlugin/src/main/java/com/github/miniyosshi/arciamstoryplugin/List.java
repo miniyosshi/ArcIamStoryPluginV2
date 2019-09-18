@@ -10,6 +10,7 @@ public class List {
 	public static ArrayList<AreaData> areadata = new ArrayList<AreaData>();
 	public static ArrayList<ChapterData> chapterdata = new ArrayList<ChapterData>();
 	public static ArrayList<ScenarioData> scenariodata = new ArrayList<ScenarioData>();
+	public static ArrayList<SpawnPoints> spawnpoints = new ArrayList<SpawnPoints>();
 	public static ArrayList<User> userdata = new ArrayList<User>();
 	public static ArrayList<Account> moneyaccount = new ArrayList<Account>();
 	
@@ -27,6 +28,7 @@ public class List {
 		for (ChapterData cd : chapterdata) {
 			if (cd.getChapter()==chapter&&cd.getSection()==section) {
 				cd.setViewPoint(loc);
+				break;
 			}
 		}
 	}

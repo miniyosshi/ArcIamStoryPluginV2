@@ -1,6 +1,8 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 //import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -46,7 +48,10 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		getCommand("userlist").setExecutor(new OnCommand());
 		*/
 		
-		
+		getLogger().info("PvPを無効にします。");
+		for(World w : Bukkit.getServer().getWorlds()) {
+			w.setPVP(false);
+		}
 		
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
 		

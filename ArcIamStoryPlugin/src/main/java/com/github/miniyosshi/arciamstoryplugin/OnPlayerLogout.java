@@ -33,6 +33,9 @@ public class OnPlayerLogout implements Listener {
 			//文章止める(不要)
 		}
 		
+		//セーブ地点へ移動
+		p.teleport(u.getSavedLocation());
+		
 		//名前のあるエリア外でログアウトで...
 		
 		if(u.isInAreaOf().getName().equals(List.areadata.get(0).getName()) ) {

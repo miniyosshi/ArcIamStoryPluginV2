@@ -5,6 +5,7 @@ public enum CSVFiles {
 	ChapterData(7),
 	MoneyAccount(2),
 	ScenarioData(2),
+	SpawnPoints(5),
 	UserData(11),
 	ViewPoint(8);
 	
