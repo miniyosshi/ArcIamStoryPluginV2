@@ -30,7 +30,7 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		
 		//EventSet
 		new OnPlayerClickEvent(this);
-		new EnterAreaEvent(this);
+		new OnPlayerEnterDesignatedArea(this);
 		new OnPlayerJoin(this);
 		new OnPlayerLogout(this);
 		

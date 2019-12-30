@@ -21,7 +21,7 @@ public class CSVReader {
 		try {
 			String filename = fileheadname + ".csv";
 			
-			File f = new File(filename);
+			File f = new File("./CSVFiles/"+filename);
 			
 			if(f.exists()) {
 				BufferedReader br = new BufferedReader(new FileReader(f));
@@ -36,7 +36,7 @@ public class CSVReader {
 						readLinetoArrayList(CSVFiles.valueOf(fileheadname), data);
 					}
 					else {
-						System.out.println(filename +" is incorrect.");
+						Bukkit.getLogger().info(filename +" is incorrect.");
 						
 						br.close();
 						
@@ -47,13 +47,13 @@ public class CSVReader {
 					}			
 				}
 				
-				Bukkit.getLogger().info(f.getName()+" has been readed.");
+				Bukkit.getLogger().info(filename+" has been readed.");
 				br.close();
 				
 			}
 			else {
-				f.createNewFile();
-				System.out.println(filename+" does not exit. "+"A new file "+ filename +" is created.");
+				//f.createNewFile();
+				Bukkit.getLogger().info(filename+" does not exit. "+"A new file "+ filename +" is created.");
 			}
 			
 		}catch(IOException error) {
