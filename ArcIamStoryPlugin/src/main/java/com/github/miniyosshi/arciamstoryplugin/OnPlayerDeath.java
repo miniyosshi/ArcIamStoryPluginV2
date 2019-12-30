@@ -20,7 +20,10 @@ public class OnPlayerDeath implements Listener {
 		
 		//ハードの人は病院へ、ノーマルの人はセーブ地点へ
 		if (u.getHardmode()) {
+			
+			//一応インベントリ抽出
 			//
+			
 			p.getInventory().clear();
 			u.setSkill(180, 180, 180);
 			//べっどいるみたいp.setBedSpawnLocation(arg0);
