@@ -21,9 +21,13 @@ public class CSVReader {
 		try {
 			String filename = fileheadname + ".csv";
 			
+			String path = new File(".").getAbsolutePath();
+			System.out.println("Absolute path: "+path);
+			
 			File f = new File("./CSVFiles/"+filename);
 			
 			if(f.exists()) {
+				
 				BufferedReader br = new BufferedReader(new FileReader(f));
 				
 				String line;				

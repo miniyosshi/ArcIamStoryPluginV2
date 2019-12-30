@@ -80,10 +80,10 @@ public class OnPlayerJoin implements Listener {
 	public void createScoreboard(Player p) {
 			
 			Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-			Objective o = sb.registerNewObjective("ArcIamAAA", "aaa", ChatColor.BLUE + "ArcIam Lost Legacy");
+			Objective o = sb.registerNewObjective("ArcIamAAA", "dummy", ChatColor.BLUE + "ArcIam Lost Legacy");
 			o.setDisplayName(ChatColor.BLUE + "ArcIam LL");
-			
 			o.setDisplaySlot(DisplaySlot.SIDEBAR);
+			
 			Score s0 = o.getScore("節：");
 			s0.setScore(User.getUser(p).getSection());
 			Score s2 = o.getScore("章：");

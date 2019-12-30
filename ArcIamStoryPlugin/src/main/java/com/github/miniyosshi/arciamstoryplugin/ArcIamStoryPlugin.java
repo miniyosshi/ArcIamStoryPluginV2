@@ -18,12 +18,6 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		
 		getLogger().info("This server uses "+System.getProperty("file.encoding")+" as a default character code.");
 		//CSVReader
-		/*
-		CSVReader.read("AreaData");
-		CSVReader.read("ChapterData");
-		CSVReader.read("ScenarioData");
-		CSVReader.read("UserData");
-		*/
 		for (CSVFiles f : CSVFiles.values()) {
 			CSVReader.read(f.toString());
 		}

@@ -42,26 +42,27 @@ public class OnPlayerLogout implements Listener {
 			
 			//ゾンビ出現
 			
-			ItemStack skull = new ItemStack(Material.SKELETON_SKULL,1);
+			ItemStack skull = new ItemStack(Material.SKELETON_SKULL);
 			SkullMeta sm = (SkullMeta) skull.getItemMeta();
 			sm.setOwningPlayer(p);
 			skull.setItemMeta(sm);
 			
 			Location loc =p.getLocation();
 			
-			Zombie s = (Zombie) p.getWorld().spawnEntity(loc, EntityType.SKELETON);
+			Zombie s = (Zombie) p.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
 			s.setCustomNameVisible(true);
 			s.setCustomName(p.getName() + "の哀れな姿");
 			s.getEquipment().setHelmet(skull);
 			s.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD,1));
+			s.setHealth(3);
 			
 			//ハードコア向けアイテムロスト
 			
 			if(u.getHardmode() == true) {
 				//一応記録
-				
-				
-				p.getInventory().clear();
+				System.out.println(u.getPlayer().getInventory().getStorageContents());
+								
+				//p.getInventory().clear();
 			}
 			
 			
