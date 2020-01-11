@@ -18,21 +18,7 @@ public class AreaData{
 	
 	String getName() {
 		return name;
-	}
-	
-	
-	/*
-	static AreaData getAreaData(Location loc) {
-		for (AreaData a : CSVReader.areadata) {
-			if (a) {
-				return a;
-			}
-		}
-		
-		return CSVReader.areadata.get(0);
-	}
-	*/
-	
+	}	
 	
 	Location getcornerA() {
 		return cornerA;

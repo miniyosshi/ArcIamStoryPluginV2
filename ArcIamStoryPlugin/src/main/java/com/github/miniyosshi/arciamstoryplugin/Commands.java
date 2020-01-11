@@ -1,6 +1,6 @@
 package com.github.miniyosshi.arciamstoryplugin;
 
-public enum Commands {
+public enum Commands {	
 	charactercode,
 	deletearea,
 	reloadcsv,

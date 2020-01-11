@@ -10,7 +10,16 @@ public enum MobName {
 	転出係,
 	商人,
 	セーブクラーク,
-	Unknown;
+	
+	敵A,
+	
+	Unknown,
+	
+	;
+	public static final MobName[] EnemyMobName = {
+		敵A,
+	};
+	
 	
 	public static boolean checkExistence(String name){
 		for(MobName m : MobName.values()) {
@@ -24,5 +33,6 @@ public enum MobName {
 	public void walkaround(Vector v) {
 		
 	}
+	
 	
 }

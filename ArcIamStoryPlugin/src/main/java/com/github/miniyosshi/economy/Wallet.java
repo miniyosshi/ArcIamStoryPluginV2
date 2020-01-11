@@ -1,36 +1,30 @@
 package com.github.miniyosshi.economy;
 
-//import com.github.miniyosshi.arciamstoryplugin.User;
+import org.bukkit.entity.Player;
+
+import com.github.miniyosshi.arciamstoryplugin.CSVExporter;
+import com.github.miniyosshi.arciamstoryplugin.User;
 
 public class Wallet {
-	private String name;
-	private double balance;
+	private Player p;
+	private double money;
 	
-	public Wallet(String name, double balance){
-		this.name = name;
-		this.balance = balance;
+	public Wallet(double money){
+		this.money = money;
 	}
 	
-	public Wallet(String name){
-		this.name = name;
-		//this.balance = 
+	public double getMoney() {
+		return money;
 	}
 	
-	
-	public String getName(){
-		return name;
+	public void subtractMoney(double x) {
+		money -= x;
+		CSVExporter.exportCSV(fileheadname);
 	}
 	
-	public double getBalance() {
-		return balance;
-	}
-	
-	public void withdraw(long x) {
-		balance -= x;
-	}
-	
-	public void deposit(long x) {
-		balance += x;
+	public void addMoney(double x) {
+		money += x;
+		
 	}
 	
 

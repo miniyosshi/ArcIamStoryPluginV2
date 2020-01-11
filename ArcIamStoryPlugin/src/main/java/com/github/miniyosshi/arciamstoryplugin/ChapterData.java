@@ -23,9 +23,6 @@ public class ChapterData {
 		this.goal = goal;			
 	}
 	
-	ChapterData(int chapter, int section, Location loc){
-		
-	}
 	
 	int getChapter() {
 		return chapter;
@@ -45,7 +42,6 @@ public class ChapterData {
 	int getNumberOfLines() {
 		return numberofline;
 	}
-	
 
 	String getTitle() {
 		return title;
@@ -55,13 +51,14 @@ public class ChapterData {
 		return goal;
 	}
 	
+	Location getViewPoint() {
+		return viewpoint;
+	}
+	
 	void setViewPoint(Location loc) {
 		this.viewpoint = loc;
 	}
 	
-	Location getViewPoint() {
-		return viewpoint;
-	}
 	
 	
 }

@@ -18,21 +18,16 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		
 		getLogger().info("This server uses "+System.getProperty("file.encoding")+" as a default character code.");
 		//CSVReader
-		/*
-		CSVReader.read("AreaData");
-		CSVReader.read("ChapterData");
-		CSVReader.read("ScenarioData");
-		CSVReader.read("UserData");
-		*/
 		for (CSVFiles f : CSVFiles.values()) {
 			CSVReader.read(f.toString());
 		}
 		
 		//EventSet
 		new OnPlayerClickEvent(this);
-		new EnterAreaEvent(this);
+		new OnPlayerEnterDesignatedArea(this);
 		new OnPlayerJoin(this);
 		new OnPlayerLogout(this);
+		new OnPlayerTradewithVillager(this);
 		
 		//commandSet
 		for (Commands cmd : Commands.values()) {

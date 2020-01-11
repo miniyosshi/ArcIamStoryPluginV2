@@ -12,9 +12,9 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Score;
 
-public class EnterAreaEvent implements Listener {
+public class OnPlayerEnterDesignatedArea implements Listener {
 	
-	public EnterAreaEvent(Plugin plugin) {
+	public OnPlayerEnterDesignatedArea(Plugin plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	

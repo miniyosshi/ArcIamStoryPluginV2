@@ -13,20 +13,20 @@ import org.bukkit.plugin.Plugin;
 
 import com.github.miniyosshi.economy.*;
 
-
 public class CSVReader {
 	
 	public static void read(String fileheadname){
-						
-		try {
-			String filename = fileheadname + ".csv";
-			
-			File f = new File(filename);
-			
+		
+		String filename = fileheadname + ".csv";
+		File f = new File("./CSVFiles/"+filename);
+		String line;
+		
+		String path = new File(".").getAbsolutePath();
+		System.out.println("Absolute path: "+path);
+		
+		try {			
 			if(f.exists()) {
-				BufferedReader br = new BufferedReader(new FileReader(f));
-				
-				String line;				
+				BufferedReader br = new BufferedReader(new FileReader(f));		
 				
 				while((line = br.readLine()) != null) {
 					String[] data = line.split(",");
@@ -36,7 +36,7 @@ public class CSVReader {
 						readLinetoArrayList(CSVFiles.valueOf(fileheadname), data);
 					}
 					else {
-						System.out.println(filename +" is incorrect.");
+						Bukkit.getLogger().info(filename +" is incorrect.");
 						
 						br.close();
 						
@@ -44,16 +44,17 @@ public class CSVReader {
 						System.out.println(p.getName());
 						System.out.println("So, this plugin is now automatically disabled.");
 						Bukkit.getPluginManager().disablePlugin(p);
+						break;
 					}			
 				}
 				
-				Bukkit.getLogger().info(f.getName()+" has been readed.");
+				Bukkit.getLogger().info(filename+" has been readed.");
 				br.close();
 				
 			}
 			else {
-				f.createNewFile();
-				System.out.println(filename+" does not exit. "+"A new file "+ filename +" is created.");
+				//f.createNewFile();
+				Bukkit.getLogger().info(filename+" does not exit. "+"A new file "+ filename +" is created.");
 			}
 			
 		}catch(IOException error) {
@@ -63,46 +64,41 @@ public class CSVReader {
 			
 	
 	
-		public static void readLinetoArrayList(CSVFiles cf, String[] data) {
-			switch (cf) {
-			case MoneyAccount : {
-				Wallet element = new Wallet(data[0], Double.parseDouble(data[1]));
-				List.moneyaccount.add(element);
-				
-				break;
-			}
-						
+
+	public static void readLinetoArrayList(CSVFiles cf, String[] data) {
+		switch (cf) {
+		case BankAccount : {
+			BankAccount element = new BankAccount(data[0], Double.parseDouble(data[1]));
+			List.bankaccount.add(element);
+
 			
-			
-			case AreaData : {
-				//csvの型の判定
-				/*
-				if(isIntChangable(data[2])) {
-				}
-				*/					
-				World w = Bukkit.getServer().getWorld(data[1]);
-				Location cornerA = new Location(w,(int)Float.parseFloat(data[2]),(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]));
-				Location cornerB = new Location(w,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]),(int)Float.parseFloat(data[7]));
+				break;
+		}
 						
-				AreaData element = new AreaData(data[0],cornerA, cornerB);		
-				List.areadata.add(element);		
-				
-				break;
+		case AreaData : {
+			//csvの型の判定
+			/*
+			if(isIntChangable(data[2])) {
 			}
+			*/					
+			World w = Bukkit.getServer().getWorld(data[1]);
+			Location cornerA = new Location(w,(int)Float.parseFloat(data[2]),(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]));
+			Location cornerB = new Location(w,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]),(int)Float.parseFloat(data[7]));
 					
-					
-					
-			case ChapterData : {
-				
-				ChapterData element = new ChapterData(Integer.parseInt(data[0]),Integer.parseInt(data[1]),data[2], data[3], Integer.parseInt(data[4]),data[5],data[6]);
-				
-				List.chapterdata.add(element);
-				
-				break;
-			}
-				
-					
-					
+			AreaData element = new AreaData(data[0],cornerA, cornerB);		
+			List.areadata.add(element);		
+			
+			break;
+		}
+							
+		case ChapterData : {
+			
+			ChapterData element = new ChapterData(Integer.parseInt(data[0]),Integer.parseInt(data[1]),data[2], data[3], Integer.parseInt(data[4]),data[5],data[6]);
+			
+			List.chapterdata.add(element);
+			
+			break;
+		}		
 				
 			case ScenarioData : {
 				ScenarioData element = new ScenarioData(data[0], data[1]);
@@ -135,9 +131,9 @@ public class CSVReader {
 				
 				Location savedlocation = new Location(w,(int)Float.parseFloat(data[2]),(int)Float.parseFloat(data[3]),(int)Float.parseFloat(data[4]));
 				
-				int[] skill = {Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[9])};
+				int[] birthday = {Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[9])};
 				
-				User element = new User(data[0],savedlocation,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]), skill, Boolean.valueOf(data[10]));
+				User element = new User(data[0],savedlocation,(int)Float.parseFloat(data[5]),(int)Float.parseFloat(data[6]), birthday, Boolean.valueOf(data[10]));
 				
 				List.userdata.add(element);
 					
@@ -171,7 +167,7 @@ public class CSVReader {
 				
 		List.areadata.clear();
 		List.chapterdata.clear();
-		List.moneyaccount.clear();
+		List.bankaccount.clear();
 		List.scenariodata.clear();
 		List.userdata.clear();
 		
