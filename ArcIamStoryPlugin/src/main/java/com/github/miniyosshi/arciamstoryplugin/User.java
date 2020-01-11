@@ -10,7 +10,7 @@ public class User implements IsInAreaOf {
 	private int chapter;
 	private int section;
 	
-	private int[] skill;
+	private int[] birthday;
 	private boolean hardmode;
 	
 	
@@ -18,12 +18,12 @@ public class User implements IsInAreaOf {
 	private boolean instoryevent = false;
 	
 	
-	User(String name, Location savedlocation, int chapter, int section, int[] skill, boolean hardmode){
+	User(String name, Location savedlocation, int chapter, int section, int[] birthday, boolean hardmode){
 		this.name = name;
 		this.savedlocation = savedlocation;
 		this.chapter = chapter;
 		this.section = section;
-		this.skill = skill;
+		this.birthday = birthday;
 		this.hardmode = hardmode;
 	}
 	
@@ -32,12 +32,12 @@ public class User implements IsInAreaOf {
 	}
 	
 	//User→Player
-	Player getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 	
 	//Player→User
-	static User getUser(Player p) {
+	public static User getUser(Player p) {
 		for (User u : List.userdata) {
 			if (u.getName().equals(p.getPlayer().getName())) {
 				return u;
@@ -46,6 +46,19 @@ public class User implements IsInAreaOf {
 		System.out.println("Player to User error. So NULL is returned.");
 		return null;
 	}
+	
+	//String(Name)→User
+	public static User getUser(String  name) {
+		for (User u : List.userdata) {
+			if (u.getName().equals(name)) {
+				return u;
+			}
+		}
+		System.out.println("String(Name) to User error. So NULL is returned.");
+		return null;
+	}
+	
+	
 		
 	String getName() {
 		return name;
@@ -57,8 +70,8 @@ public class User implements IsInAreaOf {
 		return section;
 	}
 	
-	int[] getSkill() {
-		return skill;
+	int[] getBirthday() {
+		return birthday;
 	}
 	
 	boolean getHardmode() {
@@ -93,10 +106,10 @@ public class User implements IsInAreaOf {
 		section = i;
 	}
 	
-	void setSkill(int x, int y, int z) {
-		skill[0] = x;
-		skill[1] = y;
-		skill[2] = z;
+	void setBirthday(int year, int month, int day) {
+		birthday[0] = year;
+		birthday[1] = month;
+		birthday[2] = day;
 	}
 	
 	void setHardmode(boolean x) {

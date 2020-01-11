@@ -26,8 +26,7 @@ public class OnPlayerJoin implements Listener {
 	public void onPlayerJoin (PlayerJoinEvent e) {
 		
 		//e.getPlayer().setWalkSpeed(0.2f);
-		
-		
+				
 		
 		
 		boolean a = false;
@@ -47,21 +46,25 @@ public class OnPlayerJoin implements Listener {
 			}
 		}
 		
+		//ログイン10秒後に場所・章節の表示
+		//
+		//
+		
+		
+		
 		//初回ログインの人向け初期化
 		if(a == false){
 			//初期値
 			Location loc = List.spawnpoints.get(0).getLocation();
-			int[] x = {180, 180, 180};
-			
-			
-			User newuser = new User(e.getPlayer().getName(), loc, 1, 1, x, false);
+			int[] defaultbirthday = {1990, 1, 1};
+			User newuser = new User(e.getPlayer().getName(), loc, 1, 1, defaultbirthday, false);
 			List.userdata.add(newuser);	
 			
-			Account newaccount = new Account(e.getPlayer().getName(), 0);
-			List.moneyaccount.add(newaccount);
+			BankAccount newaccount = new BankAccount(e.getPlayer().getName(), 0);
+			List.bankaccount.add(newaccount);
 			
 			CSVExporter.exportCSV(CSVFiles.UserData.toString());
-			CSVExporter.exportCSV(CSVFiles.MoneyAccount.toString());
+			CSVExporter.exportCSV(CSVFiles.BankAccount.toString());
 			
 			//StringだけでなくPlayer型も登録
 			newuser.setPlayer(e.getPlayer());

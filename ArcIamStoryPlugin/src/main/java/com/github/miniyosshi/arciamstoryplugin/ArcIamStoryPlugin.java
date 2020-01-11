@@ -27,6 +27,7 @@ public class ArcIamStoryPlugin extends JavaPlugin {
 		new OnPlayerEnterDesignatedArea(this);
 		new OnPlayerJoin(this);
 		new OnPlayerLogout(this);
+		new OnPlayerTradewithVillager(this);
 		
 		//commandSet
 		for (Commands cmd : Commands.values()) {
