@@ -66,7 +66,7 @@ public class CSVReader {
 		public static void readLinetoArrayList(CSVFiles cf, String[] data) {
 			switch (cf) {
 			case MoneyAccount : {
-				Account element = new Account(data[0], Double.parseDouble(data[1]));
+				Wallet element = new Wallet(data[0], Double.parseDouble(data[1]));
 				List.moneyaccount.add(element);
 				
 				break;

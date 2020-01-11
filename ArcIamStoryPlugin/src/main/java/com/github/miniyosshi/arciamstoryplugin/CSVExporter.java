@@ -34,7 +34,7 @@ public class CSVExporter {
 			   case MoneyAccount :
 				   for(int i = 0; i < List.moneyaccount.size(); i++) {
 				    	  
-				    	  Account elem = List.moneyaccount.get(i);
+				    	  Wallet elem = List.moneyaccount.get(i);
 				    	  bw.write(elem.getName() + "," + BigDecimal.valueOf(elem.getBalance()).toPlainString());
 				    	  bw.newLine();
 				   }

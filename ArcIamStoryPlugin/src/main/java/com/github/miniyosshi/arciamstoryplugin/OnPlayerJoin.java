@@ -57,7 +57,7 @@ public class OnPlayerJoin implements Listener {
 			User newuser = new User(e.getPlayer().getName(), loc, 1, 1, x, false);
 			List.userdata.add(newuser);	
 			
-			Account newaccount = new Account(e.getPlayer().getName(), 0);
+			Wallet newaccount = new Wallet(e.getPlayer().getName(), 0);
 			List.moneyaccount.add(newaccount);
 			
 			CSVExporter.exportCSV(CSVFiles.UserData.toString());
