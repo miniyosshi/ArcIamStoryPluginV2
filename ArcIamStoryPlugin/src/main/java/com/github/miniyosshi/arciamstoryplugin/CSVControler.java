@@ -12,8 +12,7 @@ import org.bukkit.Bukkit;
 
 public class CSVControler extends FileControler {
 	
-	@Override
-	public void read(File f, ArrayList<String[]> al) {
+	public static void read(File f, ArrayList<String[]> al) {
 		String filename = f.getName();
 		String line;
 		
@@ -33,13 +32,11 @@ public class CSVControler extends FileControler {
 		}
 		else {
 			Bukkit.getLogger().info(filename+" does not exit.");
-			generate(f);
 		}
 		
 	}
 
-	@Override
-	public void write(ArrayList<String[]> al, File f) {
+	public static void write(ArrayList<String[]> al, File f) {
 		String filename = f.getName();
 		
 		if(!f.exists()) {

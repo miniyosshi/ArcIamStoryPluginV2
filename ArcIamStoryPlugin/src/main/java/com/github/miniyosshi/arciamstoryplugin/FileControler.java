@@ -8,9 +8,13 @@ import org.bukkit.Bukkit;
 
 public abstract class FileControler {
 
-	public abstract void read(File f, ArrayList<String[]> al);
+	public static void read(File f, ArrayList<String[]> al) {
+		
+	}
 	
-	public abstract void write(ArrayList<String[]> al, File f);
+	public static void write(ArrayList<String[]> al, File f) {
+		
+	}
 	
 	public static void generate(File f) {
 		String filename = f.getName();
