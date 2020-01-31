@@ -61,7 +61,7 @@ public class OnPlayerJoin implements Listener {
 			List.userdata.add(newuser);	
 			
 
-			Wallet newwallet = new Wallet(e.getPlayer().getName(), 0);
+			Wallet newwallet = new Wallet(0);
 			List.moneyaccount.add(newwallet);
 
 			BankAccount newaccount = new BankAccount(e.getPlayer().getName(), 0);

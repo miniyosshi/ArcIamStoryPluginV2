@@ -19,7 +19,7 @@ public class Wallet {
 	
 	public void subtractMoney(double x) {
 		money -= x;
-		CSVExporter.exportCSV(fileheadname);
+		//CSVExporter.exportCSV(Wallet);
 	}
 	
 	public void addMoney(double x) {

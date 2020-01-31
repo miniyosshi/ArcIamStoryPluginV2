@@ -23,7 +23,9 @@ public class OnPlayerTradewithVillager implements Listener {
 		if(e.getInventory().getType().equals(InventoryType.MERCHANT)) {
 			
 			//payment
+			/*
 			if(User.getUser(p)>= item.getItemMeta().get) {
+				
 				Wallet a = 
 				User.getUser(p)
 				
@@ -33,6 +35,7 @@ public class OnPlayerTradewithVillager implements Listener {
 			else {
 				p.sendMessage("お金が足りません。");
 			}
+			*/
 			
 			
 		}

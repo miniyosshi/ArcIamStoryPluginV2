@@ -18,6 +18,7 @@ public enum CSVFiles {
 	int getNumberofData() {
 		return numberofdata;
 	}
+	
 	//ChapterDataが読み込まれてはじめてViewpoitnも読み込むべき(この順で記述するべきだろう？？)
 	
 	

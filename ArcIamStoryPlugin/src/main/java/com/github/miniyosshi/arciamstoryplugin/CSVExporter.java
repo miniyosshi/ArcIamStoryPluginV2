@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import com.github.miniyosshi.economy.*;
 
@@ -14,40 +15,37 @@ public class CSVExporter {
 	//プレーヤーのセーブ地点、章節をCSVファイルに出力
 	public static void exportCSV(String fileheadname) {
 		
+		String filename = fileheadname + ".csv";
+		File f = new File("./CSVFiles/"+filename);
 		
+		if(f.exists()) {
+			writeArraylistToCSV(CSVFiles.valueOf(filename),f);
+		}
+		else {
+			Bukkit.getLogger().info(filename +" does not exit.");
+		}
+	} 
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+	public static void writeArraylistToCSV(CSVFiles cf, File f) {
 		try {
-			
-			String filename = fileheadname + ".csv";
-			
-			File f = new File(filename);
-			   
-			      
-			   switch(CSVFiles.valueOf(fileheadname)) {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			switch(cf) {
 			   case AreaData :
 				   for(int i = 0; i < List.areadata.size(); i++) {
 				    	  
-				    	  AreaData elem = List.areadata.get(i);
-				    	  bw.write(elem.getName()+ "," + elem.getcornerA().getWorld().getName() + "," + elem.getcornerA().getX() + "," + elem.getcornerA().getY() + "," + elem.getcornerA().getZ() + "," + elem.getcornerB().getX() + "," + elem.getcornerB().getY() + "," + elem.getcornerB().getZ() );
+				    	  AreaData areadata = List.areadata.get(i);
+				    	  bw.write(areadata.getName()+ "," + areadata.getcornerA().getWorld().getName() + "," + areadata.getcornerA().getX() + "," + areadata.getcornerA().getY() + "," + areadata.getcornerA().getZ() + "," + areadata.getcornerB().getX() + "," + areadata.getcornerB().getY() + "," + areadata.getcornerB().getZ() );
 					      bw.newLine();
 				   }
 				   break;
 				
 				   
 			   case BankAccount :
-				   for(int i = 0; i < List.moneyaccount.size(); i++) {
+				   for(int i = 0; i < List.bankaccount.size(); i++) {
 				    	  
 
-				    	  BankAccount elem = List.moneyaccount.get(i);
+				    	  BankAccount elem = List.bankaccount.get(i);
 
 				    	  bw.write(elem.getName() + "," + BigDecimal.valueOf(elem.getBalance()).toPlainString());
 				    	  bw.newLine();
@@ -78,13 +76,12 @@ public class CSVExporter {
 			default:
 				System.out.println("Exporterでエラー");
 				break;
-			   
 			   }
-			      bw.close();
- 
-        } catch (IOException e) {
+			bw.close();
+		}catch (IOException e) {
             e.printStackTrace();
         }
+		
 		
 	}
 

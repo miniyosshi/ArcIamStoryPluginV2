@@ -59,7 +59,7 @@ public class User implements IsInAreaOf {
 	}
 	
 	
-		
+	
 	String getName() {
 		return name;
 	}
