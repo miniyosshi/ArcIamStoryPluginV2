@@ -1,4 +1,4 @@
-package com.github.miniyosshi.arciamstoryplugin.constellation;
+package com.github.miniyosshi.arciamstorypluginV2.constellation;
 
 import ajd4jp.*;
 import ajd4jp.orrery.*;

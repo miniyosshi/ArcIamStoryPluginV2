@@ -1,4 +1,4 @@
-package com.github.miniyosshi.arciamstoryplugin;
+package com.github.miniyosshi.arciamstorypluginV2;
 
 import org.bukkit.Location;
 import org.bukkit.World;

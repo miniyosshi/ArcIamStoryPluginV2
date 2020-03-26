@@ -1,4 +1,4 @@
-package com.github.miniyosshi.arciamstoryplugin;
+package com.github.miniyosshi.arciamstorypluginV2;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,7 +52,7 @@ public class DesignatedAreas extends Collection {
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			String line;
 			while((line = br.readLine()) != null) {
-				jsonText.append(line);
+				jsonText.append(line + System.getProperty("line.separator"));
 			}
 			br.close();
 		} catch (IOException e) {

@@ -1,13 +1,11 @@
-package com.github.miniyosshi.arciamstoryplugin;
+package com.github.miniyosshi.arciamstorypluginV2;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public abstract class User {
 	private Player player;
-	private String name;
 	private Location savedLocation;
-	
 	private ChapterSection chapterSection;
 	private Birthday birthday;
 	
@@ -16,19 +14,19 @@ public abstract class User {
 	
 	
 	//constructor
+	/*
 	public User(Player player) {
 		this.player = player;
 		Users.addUser(this);
 	}
-	/*
-	public User(String name, Location savedLocation, int chapter, int section, int[] birthday){
-		this.name = name;
-		this.savedLocation = savedLocation;
-		this.chapter = chapter;
-		this.section = section;
-		this.birthday = birthday;
-	}
 	*/
+	public User(Player player, Location savedLocation, ChapterSection chapterSection, Birthday birthday){
+		this.player = player;
+		this.savedLocation = savedLocation;
+		this.chapterSection = chapterSection;
+		this.birthday = birthday;
+		Users.addUser(this);
+	}
 	
 	public String getName() {
 		return player.getName();
