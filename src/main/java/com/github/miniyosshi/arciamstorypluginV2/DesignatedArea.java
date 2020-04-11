@@ -1,28 +1,20 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
 import org.bukkit.Location;
-import org.bukkit.World;
 
-public abstract class DesignatedArea {
+public abstract class DesignatedArea extends DesignatedPosition {
 	
-	private String name;
-	private World world;
-	
-	DesignatedArea(String name, World world){
+	public DesignatedArea(String name){
 		this.name = name;
-		this.world = world;
-		DesignatedAreas.addDesignatedArea(this);
+		DesignatedAreas das = DesignatedAreas.getInstance();
+		das.add(this);
 	}
 	
-	public boolean equals(String name) {
-		return this.name.equals(name);
-	}
+	//jackson deserializeでデフォルトコンストラクタ必要?	
 	
-	public boolean isIn(World world) {
-		return this.world.equals(world);
-		//これで良い？
-	}
+	public abstract Location getCenter();
 	
 	public abstract boolean contains(Location location);
-
+	
+	public abstract Location getRandomLocation();
 }

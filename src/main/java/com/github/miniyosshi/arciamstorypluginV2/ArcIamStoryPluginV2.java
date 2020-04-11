@@ -1,5 +1,7 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -16,23 +18,29 @@ public class ArcIamStoryPluginV2 extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
-		getLogger().info("This server uses "+System.getProperty("file.encoding")+" as a default character code.");
-		//CSVReader
-		for (CSVFiles f : CSVFiles.values()) {
-			CSVReader.read(f.toString());
-		}
+		getLogger().info("This server uses "+System.getProperty("file.encoding")+" as the default char code.");
+		//Read JSON and CSV
+		DesignatedAreas.getInstance().importAllFromDefaultFolder(DesignatedArea.class);
+		DesignatedSpots.getInstance().importAllFromDefaultFolder(DesignatedSpot.class);
+		LLItems.getInstance().importAllFromDefaultFolder(LLItem.class);
+		NPCs.getInstance().importAllFromDefaultFolder(NPC.class);
+		Users.getInstance().importAllFromDefaultFolder(User.class);
+		getLogger().info("File reading process is finished.");
 		
 		//EventSet
-		new OnPlayerClickEvent(this);
+		//new OnPlayerClickEvent(this);
 		new OnPlayerEnterDesignatedArea(this);
 		new OnPlayerJoin(this);
-		new OnPlayerLogout(this);
-		new OnPlayerTradewithVillager(this);
+		//new OnPlayerLogout(this);
+		new OnPlayerDeath(this);
+		//new OnPlayerTradewithVillager(this);
 		
 		//commandSet
+		/*
 		for (Commands cmd : Commands.values()) {
 			getCommand(cmd.toString()).setExecutor(new OnCommand());
 		}
+		*/
 		
 		/*
 		getCommand("charactercode").setExecutor(new OnCommand());
@@ -42,21 +50,19 @@ public class ArcIamStoryPluginV2 extends JavaPlugin {
 		getCommand("showarea").setExecutor(new OnCommand());
 		getCommand("userlist").setExecutor(new OnCommand());
 		*/		
+		
+		/*
 		getLogger().info("PvPを無効にします。");
 		for(World w : Bukkit.getServer().getWorlds()) {
 			w.setPVP(false);
 		}
+		*/
 		
 		getLogger().info("Plugin ArcIamStoryPlugin has been enabled.");
-		
 	}
 	
 	@Override
-	public void onDisable() {
-		
-		
-		
-		
+	public void onDisable() {		
 		getLogger().info("Plugin ArcIamStoryPlugin has been disabled.");
 	}
 	

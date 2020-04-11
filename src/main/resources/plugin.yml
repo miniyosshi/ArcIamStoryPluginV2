@@ -1,9 +1,9 @@
 name: ArcIamStoryPlugin
-main: com.github.miniyosshi.arciamstoryplugin.ArcIamStoryPluginV2
+main: com.github.miniyosshi.arciamstorypluginV2.ArcIamStoryPluginV2
 version: 1.0
 description: This is only for ArcIam server.
 author: miniyosshi
-api-version: 1.13
+api-version: 1.15
 
 commands:
   charactercode:

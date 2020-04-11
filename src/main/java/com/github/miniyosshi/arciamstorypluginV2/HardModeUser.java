@@ -4,8 +4,8 @@ import org.bukkit.entity.Player;
 
 public class HardModeUser extends User {
 
-	public HardModeUser(Player player) {
-		super(player);
+	public HardModeUser(Player player, UserInfo userInfo) {
+		super(player, userInfo);
 	}
 	
 	/*

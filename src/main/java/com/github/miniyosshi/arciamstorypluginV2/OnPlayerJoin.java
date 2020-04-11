@@ -14,7 +14,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
-import com.github.miniyosshi.economy.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class OnPlayerJoin implements Listener {
 	
@@ -26,12 +26,13 @@ public class OnPlayerJoin implements Listener {
 	public void onPlayerJoin (PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		
-		//UserInstanceの生成+Usersへの登録（Usersは鯖起動時は空にしておいて、ログインのたびに追加、ログアウト時に保存、削除する）
-		//User user = new User(player);
-		
+		//UserInstanceの生成, Usersへの登録（Usersは鯖起動時は空にしておいて、ログインのたびに追加、ログアウト時に保存、削除する）
+		User user = new User(player, userInfo);
 		
 		//e.getPlayer().setWalkSpeed(0.2f);
-
+		
+		
+		
 		
 		boolean a = false;
 		

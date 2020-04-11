@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class JsonReader {
 		
-	public static String getJsonText(File f) {
+	public static String importJsonText(File f) {
 		StringBuffer jsonText = new StringBuffer();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(f));

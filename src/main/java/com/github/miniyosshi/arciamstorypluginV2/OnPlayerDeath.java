@@ -23,47 +23,8 @@ public class OnPlayerDeath implements Listener {
 	@EventHandler
 	public void onPlayerDeath (PlayerDeathEvent e) {
 		Player player = e.getEntity();
-		Optional<User> ou = Users.getUser(player);
-		//uは存在しているuserインスタンスを表す(ifの判定以外では特に用いられない)
-		ou.ifPresent(u -> deathProcess(u));
-	}
-		
-	private static void deathProcess(User user) {
-		/*
-		Player player = 
-		//ハードの人は病院へ、ノーマルの人はセーブ地点へ
-		if (user instanceof HardModeUser) {
-			
-			//一応インベントリ抽出保存
-			//
-			
-			p.getInventory().clear();
-			//ステータス初期化
-			//べっどいるみたいp.setBedSpawnLocation(arg0);
-			p.teleport(List.spawnpoints.get(1).getLocation());
-			
-		}
-		else if(user instanceof NormalModeUser){
-			p.teleport(user.getSavedLocation());
-		}
-		
-		//ゾンビ出現（プレーヤーと同じステータス）
-		ItemStack skull = new ItemStack(Material.SKELETON_SKULL);
-		SkullMeta sm = (SkullMeta) skull.getItemMeta();
-		sm.setOwningPlayer(p);
-		skull.setItemMeta(sm);
-		
-		Location loc =p.getLocation();
-		
-		Zombie s = (Zombie) p.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
-		s.setCustomNameVisible(true);
-		s.setCustomName(p.getName() + "の哀れな姿");
-		s.getEquipment().setHelmet(skull);
-		s.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD,1));
-		
-		//ステータス
-		s.setHealth(3);
-		// walk speed
-		*/
+		Users users = Users.getInstance();
+		Optional<User> user = users.getElementBy(player);
+		user.ifPresent(v -> v.continueAfterDeath());
 	}
 }
