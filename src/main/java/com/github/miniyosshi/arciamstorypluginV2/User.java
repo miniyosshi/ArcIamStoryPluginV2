@@ -12,33 +12,33 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class User extends MapElement {
 	@JsonIgnore
 	protected Player player;
 	
+	@JsonProperty
 	protected UserInfo userInfo;
 	
-	//private boolean instoryevent = false;
-	
-	/*
-	public User(Player player) {
-		this.player = player;
-		UserRepository.addUser(this);
-	}
-	*/
-	
-	public User(Player player, UserInfo userInfo) {
+	public User(String name, Player player, UserInfo userInfo) {
+		this.name = name;
 		this.player = player;
 		setInfo(userInfo);
-		Users ur = Users.getInstance();
-		ur.add(this);
+		Users.getInstance().add(this);
 	}
 	
-	@JsonCreator
-	public User(UserInfo userInfo) {
+	//@JsonCreator
+	public User(String name, UserInfo userInfo) {
+		this.name = name;
 		this.userInfo = userInfo;
 		Users.getInstance().add(this);
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 	public void setInfo(UserInfo userInfo) {
@@ -56,8 +56,9 @@ public abstract class User extends MapElement {
 		return designatedArea.contains(location);
 	}
 	
+	@JsonIgnore
 	public boolean isInTheSameDesignatedArea() {
-		Optional<DesignatedArea> presentArea= this.isIn();
+		Optional<DesignatedArea> presentArea = this.isIn();
 		return userInfo.pastDesignatedAreaEquals(presentArea);
 	}
 	
@@ -65,17 +66,22 @@ public abstract class User extends MapElement {
 		userInfo.setPastDesignatedArea(this.isIn());
 	}
 	
-	public void saveCurrentLocation() {
-		userInfo.setSavedLocation(player.getLocation());
-		//CSVExporter.exportCSV("UserData");
+	@JsonIgnore
+	public boolean isInStoryEvent() {
+		return userInfo.isInStoryEvent();
 	}
 	
+	public void teleportToLobby() {
+		DesignatedSpots.getInstance().getElementBy("Lobby").ifPresent(v ->{
+			player.teleport(v.getLocation());
+		});
+	}
 	
 	public void continueAfterDeath() {
 		//Teleport to hospital
 		DesignatedSpots dss = DesignatedSpots.getInstance();
-		Optional<DesignatedSpot> ds = dss.getElementBy("hospital");
-		ds.ifPresent(v -> {player.teleport(v.getLocation());});
+		Optional<DesignatedSpot> hospital = dss.getElementBy("Hospital");
+		hospital.ifPresent(v -> {player.teleport(v.getLocation());});
 		if (this instanceof HardModeUser) {
 			//一応インベントリ抽出保存
 			

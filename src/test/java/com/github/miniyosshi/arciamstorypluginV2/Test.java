@@ -16,7 +16,7 @@ public class Test {
 		DesignatedSquareArea da1 = new DesignatedSquareArea("townx", loc, loc);
 		DesignatedSquareArea da2 = new DesignatedSquareArea("cityA", loc, loc);
 		//da.exportTo(f);
-		das.exportAllTo(f);
+		//das.exportAllTo(f);
 		
 		
 		/* import

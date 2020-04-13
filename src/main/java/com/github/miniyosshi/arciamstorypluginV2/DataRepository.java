@@ -31,7 +31,7 @@ public abstract class DataRepository<T extends MapElement> {
 	}
 	
 	public void importAllFrom(File folder, Class<T> elementClass) {
-		List<File> list = new ArrayList<File>(Arrays.asList(folder.listFiles()));
+		List<File> list = Arrays.asList(Optional.ofNullable(folder.listFiles()).orElse(new File[0]));
 		for(File f : list) {
 			ObjectMapper mapper = new ObjectMapper();
 			Optional<T> element = Optional.empty();
@@ -46,7 +46,7 @@ public abstract class DataRepository<T extends MapElement> {
 	}
 	
 	public void importAllFromDefaultFolder(Class<T> elementClass) {
-		String folderName = this.getClass().getName();
+		String folderName = this.getClass().getSimpleName();
 		File folder = new File(parentFolderString, folderName);
 		System.out.println(folder.toString());
 		importAllFrom(folder, elementClass);
@@ -59,7 +59,7 @@ public abstract class DataRepository<T extends MapElement> {
 	}
 	
 	public void exportAllToDefaultFolder() {
-		String folderName = this.getClass().getName();
+		String folderName = this.getClass().getSimpleName();
 		File folder = new File(parentFolderString, folderName);
 		System.out.println(folder.toString());
 		exportAllTo(folder);

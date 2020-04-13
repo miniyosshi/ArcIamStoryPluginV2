@@ -8,6 +8,11 @@ import org.bukkit.World;
 //import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerClickEntityEvent;
+import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerDeath;
+import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerEnterDesignatedArea;
+import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerJoin;
+
 public class ArcIamStoryPluginV2 extends JavaPlugin {
 	
 	//初期設定
@@ -28,7 +33,7 @@ public class ArcIamStoryPluginV2 extends JavaPlugin {
 		getLogger().info("File reading process is finished.");
 		
 		//EventSet
-		//new OnPlayerClickEvent(this);
+		new OnPlayerClickEntityEvent(this);
 		new OnPlayerEnterDesignatedArea(this);
 		new OnPlayerJoin(this);
 		//new OnPlayerLogout(this);
@@ -62,7 +67,10 @@ public class ArcIamStoryPluginV2 extends JavaPlugin {
 	}
 	
 	@Override
-	public void onDisable() {		
+	public void onDisable() {	
+		
+		//export all
+		
 		getLogger().info("Plugin ArcIamStoryPlugin has been disabled.");
 	}
 	

@@ -1,6 +1,4 @@
-package com.github.miniyosshi.arciamstorypluginV2;
-
-import java.util.Optional;
+package com.github.miniyosshi.arciamstorypluginV2.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -12,6 +10,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Score;
+
+import com.github.miniyosshi.arciamstorypluginV2.*;
 
 public class OnPlayerEnterDesignatedArea implements Listener {
 	

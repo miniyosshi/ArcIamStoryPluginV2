@@ -2,16 +2,19 @@ package com.github.miniyosshi.arciamstorypluginV2;
 
 import org.bukkit.entity.Player;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class HardModeUser extends User {
 
-	public HardModeUser(Player player, UserInfo userInfo) {
-		super(player, userInfo);
+	public HardModeUser(String name, Player player, UserInfo userInfo) {
+		super(name, player, userInfo);
 	}
 	
-	/*
-	public HardModeUser(String name, Location savedLocation, int chapter, int section, int[] birthday){
-		super(name, savedLocation, chapter, section, birthday);
+	@JsonCreator
+	public HardModeUser(@JsonProperty("name")String name, @JsonProperty("userInfo")UserInfo userInfo) {
+		super(name, userInfo);
 	}
-	*/
+	
 
 }

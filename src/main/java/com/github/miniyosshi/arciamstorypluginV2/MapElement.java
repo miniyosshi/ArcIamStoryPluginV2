@@ -46,7 +46,13 @@ public abstract class MapElement {
 		//mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 		try {
 			File f = new File(folder.toString() + "/" + name +".json");//若しくはFile.separator
-			System.out.println(f.toString());
+			if(f.getParentFile().mkdirs()) {
+				System.out.println("Create new directory : " + f.getParent());
+			}
+			if(f.createNewFile()) {
+				System.out.println("Create new file : " + f.toString());
+			}
+			System.out.println("Export to : " + f.toString());
 			mapper.writeValue(f, this);
 		} catch (IOException e) {
 	    	e.printStackTrace();

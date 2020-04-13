@@ -1,4 +1,4 @@
-package com.github.miniyosshi.arciamstorypluginV2;
+package com.github.miniyosshi.arciamstorypluginV2.listeners;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -13,7 +13,7 @@ public class OnCommand implements CommandExecutor{
 		
 		//main classへの登録をお忘れなく！
 		
-		
+		/*
 		switch(Commands.valueOf(cmd.getName())) {
 		case charactercode :
 			sender.sendMessage("The character code used here is "+ System.getProperty("file.encoding"));
@@ -111,6 +111,8 @@ public class OnCommand implements CommandExecutor{
 			sender.sendMessage("This command does not exist.");
 			return false;
 		}
+		*/
+		return false;
 	}
 		
 }

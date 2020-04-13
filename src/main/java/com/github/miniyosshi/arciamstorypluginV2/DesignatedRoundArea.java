@@ -23,7 +23,6 @@ public class DesignatedRoundArea extends DesignatedArea {
 	@JsonCreator
 	public DesignatedRoundArea(@JsonProperty("name") String name, @JsonProperty("serializedCenter")Map<String, Object> serializedCenter, @JsonProperty("radius") double radius) {
 		super(name);
-		System.out.println(serializedCenter);
 		this.center = Location.deserialize(serializedCenter);
 		this.radius = radius;
 	}

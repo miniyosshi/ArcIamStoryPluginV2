@@ -4,7 +4,12 @@ public class ChapterSection {
 	
 	private int[] chapterSection = new int[2];
 	
+	public ChapterSection(int chapter, int section) {
+		chapterSection[0] = chapter;
+		chapterSection[1] = section;
+	}
 	
+	/*
 	public void addChapterSectionNumber() {
 		for(int i=0; i<List.chapterdata.size(); i++) {
 			//chapter,sectionが一致したら
@@ -14,7 +19,7 @@ public class ChapterSection {
 				
 				setChapter(ncd.getChapter());
 				setSection(ncd.getSection());
-				/*
+				
 				//次のchapterかどうか
 				if(List.chapterdata.get(i).getChapter()==List.chapterdata.get(i+1).getChapter()) {
 					setSection(getSection()+1);
@@ -23,13 +28,14 @@ public class ChapterSection {
 					setChapter(getChapter()+1);
 					setSection(1);
 				}
-				*/
+				
 				
 			break;
 			}	
 		}
 		CSVExporter.exportCSV(CSVFiles.UserData.toString());
 	}
+	*/
 	
 	/*
 	public void subtractChapterSectionNumber() {
