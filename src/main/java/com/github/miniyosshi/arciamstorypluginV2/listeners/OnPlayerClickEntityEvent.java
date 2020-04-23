@@ -4,15 +4,16 @@ import java.io.File;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
+
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.Plugin;
 
-import com.github.miniyosshi.arciamstorypluginV2.NormalModeUser;
-import com.github.miniyosshi.arciamstorypluginV2.UserInfo;
-import com.github.miniyosshi.arciamstorypluginV2.Users;
+import com.github.miniyosshi.arciamstorypluginV2.*;
 
 public class OnPlayerClickEntityEvent implements Listener {
 	
@@ -22,43 +23,54 @@ public class OnPlayerClickEntityEvent implements Listener {
 
 	@EventHandler
 	public void onPlayerClickEvent(PlayerInteractEntityEvent e) {
-		//Optional<User> u = Users.getInstance().getElementBy(e.getPlayer());
+		Player player = e.getPlayer();
+		Optional<User> user = Users.getInstance().getElementBy(player);
 		
+		String customName = e.getRightClicked().getCustomName();
+		String plainName = e.getRightClicked().getName();
+		String toStringName = e.getRightClicked().toString();
+		System.out.println("customName: "+customName+", plainName: "+plainName+"toStringName: "+toStringName);
+		
+		Optional<NPC> npc = NPCs.getInstance().getElementBy(customName);
+		
+		//test
 		if (e.getHand() == EquipmentSlot.HAND) {
-			//System.out.println(e.getRightClicked().getName()+"getName");
-			System.out.println(e.getRightClicked().toString()+"toString");
-			UserInfo userInfo = new UserInfo(e.getPlayer().getLocation(), null, null, false, null);
-			NormalModeUser user = new NormalModeUser(e.getPlayer().getName(), e.getPlayer(), userInfo);
-			System.out.println("UserName: " + user.getName());
+			UserInfo userInfo = new UserInfo(e.getPlayer().getLocation(), null, null, false, 0, null);
+			NormalModeUser u = new NormalModeUser(e.getPlayer().getName(), e.getPlayer(), userInfo);
+			System.out.println("UserName: " + u.getName());
 			Users.getInstance().exportAllToDefaultFolder();
-			
-			
+		}
+		
+		
+		user.ifPresent(u -> {
 			//ストーリー進行中でなければ
-			//if(!u.isInStoryEvent()) {
+			if(!u.isInStoryEvent()) {
 				//ストーリー進行
 				//StoryProcessor.eventCheck(u,"click", e.getRightClicked().getName());
 				
-				/*
-				//ストーリがなければ, mob会話・転入転出・ボタンクリック等
-				//switchではnullは使えないようだ
-				//以下の文すらNullPointerExceptionになる
-				//System.out.println(Mob.valueOf(e.getRightClicked().getName())+"名前");
-				
-				MobName m = MobName.Unknown;
-				boolean tf = MobName.checkExistence(e.getRightClicked().getName());
-				if(tf == true) {
-					m = MobName.valueOf(e.getRightClicked().getName());
-				}
+				//ストーリがなければ, mob会話・転入転出・ボタンクリック等(switchではnullは使えない。Unknownを設定する)
+				npc.ifPresentOrElse(v ->{
+					//NPCごとに決められたセリフ
+					v.talk(player,"決められたセリフ");
+					if(v instanceof SaverNPC && u instanceof NormalModeUser) {
+						((NormalModeUser) u).saveCurrentLocation();
+						v.talk(player,"セーブ完了！");
+					}
+					//if(v instanceof TeleporterNPC) 
 					
-				switch (m) {
-				case 村人A :
-					e.getPlayer().sendMessage("["+m+"] "+"こんにちは"+ u.getChapter() + "章のお方");
-					break;
-				case 村人B:
-					e.getPlayer().sendMessage("["+m+"] "+"やあ、気分はどうかね"+ u.getChapter() + "章のお方。");
-					break;
-				case 村人C:
-					break;
+					//商人
+					
+					
+					
+				}, () ->{
+					if(e.getRightClicked().getType().equals(EntityType.VILLAGER)) {
+						player.sendMessage("やあ。");
+					}
+				});
+			}
+		});
+
+				/*
 				case 転入係:
 					e.getPlayer().sendMessage("["+m+"] "+"５秒後に"+"転送します。");
 					
@@ -107,7 +119,6 @@ public class OnPlayerClickEntityEvent implements Listener {
 				
 				
 			//}	
-		}
 		
 		
 		

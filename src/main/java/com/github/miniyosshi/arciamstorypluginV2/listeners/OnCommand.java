@@ -6,11 +6,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.github.miniyosshi.arciamstorypluginV2.Commands;
+
 public class OnCommand implements CommandExecutor{
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {	
 		
+		Commands c = Commands.valueOf(Commands.class, cmd.getName().toLowerCase());
+		return c.execute(sender, cmd, commandLabel, args);
 		//main classへの登録をお忘れなく！
 		
 		/*
@@ -112,7 +116,6 @@ public class OnCommand implements CommandExecutor{
 			return false;
 		}
 		*/
-		return false;
 	}
 		
 }

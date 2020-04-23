@@ -1,17 +1,9 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
-import java.io.File;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
-//import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerClickEntityEvent;
-import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerDeath;
-import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerEnterDesignatedArea;
-import com.github.miniyosshi.arciamstorypluginV2.listeners.OnPlayerJoin;
+import com.github.miniyosshi.arciamstorypluginV2.listeners.*;
 
 public class ArcIamStoryPluginV2 extends JavaPlugin {
 	
@@ -36,24 +28,18 @@ public class ArcIamStoryPluginV2 extends JavaPlugin {
 		new OnPlayerClickEntityEvent(this);
 		new OnPlayerEnterDesignatedArea(this);
 		new OnPlayerJoin(this);
-		//new OnPlayerLogout(this);
+		new OnPlayerLogout(this);
 		new OnPlayerDeath(this);
 		//new OnPlayerTradewithVillager(this);
 		
-		//commandSet
-		/*
+		
 		for (Commands cmd : Commands.values()) {
+			getLogger().info(cmd.toString());
 			getCommand(cmd.toString()).setExecutor(new OnCommand());
 		}
-		*/
-		
 		/*
 		getCommand("charactercode").setExecutor(new OnCommand());
 		getCommand("deletearea").setExecutor(new OnCommand());
-		getCommand("reloadcsv").setExecutor(new OnCommand());
-		getCommand("setarea").setExecutor(new OnCommand());
-		getCommand("showarea").setExecutor(new OnCommand());
-		getCommand("userlist").setExecutor(new OnCommand());
 		*/		
 		
 		/*

@@ -5,25 +5,35 @@ description: This is only for ArcIam server.
 author: miniyosshi
 api-version: 1.15
 
-commands:
-  charactercode:
-    description: search if UTF-8 or not
+commands:  
+  addarea:
+    description: Set your location as the one corner or center of an area.
+    usage: "/addarea [name of area] [square or round] [radius for roundArea]"
+  
+  modifyarea:
+    description: Set your location as the one corner or center of an area that is already made.
+    usage: "/modifyarea [name of area] [AorB for squareArea, radius for roundArea]"
   
   deletearea:
     descripstion: Delete an area.
     usage: "/deletearea [name of area]"
   
-  reloadcsv:
-    descripstion: Reload all CSV files.
-  
   showarea:
     descripstion: See set areas.
-  
-  setarea:
-    description: Set your location as the one corner of an area.
-    usage: "/setarea [name of area] 0or1"
     
-  userlist:
+  setspot:
+    description: aaa.
+  
+  showusers:
     description: See all users.
+    
+  money:
+    description: aaa.
+    
+  createmerchant:
+    description: aaa.
+    
+  goal:
+    description: aaa.
 
     
