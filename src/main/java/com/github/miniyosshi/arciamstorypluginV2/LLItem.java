@@ -4,6 +4,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class LLItem extends MapElement {
 	private Material material;
 	private ItemMeta meta;
@@ -21,6 +23,8 @@ public class LLItem extends MapElement {
 		Player p;
 		//p.getInventory().getItemInMainHand().setItemMeta(itemMeta)
 	}
+	
+	//@JsonIgnore
 	
 	
 

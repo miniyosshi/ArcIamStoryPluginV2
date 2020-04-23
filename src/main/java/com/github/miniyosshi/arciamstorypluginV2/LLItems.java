@@ -1,6 +1,6 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
-public class LLItems extends DataRepository<LLItem> {
+public class LLItems extends MapDataRepository<LLItem> {
 	
 	private static final LLItems INSTANCE = new LLItems();
 	
