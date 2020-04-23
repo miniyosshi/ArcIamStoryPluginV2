@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 @JsonTypeInfo(use=JsonTypeInfo.Id.MINIMAL_CLASS, property="classType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class MapElement {
 	
 	protected String name;
@@ -32,7 +34,7 @@ public abstract class MapElement {
 		ObjectMapper mapper = new ObjectMapper();
 		Optional<MapElement> element = Optional.empty();
 		try {
-			element = Optional.ofNullable(mapper.readValue(jsonText, MapElement.class));
+			element = Optional.ofNullable(mapper.readValue(jsonText, this.getClass()));
 		} catch (IOException e) {
 	    	e.printStackTrace();
 	    }

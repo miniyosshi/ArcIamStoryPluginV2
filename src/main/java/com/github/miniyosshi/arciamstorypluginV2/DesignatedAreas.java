@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.bukkit.Location;
 
 
-public class DesignatedAreas extends DataRepository<DesignatedArea> {
+public class DesignatedAreas extends MapDataRepository<DesignatedArea> {
 	//Singleton because there are extensions although it has an instance field
 	private static final DesignatedAreas INSTANCE = new DesignatedAreas();
 	

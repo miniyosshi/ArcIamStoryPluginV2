@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DesignatedSpot extends DesignatedPosition {
@@ -15,14 +16,19 @@ public class DesignatedSpot extends DesignatedPosition {
 	@JsonCreator
 	public DesignatedSpot(@JsonProperty("name") String name, @JsonProperty("serializedLocation")Map<String, Object> serializedLocation) {
 		this.name = name;
-		this.location = Location.deserialize(serializedLocation);
+		this.location = SerializableLocation.deserialize(serializedLocation).getLocation();
 		
 		DesignatedSpots dss = DesignatedSpots.getInstance();
 		dss.add(this);
 	}
 	
+	@JsonIgnore
 	public Location getLocation() {
 		return location;
+	}
+	
+	public Map<String, Object> getSerializedLocation() {
+		return location.serialize();
 	}
 	
 	@Override

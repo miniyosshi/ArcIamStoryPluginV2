@@ -1,11 +1,13 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DesignatedSquareArea extends DesignatedArea {
@@ -15,7 +17,7 @@ public class DesignatedSquareArea extends DesignatedArea {
 	
 	public DesignatedSquareArea(String name, Location cornerA, Location cornerB) {
 		super(name);
-		if(cornerA.getWorld().equals(cornerB.getWorld())) {
+		if(Objects.equals(cornerA.getWorld(), cornerB.getWorld())) {
 			this.cornerA = cornerA;
 			this.cornerB = cornerB;
 		}
@@ -27,9 +29,9 @@ public class DesignatedSquareArea extends DesignatedArea {
 	@JsonCreator
 	public DesignatedSquareArea(@JsonProperty("name")String name, @JsonProperty("serializedCornerA")Map<String, Object> serializedCornerA, @JsonProperty("serializedCornerB")Map<String, Object> serializedCornerB) {
 		super(name);
-		Location cA = Location.deserialize(serializedCornerA);
-		Location cB = Location.deserialize(serializedCornerB);
-		if(cornerA.getWorld().equals(cornerB.getWorld())) {
+		Location cA = SerializableLocation.deserialize(serializedCornerA).getLocation();
+		Location cB = SerializableLocation.deserialize(serializedCornerB).getLocation();
+		if(Objects.equals(cA.getWorld(), cB.getWorld())) {
 			this.cornerA = cA;
 			this.cornerB = cB;
 		}
@@ -37,11 +39,11 @@ public class DesignatedSquareArea extends DesignatedArea {
 			System.out.println("Error:Corner A and B are in different worlds from each other : DesignatedSquareArea " + name);
 		}
 	}
-	
+	@JsonProperty
 	public Map<String, Object> getSerializedCornerA() {
 		return cornerA.serialize();
 	}
-	
+	@JsonProperty
 	public Map<String, Object> getSerializedCornerB() {
 		return cornerB.serialize();
 	}
@@ -51,6 +53,14 @@ public class DesignatedSquareArea extends DesignatedArea {
 		Location vector = cornerB.subtract(cornerA);
 		vector.multiply(0.5);
 		return cornerA.add(vector);
+	}
+	@JsonIgnore
+	public void setCornerA(Location location) {
+		cornerA = location;
+	}
+	@JsonIgnore
+	public void setCornerB(Location location) {
+		cornerB = location;
 	}
 	
 	@Override

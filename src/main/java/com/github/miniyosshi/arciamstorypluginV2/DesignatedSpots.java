@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class DesignatedSpots extends DataRepository<DesignatedSpot> {
+public class DesignatedSpots extends MapDataRepository<DesignatedSpot> {
 	private static final DesignatedSpots INSTANCE = new DesignatedSpots();
 	
 	private DesignatedSpots() {}

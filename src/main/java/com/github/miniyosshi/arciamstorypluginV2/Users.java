@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.bukkit.entity.Player;
 
-public class Users extends DataRepository<User> {
+public class Users extends MapDataRepository<User> {
 	// Singleton
 	private static final Users INSTANCE = new Users();
 	

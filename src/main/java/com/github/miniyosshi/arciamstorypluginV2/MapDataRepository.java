@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class DataRepository<T extends MapElement> {
+public abstract class MapDataRepository<T extends MapElement> {
 	
 	protected Map<String, T> map = new HashMap<String, T>();
 	
@@ -28,6 +28,10 @@ public abstract class DataRepository<T extends MapElement> {
 	
 	public Optional<T> getElementBy(String name) {
 		return Optional.ofNullable(map.get(name));
+	}
+	
+	public String showAll(){
+		return map.keySet().toString();
 	}
 	
 	public void importAllFrom(File folder, Class<T> elementClass) {

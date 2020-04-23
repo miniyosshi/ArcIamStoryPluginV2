@@ -5,21 +5,26 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public abstract class NPC extends MapElement {
 	
 	private Mob mob;
 	
-	public NPC(String name, Mob mob, boolean isInvulnerable, boolean hasAI, LivingEntity nullableTarget) {
+	@JsonCreator
+	public NPC(@JsonProperty("name")String name, @JsonProperty("mob")Mob mob, @JsonProperty("isInvulnerable")boolean isInvulnerable, 
+				@JsonProperty("hasAI")boolean hasAI, @JsonProperty("target")LivingEntity nullableTarget) {
 		this.name = name;
 		this.mob = mob;
 		
 		mob.setCustomName(name);
+		mob.setCustomNameVisible(true);
 		mob.setInvulnerable(isInvulnerable);
 		mob.setAI(hasAI);
 		mob.setTarget(nullableTarget);
 		
-		NPCs npcs = NPCs.getInstance();
-		npcs.add(this);
+		NPCs.getInstance().add(this);
 	}
 	
 	public void spawnAt(Location location) {

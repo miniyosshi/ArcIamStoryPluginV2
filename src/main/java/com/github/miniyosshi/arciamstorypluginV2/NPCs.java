@@ -1,6 +1,6 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
-public class NPCs extends DataRepository<NPC> {
+public class NPCs extends MapDataRepository<NPC> {
 	
 	private static final NPCs INSTANCE = new NPCs();
 	
