@@ -15,7 +15,7 @@ public class DesignatedSpots extends MapDataRepository<DesignatedSpot> {
 	
 	public Optional<Map<String, DesignatedSpot>> getElementsBy(DesignatedArea da){
 		Map<String, DesignatedSpot> result = new HashMap<String, DesignatedSpot>();
-		for (MapElement element : map.values()) {
+		for (Element element : map.values()) {
 			DesignatedSpot ds = (DesignatedSpot) element;
 			if(ds.isIn(da)) {
 				result.put(ds.getName(), ds);

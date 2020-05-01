@@ -11,7 +11,7 @@ import java.util.Optional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
-public abstract class MapDataRepository<T extends MapElement> {
+public abstract class MapDataRepository<T extends Element>{
 	
 	protected Map<String, T> map = new HashMap<String, T>();
 	

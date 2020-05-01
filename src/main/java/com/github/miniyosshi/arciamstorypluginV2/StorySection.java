@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.bukkit.Location;
 
-public class StorySection extends ListElement {
+public class StorySection extends Element {
 	
 	private int[] chapterSectionNumber = new int[2];
 	private String title;

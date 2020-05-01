@@ -16,7 +16,7 @@ public class DesignatedAreas extends MapDataRepository<DesignatedArea> {
 	}
 	
 	public Optional<DesignatedArea> getElementBy(Location location) {
-		for (MapElement element : map.values()) {
+		for (Element element : map.values()) {
 			DesignatedArea da = (DesignatedArea) element;
 			if(da.contains(location)) {
 				return Optional.of(da);

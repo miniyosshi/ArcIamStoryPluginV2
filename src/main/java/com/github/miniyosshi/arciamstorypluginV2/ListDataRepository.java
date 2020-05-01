@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
-public class ListDataRepository<T extends ListElement> {
+public abstract class ListDataRepository<T extends Element>{
 	
 	private List<T> list = new ArrayList<T>();
 	
@@ -27,6 +28,7 @@ public class ListDataRepository<T extends ListElement> {
 		List<File> fileList = Arrays.asList(Optional.ofNullable(folder.listFiles()).orElse(new File[0]));
 		for(File f : fileList) {
 			ObjectMapper mapper = new ObjectMapper();
+			mapper.registerModule(new Jdk8Module());
 			Optional<T> element = Optional.empty();
 			try {						
 				element = Optional.ofNullable(mapper.readValue(f, elementClass));

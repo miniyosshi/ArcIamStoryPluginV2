@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class NPC extends MapElement {
+public abstract class NPC extends Element {
 	
 	private Mob mob;
 	

@@ -6,7 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class LLItem extends MapElement {
+public class LLItem extends Element {
 	private Material material;
 	private ItemMeta meta;
 	private double soldPrice;
