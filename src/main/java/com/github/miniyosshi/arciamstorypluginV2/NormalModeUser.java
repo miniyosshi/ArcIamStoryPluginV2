@@ -1,5 +1,7 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
+import java.util.Optional;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -23,8 +25,10 @@ public class NormalModeUser extends User {
 	}
 	
 	public void teleportToSavePoint() {
-		Location location = userInfo.getSavedLocation();
-		player.teleport(location);
+		Optional<Location> location = userInfo.getSavedLocation();
+		location.ifPresent(v ->{
+			player.teleport(v);
+		});
 	}
 
 }

@@ -13,7 +13,7 @@ public class ListDataRepository<T extends ListElement> {
 	
 	private List<T> list = new ArrayList<T>();
 	
-private final String parentFolderString = "D:/Desktop/JsonFiles";
+	private final String parentFolderString = "./ArcIamExternalFiles/JsonFiles/";
 	
 	public void add(T element) {
 		list.add(element);

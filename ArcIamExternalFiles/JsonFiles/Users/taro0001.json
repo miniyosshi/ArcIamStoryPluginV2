@@ -1,0 +1,14 @@
+{
+  "classType" : ".NormalModeUser",
+  "name" : "taro0001",
+  "userInfo" : {
+    "chapterSection" : [ 1, 1 ],
+    "birthday" : {
+      "year" : 1990,
+      "month" : 1,
+      "day" : 1
+    },
+    "isInStoryEvent" : false,
+    "money" : 0.0
+  }
+}

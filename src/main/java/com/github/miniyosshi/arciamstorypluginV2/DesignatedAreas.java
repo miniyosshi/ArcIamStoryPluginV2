@@ -22,6 +22,6 @@ public class DesignatedAreas extends MapDataRepository<DesignatedArea> {
 				return Optional.of(da);
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 }

@@ -98,8 +98,8 @@ public enum Commands {
 	showarea {
 		@Override
 		public boolean execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-			// TODO Auto-generated method stub
-			return false;
+			sender.sendMessage(DesignatedAreas.getInstance().showAll());
+			return true;
 		}
 	},
 	
@@ -161,7 +161,11 @@ public enum Commands {
 	goal {
 		@Override
 		public boolean execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-			// TODO Auto-generated method stub
+			if(sender instanceof Player) {
+				sender.sendMessage("Goal: ");
+			}else {
+				sender.sendMessage("This command should be sent by a player.");
+			}
 			return false;
 		}
 	};

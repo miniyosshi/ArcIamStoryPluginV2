@@ -29,7 +29,7 @@ public abstract class User extends MapElement {
 		Users.getInstance().add(this);
 	}
 	
-	//@JsonCreator
+	@JsonCreator
 	public User(String name, UserInfo userInfo) {
 		this.name = name;
 		this.userInfo = userInfo;
@@ -44,6 +44,7 @@ public abstract class User extends MapElement {
 		this.userInfo = userInfo;
 	}
 	
+	@JsonIgnore
 	public Optional<DesignatedArea> isIn() {
 		Location location = player.getLocation();
 		DesignatedAreas das = DesignatedAreas.getInstance();

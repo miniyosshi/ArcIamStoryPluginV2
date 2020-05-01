@@ -6,53 +6,64 @@ import java.util.Optional;
 
 import org.bukkit.Location;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
+@JsonIgnoreProperties(ignoreUnknown=true)
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class UserInfo {
-	
-	private Location savedLocation;
+	private Optional<Location> savedLocation = Optional.empty();
+	//プリミティブ型以外は初期化しておかないとエラーになる
+	@JsonProperty
 	private int[] chapterSection = new int[2];
+	@JsonProperty
 	private Birthday birthday;
-	private boolean isInStoryEvent = false;
+	@JsonProperty
+	private boolean isInStoryEvent;
+	@JsonProperty
 	private double money;
 	@JsonIgnore
-	private Optional<DesignatedArea> pastDesignatedArea;
+	private Optional<DesignatedArea> pastDesignatedArea = Optional.empty();
 	
-	public UserInfo(Location savedLocation, int[] chapterSection, Birthday birthday,
-					boolean isInStoryEvent, double money,Optional<DesignatedArea> pastDesignatedArea) {
-		this.savedLocation = savedLocation;
-		this.chapterSection = chapterSection;
-		this.birthday = birthday;
-		this.isInStoryEvent = isInStoryEvent;
-		this.money = money;
-		this.pastDesignatedArea = pastDesignatedArea;
+	public UserInfo() {
+		this.chapterSection[0] = 1;
+		this.chapterSection[1] = 1;
+		this.birthday = new Birthday(1990, 1, 1);
 	}
 	
 	@JsonCreator
-	public UserInfo(@JsonProperty("serializedSavedLocation")Map<String, Object> serializedSavedLocation, @JsonProperty("chapterSection")int[] chapterSection, 
-					@JsonProperty("birthday")Birthday birthday, @JsonProperty("isInStoryEvent")boolean isInStoryEvent, @JsonProperty("money")double money,
-					@JsonProperty("pastDesignatedArea")Optional<DesignatedArea> pastDesignatedArea) {
-		this.savedLocation = SerializableLocation.deserialize(serializedSavedLocation).getLocation();
+	public UserInfo(@JsonProperty("serializedSavedLocation") Optional<Map<String, Object>> serializedSavedLocation, @JsonProperty("chapterSection")int[] chapterSection, 
+					@JsonProperty("birthday")Birthday birthday, @JsonProperty("isInStoryEvent")boolean isInStoryEvent, @JsonProperty("money")double money) {
+		serializedSavedLocation.ifPresent(v ->{
+			this.savedLocation = Optional.of(SerializableLocation.deserialize(v).getLocation());
+		});
 		this.chapterSection = chapterSection;
 		this.birthday = birthday;
 		this.isInStoryEvent = isInStoryEvent;
 		this.money = money;
-		this.pastDesignatedArea = pastDesignatedArea;
 	}
 	
 	@JsonIgnore
-	public Location getSavedLocation() {
+	public Optional<Location> getSavedLocation() {
 		return savedLocation;
 	}
+	
 	@JsonProperty
-	public Map<String, Object> getSerializedSavedLocation() {
-		return savedLocation.serialize();
+	public Optional<Map<String, Object>> getSerializedSavedLocation() {
+		Optional<Map<String, Object>> result = savedLocation.map(v -> {
+			return v.serialize();
+		});
+		return result;
 	}
+	
 	@JsonIgnore
 	public void setSavedLocation(Location location) {
-		savedLocation = location;
+		savedLocation =Optional.of(location);
 	}
 	@JsonIgnore
 	public boolean isInStoryEvent() {

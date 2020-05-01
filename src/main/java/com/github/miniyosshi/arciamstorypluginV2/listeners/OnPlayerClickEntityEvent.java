@@ -31,16 +31,7 @@ public class OnPlayerClickEntityEvent implements Listener {
 		String toStringName = e.getRightClicked().toString();
 		System.out.println("customName: "+customName+", plainName: "+plainName+"toStringName: "+toStringName);
 		
-		Optional<NPC> npc = NPCs.getInstance().getElementBy(customName);
-		
-		//test
-		if (e.getHand() == EquipmentSlot.HAND) {
-			UserInfo userInfo = new UserInfo(e.getPlayer().getLocation(), null, null, false, 0, null);
-			NormalModeUser u = new NormalModeUser(e.getPlayer().getName(), e.getPlayer(), userInfo);
-			System.out.println("UserName: " + u.getName());
-			Users.getInstance().exportAllToDefaultFolder();
-		}
-		
+		Optional<NPC> npc = NPCs.getInstance().getElementBy(customName);		
 		
 		user.ifPresent(u -> {
 			//ストーリー進行中でなければ

@@ -9,9 +9,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 @JsonTypeInfo(use=JsonTypeInfo.Id.MINIMAL_CLASS, property="classType")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class MapElement {
 	
@@ -32,6 +33,7 @@ public abstract class MapElement {
 	
 	public Optional<MapElement> importFrom(String jsonText) {
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new Jdk8Module());
 		Optional<MapElement> element = Optional.empty();
 		try {
 			element = Optional.ofNullable(mapper.readValue(jsonText, this.getClass()));
@@ -44,6 +46,7 @@ public abstract class MapElement {
 	public void exportTo(File folder) {
 		//serialize
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new Jdk8Module());
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		//mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 		try {

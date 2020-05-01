@@ -11,6 +11,4 @@ public class LLItems extends MapDataRepository<LLItem> {
 	}
 	
 	
-	
-	
 }

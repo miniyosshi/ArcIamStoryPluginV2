@@ -56,6 +56,11 @@ public class ArcIamStoryPluginV2 extends JavaPlugin {
 	public void onDisable() {	
 		
 		//export all
+		DesignatedAreas.getInstance().exportAllToDefaultFolder();
+		DesignatedSpots.getInstance().exportAllToDefaultFolder();
+		LLItems.getInstance().exportAllToDefaultFolder();
+		NPCs.getInstance().exportAllToDefaultFolder();
+		Users.getInstance().exportAllToDefaultFolder();
 		
 		getLogger().info("Plugin ArcIamStoryPlugin has been disabled.");
 	}

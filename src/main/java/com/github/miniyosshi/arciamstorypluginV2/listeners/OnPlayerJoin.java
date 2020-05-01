@@ -31,15 +31,14 @@ public class OnPlayerJoin implements Listener {
 		//あらかじめログアウト時にロビーに来ている。
 		Optional<User> user = Users.getInstance().getElementBy(player.getName());
 		user.ifPresentOrElse(v -> {
-			
 			v.setPlayer(player);
 			System.out.println(player.getName() + " log in.");
 			}, () -> {
 			//First login
 			System.out.println(player.getName() + " log in the server for the first time!");
 			//初期値
-			//UserInfo info = new UserInfo(null, null, null, false, null);
-			new NormalModeUser(player.getName(), player, null).teleportToLobby();
+			UserInfo info = new UserInfo();
+			new NormalModeUser(player.getName(), player, info).teleportToLobby();
 		});
 		
 		
