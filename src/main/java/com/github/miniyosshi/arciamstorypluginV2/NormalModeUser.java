@@ -20,14 +20,17 @@ public class NormalModeUser extends User {
 	}
 	
 	public void saveCurrentLocation() {
-		userInfo.setSavedLocation(player.getLocation());
-		//CSVExporter.exportCSV("UserData");
+		player.ifPresent(v->{
+			userInfo.setSavedLocation(v.getLocation());
+		});
+		//save
 	}
 	
 	public void teleportToSavePoint() {
-		Optional<Location> location = userInfo.getSavedLocation();
-		location.ifPresent(v ->{
-			player.teleport(v);
+		player.ifPresent(v->{
+			userInfo.getSavedLocation().ifPresent(w->{
+				v.teleport(w);
+			});
 		});
 	}
 
