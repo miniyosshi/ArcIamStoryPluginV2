@@ -35,5 +35,12 @@ commands:
     
   goal:
     description: aaa.
+  
+  createmob:
+    description: Spawn mob here.
+    usage: "/createmob [name of mob]"
+    
+  createspecialsword:
+    description: aaa.
 
     

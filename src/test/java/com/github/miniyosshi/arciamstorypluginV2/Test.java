@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class Test {
 	
@@ -36,6 +39,11 @@ public class Test {
 		System.out.println(s.isEmpty());
 		//return nullは厳禁　return Optional.empty()とする！！！
 		*/
+		/*
+		SaverNPC npc = new SaverNPC("セーブさん");
+		NPCs.getInstance().exportAllToDefaultFolder();
+		*/
+		
 	}
 
 }

@@ -8,10 +8,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public enum Commands {	
 	//designatedArea
@@ -132,6 +135,7 @@ public enum Commands {
 		@Override
 		public boolean execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 			if(sender instanceof Player) {
+				/*
 				// create merchant:
 				Merchant merchant = Bukkit.createMerchant("test");
 				ItemStack sellingItem = new ItemStack(Material.APPLE);
@@ -144,11 +148,15 @@ public enum Commands {
 				recipe.addIngredient(buyItem1);
 				merchantRecipes.add(recipe);
 
-				// apply recipes to merchant:
+				//apply recipes to merchant:
 				merchant.setRecipes(merchantRecipes);
 
 				// open trading window:
 				((Player)sender).openMerchant(merchant, true);
+				*/
+				Inventory inventory = Bukkit.createInventory(null, 9, "SHOP");
+				((Player)sender).openInventory(inventory);
+				
 				return true;
 			} else {
 				sender.sendMessage("This command should be sent by a player.");
@@ -168,6 +176,43 @@ public enum Commands {
 			}
 			return false;
 		}
+	},
+	
+	createmob {
+		@Override
+		public boolean execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+			if(sender instanceof Player) {
+				if(args.length == 1) {
+					NPCs.getInstance().getElementBy(args[0]).ifPresent(v-> {
+						v.spawnAt(((Player)sender).getLocation());
+					});
+				}
+			}else {
+				sender.sendMessage("This command should be sent by a player.");
+			}
+			return false;
+		}
+	},
+	
+	createspecialsword{
+		@Override
+		public boolean execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+			if(sender instanceof Player) {
+				LLItem item = new LLItem("すごい剣", Material.DIAMOND_SWORD, 100);
+				ItemStack itemStack = item.generate(1);
+				ItemMeta meta = itemStack.getItemMeta();
+				meta.setDisplayName("この剣やばい");
+				meta.addEnchant(Enchantment.DAMAGE_ALL, 3, true);
+				itemStack.setItemMeta(meta);
+				((Player) sender).getInventory().setItem(10, itemStack);
+				item.setItemMeta(meta);
+				LLItems.getInstance().exportAllToDefaultFolder();
+			}else {
+				sender.sendMessage("This command should be sent by a player.");
+			}
+			return false;
+		}
+		
 	};
 	
 	public abstract boolean execute(CommandSender sender, Command cmd, String commandLabel, String[] args);
