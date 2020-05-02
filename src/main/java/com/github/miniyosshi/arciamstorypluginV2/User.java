@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
@@ -17,19 +18,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class User extends Element {
 	@JsonIgnore
-	protected Player player;
+	protected Optional<Player> player = Optional.empty();
 	
 	@JsonProperty
-	protected UserInfo userInfo;
+	protected UserInfo userInfo = new UserInfo();
 	
 	public User(String name, Player player, UserInfo userInfo) {
 		this.name = name;
-		this.player = player;
+		this.player = Optional.of(player);
 		setInfo(userInfo);
 		Users.getInstance().add(this);
 	}
 	
-	@JsonCreator
 	public User(String name, UserInfo userInfo) {
 		this.name = name;
 		this.userInfo = userInfo;
@@ -37,7 +37,7 @@ public abstract class User extends Element {
 	}
 	
 	public void setPlayer(Player player) {
-		this.player = player;
+		this.player = Optional.of(player);
 	}
 	
 	public void setInfo(UserInfo userInfo) {
@@ -46,14 +46,19 @@ public abstract class User extends Element {
 	
 	@JsonIgnore
 	public Optional<DesignatedArea> isIn() {
-		Location location = player.getLocation();
-		DesignatedAreas das = DesignatedAreas.getInstance();
-		return das.getElementBy(location);
+		return player.map(v->{
+			Location location = v.getLocation();
+			DesignatedAreas das = DesignatedAreas.getInstance();
+			return das.getElementBy(location);
+		}).orElse(Optional.empty());
 	}
 	
 	public boolean isIn(DesignatedArea designatedArea) {
-		Location location = player.getLocation();
-		return designatedArea.contains(location);
+		return player.map(v->{
+			Location location = v.getLocation();
+			return designatedArea.contains(location);
+		}).orElse(false);
+		
 	}
 	
 	@JsonIgnore
@@ -72,20 +77,29 @@ public abstract class User extends Element {
 	}
 	
 	public void teleportToLobby() {
-		DesignatedSpots.getInstance().getElementBy("Lobby").ifPresent(v ->{
-			player.teleport(v.getLocation());
+		teleportTo("Lobby");
+	}
+	
+	public void teleportTo(String spotName) {
+		DesignatedSpots.getInstance().getElementBy(spotName).ifPresent(v ->{
+			player.ifPresent(w->{
+				w.teleport(v.getLocation());
+			});
+		});
+	}
+	
+	public void teleportToRandomSpotIn(DesignatedArea da) {
+		player.ifPresent(v->{
+			v.teleport(da.getRandomLocation());
 		});
 	}
 	
 	public void continueAfterDeath() {
-		//Teleport to hospital
-		DesignatedSpots dss = DesignatedSpots.getInstance();
-		Optional<DesignatedSpot> hospital = dss.getElementBy("Hospital");
-		hospital.ifPresent(v -> {player.teleport(v.getLocation());});
+		teleportTo("Hospital");
 		if (this instanceof HardModeUser) {
 			//一応インベントリ抽出保存
 			
-			player.getInventory().clear();
+			//player.getInventory().clear();
 			//ステータス初期化
 			
 		}
@@ -95,22 +109,28 @@ public abstract class User extends Element {
 	
 	public void generateCustomZombie() {
 		//ゾンビ出現（プレーヤーと同じステータス）
-		ItemStack skull = new ItemStack(Material.SKELETON_SKULL);
-		SkullMeta sm = (SkullMeta) skull.getItemMeta();
-		sm.setOwningPlayer(player);
-		skull.setItemMeta(sm);
+		player.ifPresent(v->{
+			ItemStack skull = new ItemStack(Material.SKELETON_SKULL);
+			SkullMeta sm = (SkullMeta) skull.getItemMeta();
+			sm.setOwningPlayer(v);
+			System.out.println(sm.getOwningPlayer().getName());
+			skull.setItemMeta(sm);
+			
+			Location location = v.getLocation();
+			
+			Zombie s = (Zombie) v.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+			s.setCustomNameVisible(true);
+			s.setCustomName(v.getName() + "の哀れな姿");
+			s.getEquipment().setHelmet(skull);
+			s.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD,1));
+			
+			//Mob m = s;
+			
+			//ステータス
+			s.setHealth(0.5);
+			// walk speed
+		});
 		
-		Location location =player.getLocation();
-		
-		Zombie s = (Zombie) player.getWorld().spawnEntity(location, EntityType.ZOMBIE);
-		s.setCustomNameVisible(true);
-		s.setCustomName(player.getName() + "の哀れな姿");
-		s.getEquipment().setHelmet(skull);
-		s.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD,1));
-		
-		//ステータス
-		s.setHealth(1);
-		// walk speed
 	}
 	
 

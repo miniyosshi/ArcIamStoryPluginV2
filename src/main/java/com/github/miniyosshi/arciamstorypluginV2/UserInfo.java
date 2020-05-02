@@ -22,30 +22,36 @@ public class UserInfo {
 	@JsonProperty
 	private int[] chapterSection = new int[2];
 	@JsonProperty
-	private Birthday birthday;
+	private Birthday birthday = new Birthday();
 	@JsonProperty
 	private boolean isInStoryEvent;
 	@JsonProperty
-	private double money;
+	private Assets assets = new Assets();
+	@JsonProperty
+	private Ability ability = new Ability();
 	@JsonIgnore
 	private Optional<DesignatedArea> pastDesignatedArea = Optional.empty();
 	
 	public UserInfo() {
 		this.chapterSection[0] = 1;
 		this.chapterSection[1] = 1;
-		this.birthday = new Birthday(1990, 1, 1);
+		this.birthday = new Birthday();
+		this.assets = new Assets();
+		this.ability = new Ability();
 	}
 	
 	@JsonCreator
 	public UserInfo(@JsonProperty("serializedSavedLocation") Optional<Map<String, Object>> serializedSavedLocation, @JsonProperty("chapterSection")int[] chapterSection, 
-					@JsonProperty("birthday")Birthday birthday, @JsonProperty("isInStoryEvent")boolean isInStoryEvent, @JsonProperty("money")double money) {
+					@JsonProperty("birthday")Birthday birthday, @JsonProperty("isInStoryEvent")boolean isInStoryEvent, @JsonProperty("assets")Assets assets,
+					@JsonProperty("ability")Ability ability) {
 		serializedSavedLocation.ifPresent(v ->{
 			this.savedLocation = Optional.of(SerializableLocation.deserialize(v).getLocation());
 		});
 		this.chapterSection = chapterSection;
 		this.birthday = birthday;
 		this.isInStoryEvent = isInStoryEvent;
-		this.money = money;
+		this.assets = assets;
+		this.ability = ability;
 	}
 	
 	@JsonIgnore
@@ -78,4 +84,9 @@ public class UserInfo {
 	public boolean pastDesignatedAreaEquals(Optional<DesignatedArea> presentArea) {
 		return Objects.equals(pastDesignatedArea, presentArea);
 	}
+	
+	public void addChapterSection() {
+		chapterSection = StorySections.getInstance().nextChapterSectionNumber(chapterSection[0],chapterSection[1]);
+	}
+	
 }
