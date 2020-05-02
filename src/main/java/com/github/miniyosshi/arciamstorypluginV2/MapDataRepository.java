@@ -33,6 +33,10 @@ public abstract class MapDataRepository<T extends Element>{
 		return map.keySet().toString();
 	}
 	
+	public int size() {
+		return map.size();
+	}
+	
 	public void importAllFrom(File folder, Class<T> elementClass) {
 		List<File> list = Arrays.asList(Optional.ofNullable(folder.listFiles()).orElse(new File[0]));
 		for(File f : list) {
@@ -68,4 +72,5 @@ public abstract class MapDataRepository<T extends Element>{
 		System.out.println(folder.toString());
 		exportAllTo(folder);
 	}
+	
 }
