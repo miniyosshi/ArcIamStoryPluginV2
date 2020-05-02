@@ -17,8 +17,35 @@ public class StorySection extends Element {
 	//private List<String> sentences = new ArrayList<String>();
 	private Optional<Location> viewpoint;
 	
+	public StorySection(int[] chapterSectionNumber, String title, String goal, String triggerAction,
+			String triggerObject, Optional<Location> viewpoint) {
+		this.chapterSectionNumber = chapterSectionNumber;
+		this.title = title;
+		this.goal = goal;
+		this.triggerAction = triggerAction;
+		this.triggerObject = triggerObject;
+		this.viewpoint = viewpoint;
+	}
 	
+	public boolean hasNext() {
+		int currentIndex = StorySections.getInstance().indexOf(this);
+		if(currentIndex == -1) {
+			System.out.println("There is no such a story section.");
+			return false;
+		}
+		if(currentIndex >= StorySections.getInstance().size()-1) {
+			System.out.println("There is no more story section.");
+			return false;
+		}
+		return true;
+	}
 	
+	public int[] getChapterSectionNumber() {
+		return chapterSectionNumber;
+	}
+
+
+
 	/*
 	public void addChapterSectionNumber() {
 		for(int i=0; i<List.chapterdata.size(); i++) {
@@ -68,12 +95,14 @@ public class StorySection extends Element {
 	//座標判定メソッド改訂版
 	
 	//ある数字がある二つの数字の間にあるかどうかp--a--q,q--a--p
+	/*
 	public static boolean numberBetweeness (double a, double p, double q) {
 		if ((p <= a && a <= q) || (q <= a && a <= p))
 			return true;
 		else
 			return false;
-		}
+	}
+	*/
 	
 	
 

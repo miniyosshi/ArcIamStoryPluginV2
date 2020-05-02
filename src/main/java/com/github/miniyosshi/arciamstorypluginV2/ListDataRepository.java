@@ -24,6 +24,31 @@ public abstract class ListDataRepository<T extends Element>{
 		list.remove(element);
 	}
 	
+	public int indexOf(Element e) {
+		return list.indexOf(e);
+	}
+	
+	public int size() {
+		return list.size();
+	}
+	
+	public Optional<T> getElementBy(int index) {
+		if(0<=index && index<list.size()) {
+			Optional.of(list.get(index));
+		}
+		System.out.println("ListDataRepository: input index is out of range.");
+		return Optional.empty();
+	}
+	
+	public Optional<T> getElementBy(String name) {
+		for(T element : list) {
+			if(name.equals(element.getName())){
+				return Optional.of(element);
+			}
+		}
+		return Optional.empty();
+	}
+	
 	public void importAllFrom(File folder, Class<T> elementClass) {
 		List<File> fileList = Arrays.asList(Optional.ofNullable(folder.listFiles()).orElse(new File[0]));
 		for(File f : fileList) {

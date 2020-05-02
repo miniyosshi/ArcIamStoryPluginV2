@@ -16,6 +16,8 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class Element {
 	
+	private final String parentFolderString = "./ArcIamExternalFiles/JsonFiles/";
+	
 	protected String name;
 	
 	public String getName() {
