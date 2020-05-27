@@ -28,6 +28,7 @@ public class NormalModeUser extends User {
 	
 	public void teleportToSavePoint() {
 		player.ifPresent(v->{
+			
 			userInfo.getSavedLocation().ifPresent(w->{
 				v.teleport(w);
 			});

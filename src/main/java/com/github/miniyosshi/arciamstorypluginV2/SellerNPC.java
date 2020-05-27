@@ -2,12 +2,11 @@ package com.github.miniyosshi.arciamstorypluginV2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
@@ -33,7 +32,17 @@ public class SellerNPC extends NPC {
 		}		
 	}
 	
+	public void openInventoryTo(Player player) {
+		player.openInventory(inventory);
+	}
 	
+	public void sell(LLItem item, User user) {
+		if(items.contains(item)) {
+			user.buy(item);
+		}else {
+			user.sendMessage("それは売っていないよ。");
+		}
+	}
 	
 	
 

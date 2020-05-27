@@ -12,9 +12,9 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 public abstract class ListDataRepository<T extends Element>{
 	
-	private List<T> list = new ArrayList<T>();
+	protected List<T> list = new ArrayList<T>();
 	
-	private final String parentFolderString = "./ArcIamExternalFiles/JsonFiles/";
+	private final String parentFolderString = "./plugins/ArcIamExternalFiles/JsonFiles/";
 	
 	public void add(T element) {
 		list.add(element);
@@ -34,7 +34,7 @@ public abstract class ListDataRepository<T extends Element>{
 	
 	public Optional<T> getElementBy(int index) {
 		if(0<=index && index<list.size()) {
-			Optional.of(list.get(index));
+			return Optional.of(list.get(index));
 		}
 		System.out.println("ListDataRepository: input index is out of range.");
 		return Optional.empty();

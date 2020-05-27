@@ -2,30 +2,45 @@ package com.github.miniyosshi.arciamstorypluginV2;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LLItem extends Element {
+	@JsonProperty
 	private Material material;
-	private ItemMeta meta;
+	//metaはPlayerとかと同じ感じ
+	//private ItemMeta meta;
+	@JsonProperty
 	private double soldPrice;
 	
-	public LLItem(String name, Material material, ItemMeta meta) {
+	@JsonCreator
+	public LLItem(@JsonProperty("name")String name, @JsonProperty("material")Material material,
+				  @JsonProperty("soldPrice")double soldPrice) {
 		this.name = name;
 		this.material = material;
-		this.meta = meta;
-		LLItems items = LLItems.getInstance();
-		items.add(this);
+		this.soldPrice = soldPrice;
+		LLItems.getInstance().add(this);
 	}
 	
-	public void aaa() {
-		Player p;
-		//p.getInventory().getItemInMainHand().setItemMeta(itemMeta)
+	public double getSoldPrice() {
+		return soldPrice;
 	}
 	
-	//@JsonIgnore
+	public ItemStack generate(int amount) {
+		ItemStack is = new ItemStack(material, amount);
+		//is.setItemMeta(meta);
+		return is;
+	}
 	
+	public void setItemMeta(ItemMeta meta) {
+		//this.meta = meta;
+	}
+
+
 	
 
 }

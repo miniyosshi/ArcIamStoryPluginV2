@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -16,7 +17,8 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class Element {
 	
-	private final String parentFolderString = "./ArcIamExternalFiles/JsonFiles/";
+	//@JsonIgnore
+	//public final String parentFolderString = "./plugins/ArcIamExternalFiles/JsonFiles/";
 	
 	protected String name;
 	

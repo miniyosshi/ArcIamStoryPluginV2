@@ -1,6 +1,5 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class StorySections extends ListDataRepository<StorySection>{
@@ -25,12 +24,14 @@ public class StorySections extends ListDataRepository<StorySection>{
 		return Optional.empty();
 	}
 	
+	/*
 	public int[] nextChapterSectionNumber(StorySection ss) {
 		Optional<StorySection> nss = nextStorySection(ss);
 		//後がなければそのままの番号を返す
 		return nss.map(v-> v.getChapterSectionNumber()).orElse(ss.getChapterSectionNumber());
 	}
-	
+	*/
+	/*
 	public int[] nextChapterSectionNumber(int chapter, int section) {
 		StorySections sss = StorySections.getInstance();
 		Optional<StorySection> ss = sss.getElementBy(chapter, section);
@@ -42,7 +43,6 @@ public class StorySections extends ListDataRepository<StorySection>{
 		});
 		return ss.map(v->nextChapterSectionNumber(v)).orElse(lastNumber);		
 	}
-	
-	
+	*/
 
 }

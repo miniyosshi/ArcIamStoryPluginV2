@@ -15,7 +15,7 @@ public abstract class MapDataRepository<T extends Element>{
 	
 	protected Map<String, T> map = new HashMap<String, T>();
 	
-	private final String parentFolderString = "./ArcIamExternalFiles/JsonFiles/";
+	private final String parentFolderString = "./plugins/ArcIamExternalFiles/JsonFiles/";
 	
 	public void add(T element) {
 		map.put(element.getName(), element);
@@ -50,7 +50,7 @@ public abstract class MapDataRepository<T extends Element>{
 		    	e.printStackTrace();
 		    }
 		}
-		System.out.println("Loaded json : "+map.toString());
+		System.out.println("Loaded json : "+map.keySet());
 	}
 	
 	public void importAllFromDefaultFolder(Class<T> elementClass) {

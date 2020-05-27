@@ -26,38 +26,49 @@ public class OnPlayerClickEntityEvent implements Listener {
 		Player player = e.getPlayer();
 		Optional<User> user = Users.getInstance().getElementBy(player);
 		
+		// Clicked name test
 		String customName = e.getRightClicked().getCustomName();
 		String plainName = e.getRightClicked().getName();
 		String toStringName = e.getRightClicked().toString();
-		System.out.println("customName: "+customName+", plainName: "+plainName+"toStringName: "+toStringName);
+		player.sendMessage("customName: "+customName+", plainName: "+plainName+"toStringName: "+toStringName);
 		
-		Optional<NPC> npc = NPCs.getInstance().getElementBy(customName);		
+		Optional<NPC> npc = NPCs.getInstance().getElementBy(customName);
 		
 		user.ifPresent(u -> {
 			//ストーリー進行中でなければ
 			if(!u.isInStoryEvent()) {
-				//ストーリー進行
-				//StoryProcessor.eventCheck(u,"click", e.getRightClicked().getName());
 				
-				//ストーリがなければ, mob会話・転入転出・ボタンクリック等(switchではnullは使えない。Unknownを設定する)
-				npc.ifPresentOrElse(v ->{
-					//NPCごとに決められたセリフ
-					v.talk(player,"決められたセリフ");
-					if(v instanceof SaverNPC && u instanceof NormalModeUser) {
-						((NormalModeUser) u).saveCurrentLocation();
-						v.talk(player,"セーブ完了！");
-					}
-					//if(v instanceof TeleporterNPC) 
+				player.sendMessage("Click:"+String.valueOf(u.checkEvent("click", customName)));
+				if(u.checkEvent("click", customName)) {
+					//ストーリー進行
+					u.processLine();
 					
-					//商人
-					
-					
-					
-				}, () ->{
-					if(e.getRightClicked().getType().equals(EntityType.VILLAGER)) {
-						player.sendMessage("やあ。");
-					}
-				});
+				} else {
+					//ストーリがなければ, mob会話・転入転出・ボタンクリック等(switchではnullは使えない。Unknownを設定する)
+					npc.ifPresentOrElse(v ->{
+						//NPCごとに決められたセリフ
+						v.talk(player,"決められたセリフ");
+						if(v instanceof SaverNPC && u instanceof NormalModeUser) {
+							((NormalModeUser) u).saveCurrentLocation();
+							v.talk(player,"セーブ完了！");
+						}
+						
+						if(v instanceof SellerNPC) {
+							((NormalModeUser) u).saveCurrentLocation();
+							v.talk(player,"いらしゃいませ。");
+							((SellerNPC)v).openInventoryTo(player);
+						}
+						
+						//if(v instanceof TeleporterNPC) 
+						
+					}, () ->{
+						if(e.getRightClicked().getType().equals(EntityType.VILLAGER)) {
+							player.sendMessage("やあ。");
+						}
+					});
+				}
+				
+				
 			}
 		});
 
@@ -91,11 +102,6 @@ public class OnPlayerClickEntityEvent implements Listener {
 				case 商人 :
 					e.getPlayer().sendMessage("["+m+"] "+"やあ、いいもの揃っているよ");
 				
-				case セーブクラーク:
-					User.getUser(e.getPlayer()).saveCurrentLocation();
-					e.getPlayer().sendMessage("["+m+"] "+"どうぞごゆっくり。");
-					break;
-				
 				case Unknown:
 					e.getPlayer().sendMessage("僕 「この人誰だろう」");
 					break;
@@ -107,12 +113,7 @@ public class OnPlayerClickEntityEvent implements Listener {
 				
 				}
 				*/
-				
-				
 			//}	
-		
-		
-		
-		
+
 	}
 }

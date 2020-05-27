@@ -28,6 +28,10 @@ public class Birthday {
 	}
 	//constellation
 	
+	public void showBirthday() {
+		System.out.println(year+","+month+","+day);
+	}
+	
 	
 	
 }

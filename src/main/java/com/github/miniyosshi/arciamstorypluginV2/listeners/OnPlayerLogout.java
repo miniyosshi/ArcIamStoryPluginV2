@@ -1,5 +1,6 @@
 package com.github.miniyosshi.arciamstorypluginV2.listeners;
 
+import java.io.File;
 import java.util.Optional;
 
 import org.bukkit.entity.Player;
@@ -22,9 +23,14 @@ public class OnPlayerLogout implements Listener {
 		Player player = e.getPlayer();
 		Optional<User> user = Users.getInstance().getElementBy(player);
 		user.ifPresent(v ->{
-			//DesignatedArea外でログアウトでゾンビ生成
-			
-			if(!v.isIn().isPresent()) {
+			if(v.isIn().isPresent()) {
+				//Area内でログアウト
+				if(v instanceof NormalModeUser) {
+					((NormalModeUser) v).saveCurrentLocation();
+				}
+			}else {
+				//DesignatedArea外でログアウト
+				//zombie
 				v.generateCustomZombie();
 				//ハードコア向けアイテムロスト
 				if(v instanceof HardModeUser) {
@@ -34,17 +40,20 @@ public class OnPlayerLogout implements Listener {
 				}
 			}
 			
-			//セーブ＋ロビーへ移動させておく
-			if(v instanceof NormalModeUser) {
-				((NormalModeUser) v).saveCurrentLocation();
+			// Teleport users except tutorial users and users who are in story event
+			if(!(v instanceof TutorialUser || v.isInStoryEvent())) {
+				v.teleportToLobby();
 			}
-			v.teleportToLobby();
+			
+			// Export User data to JSON
+			//v.exportTo(new File(v.parentFolderString));
 			
 			//ストーリーイベント途中で落ちた場合
 			if(v.isInStoryEvent()) {
-				System.out.println(e.getPlayer().getName()+"has logged out half way through a story event...");
-				//文章止める(不要)
-			}		
+				System.out.println(e.getPlayer().getName()+" has logged out half way through a story event...");
+				v.setLogoutInStoryEvent(true);
+				v.setIsInStoryEvent(false);
+			}
 			
 		});		
 		

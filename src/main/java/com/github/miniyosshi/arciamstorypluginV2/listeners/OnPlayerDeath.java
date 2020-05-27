@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 
+import com.github.miniyosshi.arciamstorypluginV2.HardModeUser;
 import com.github.miniyosshi.arciamstorypluginV2.User;
 import com.github.miniyosshi.arciamstorypluginV2.Users;
 
@@ -28,6 +29,17 @@ public class OnPlayerDeath implements Listener {
 		Player player = e.getEntity();
 		Users users = Users.getInstance();
 		Optional<User> user = users.getElementBy(player);
-		user.ifPresent(v -> v.continueAfterDeath());
+		user.ifPresent(v -> {
+			v.teleportTo("Hospital");
+			if (v instanceof HardModeUser) {
+				//一応インベントリ抽出保存
+				
+				//player.getInventory().clear();
+				//ステータス初期化
+				
+			}
+			//Zombie
+			v.generateCustomZombie();
+		});
 	}
 }

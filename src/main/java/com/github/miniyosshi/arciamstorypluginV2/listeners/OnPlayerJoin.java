@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,26 +26,30 @@ public class OnPlayerJoin implements Listener {
 	@EventHandler
 	public void onPlayerJoin (PlayerJoinEvent e) {
 		Player player = e.getPlayer();
-		//対応するUserInstanceにplayerを対応付ける。
-		//あらかじめログアウト時にロビーに来ている。
+		// 対応するUserInstanceにplayerを対応付ける。
+		// あらかじめログアウト時にロビーに来ている。
 		Optional<User> user = Users.getInstance().getElementBy(player.getName());
+		
 		user.ifPresentOrElse(v -> {
 			v.setPlayer(player);
 			System.out.println(player.getName() + " log in.");
+			if(!(v instanceof TutorialUser)) {
+				Bukkit.broadcastMessage(player.getName()+" さんがログインしました。");
+			}
+			if(v.logoutInStoryEvent()) {
+				v.sendMessage("サーバー："+"前回話の途中でログアウトしちゃったね★もう一回聞き直せるよ★");
+			}
+			
+			
 			}, () -> {
-			//First login
-			System.out.println(player.getName() + " log in the server for the first time!");
-			//初期値
-			UserInfo info = new UserInfo();
-			new NormalModeUser(player.getName(), player, info).teleportToLobby();
-		});
+				// Initialize for first login users
+				System.out.println(player.getName() + " log in the server for the first time!");
+				UserInfo info = new UserInfo();
+				new TutorialUser(player.getName(), player, info).teleportTo("bedinwhiteroom");
+		});	
 		
 		
-		//e.getPlayer().setWalkSpeed(0.2f);
-		
-		
-		
-		//ログイン10秒後に場所・章節の表示
+		//ログイン5秒後に場所・章節の表示
 		//
 		//createScoreboard(e.getPlayer());
 		

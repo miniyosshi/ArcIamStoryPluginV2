@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -19,12 +20,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserInfo {
 	private Optional<Location> savedLocation = Optional.empty();
 	//プリミティブ型以外は初期化しておかないとエラーになる
-	@JsonProperty
-	private int[] chapterSection = new int[2];
+	@JsonIgnore
+	private Optional<StorySection> currentStorySection = StorySections.getInstance().getElementBy(1, 1);
+	//private int[] nextChapterSection = new int[2];
 	@JsonProperty
 	private Birthday birthday = new Birthday();
-	@JsonProperty
+	@JsonIgnore
 	private boolean isInStoryEvent;
+	@JsonProperty
+	private boolean logoutInStoryEvent;
 	@JsonProperty
 	private Assets assets = new Assets();
 	@JsonProperty
@@ -32,26 +36,20 @@ public class UserInfo {
 	@JsonIgnore
 	private Optional<DesignatedArea> pastDesignatedArea = Optional.empty();
 	
-	public UserInfo() {
-		this.chapterSection[0] = 1;
-		this.chapterSection[1] = 1;
-		this.birthday = new Birthday();
-		this.assets = new Assets();
-		this.ability = new Ability();
-	}
+	public UserInfo() {}
 	
 	@JsonCreator
-	public UserInfo(@JsonProperty("serializedSavedLocation") Optional<Map<String, Object>> serializedSavedLocation, @JsonProperty("chapterSection")int[] chapterSection, 
-					@JsonProperty("birthday")Birthday birthday, @JsonProperty("isInStoryEvent")boolean isInStoryEvent, @JsonProperty("assets")Assets assets,
-					@JsonProperty("ability")Ability ability) {
+	public UserInfo(@JsonProperty("serializedSavedLocation") Optional<Map<String, Object>> serializedSavedLocation, @JsonProperty("chapterSection")Optional<int[]> chapterSection, 
+					@JsonProperty("birthday")Optional<Birthday> birthday, @JsonProperty("logoutInStoryEvent")boolean logoutInStoryEvent, @JsonProperty("assets")Optional<Assets> assets,
+					@JsonProperty("ability")Optional<Ability> ability) {
 		serializedSavedLocation.ifPresent(v ->{
 			this.savedLocation = Optional.of(SerializableLocation.deserialize(v).getLocation());
 		});
-		this.chapterSection = chapterSection;
-		this.birthday = birthday;
-		this.isInStoryEvent = isInStoryEvent;
-		this.assets = assets;
-		this.ability = ability;
+		chapterSection.ifPresent(v-> this.currentStorySection = StorySections.getInstance().getElementBy(v[0], v[1]));
+		birthday.ifPresent(v-> this.birthday = v);
+		this.logoutInStoryEvent = logoutInStoryEvent;
+		assets.ifPresent(v-> this.assets = v);
+		ability.ifPresent(v-> this.ability = v);
 	}
 	
 	@JsonIgnore
@@ -67,14 +65,41 @@ public class UserInfo {
 		return result;
 	}
 	
+	@JsonProperty("chapterSection")
+	public Optional<int[]> getChapterSectionNumber(){
+		return this.currentStorySection.map(v->v.getChapterSectionNumber());
+	}
+	
 	@JsonIgnore
 	public void setSavedLocation(Location location) {
 		savedLocation =Optional.of(location);
 	}
-	@JsonIgnore
+	
+	/*
+	 * Methods relating to Story Event
+	 */
+	
 	public boolean isInStoryEvent() {
 		return isInStoryEvent;
 	}
+	
+	public void setIsInStoryEvent(boolean b) {
+		this.isInStoryEvent = b;
+	}
+	
+	public boolean  logoutInStoryEvent() {
+		return logoutInStoryEvent;
+	}
+	
+	public void setLogoutInStoryEvent(boolean b) {
+		this.logoutInStoryEvent = b;
+	}
+	
+	
+	/*
+	 * Methods relating to DesignatedAreas
+	 */
+	
 	@JsonIgnore
 	public void setPastDesignatedArea(Optional<DesignatedArea> da) {
 		pastDesignatedArea = da;
@@ -85,8 +110,53 @@ public class UserInfo {
 		return Objects.equals(pastDesignatedArea, presentArea);
 	}
 	
-	public void addChapterSection() {
-		chapterSection = StorySections.getInstance().nextChapterSectionNumber(chapterSection[0],chapterSection[1]);
+	/*
+	 * Methods relating to StorySection and StoryEvents
+	 */
+	
+	public void setNextStorySection() {
+		currentStorySection = currentStorySection.map(v->StorySections.getInstance().nextStorySection(v))
+								.orElse(Optional.empty());
+	}
+	
+	public boolean checkEvent(String triggerAction, String triggerObject) {
+		return currentStorySection.map(v -> v.ifUserMakeFlagForStoryEvent(triggerAction, triggerObject)).orElse(false);
+	}
+	
+	public int runStorySentences(User user) {
+		return currentStorySection.map(v->v.runSentences(user)).orElse(0);
+	}
+
+	
+	/*
+	 * Methods relating to Assets.
+	 */
+	
+	public String showCash() {
+		return assets.showCash();
+	}
+	public String showDeposit() {
+		return assets.showDeposit();
+	}
+	public boolean receive(double money) {
+		return assets.receive(money);
+	}
+	public boolean pay(double money) {
+		return assets.pay(money);
+	}
+	public boolean withdraw(double money) {
+		return assets.withdraw(money);
+	}
+	public boolean deposit(double money) {
+		return assets.deposit(money);
+	}
+	
+	/*
+	 * Methods relating to Ability
+	 */
+	
+	public void reflectWalkspeed(Player player) {
+		ability.reflectWalkspeed(player);
 	}
 	
 }

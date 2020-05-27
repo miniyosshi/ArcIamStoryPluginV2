@@ -25,22 +25,39 @@ public class Assets {
 		return String.valueOf(deposit);
 	}
 	
-	public void recieve(double money) {
-		cash += money;
+	public boolean receive(double money) {
+		if(money>=0) {
+			cash += money;
+			return true;
+		}
+		return false;
 	}
 	
-	public void pay(double money) {
-		cash -= money;
+	public boolean pay(double money) {
+		if(money>=0&&cash>money) {
+			cash -= money;
+			return true;
+		}
+		return false;
 	}
 	
-	public void withdraw(double money) {
-		deposit -= money;
-		cash += money;
+	public boolean withdraw(double money) {
+		if(money>=0&&deposit>money) {
+			deposit -= money;
+			cash += money;
+			return true;
+		}
+		return false;
 	}
 	
-	public void deposit(double money) {
-		cash -= money;
-		deposit += money;
+	public boolean deposit(double money) {
+		if(money>=0&&cash>money) {
+			cash -= money;
+			deposit += money;
+			return true;
+		}
+		return false;
+		
 	}
 	
 }

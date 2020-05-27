@@ -6,41 +6,16 @@ author: miniyosshi
 api-version: 1.15
 
 commands:  
-  addarea:
-    description: Set your location as the one corner or center of an area.
-    usage: "/addarea [name of area] [square or round] [radius for roundArea]"
-  
-  modifyarea:
-    description: Set your location as the one corner or center of an area that is already made.
-    usage: "/modifyarea [name of area] [AorB for squareArea, radius for roundArea]"
-  
-  deletearea:
-    descripstion: Delete an area.
-    usage: "/deletearea [name of area]"
-  
-  showarea:
-    descripstion: See set areas.
+  ll:
+    description: Primary command for LostLegacy.
+
+
+
+permissions:
+  arciamstorypluginv2.ll:
+    description: Only for OP.
+    default: op
     
-  setspot:
-    description: aaa.
-  
-  showusers:
-    description: See all users.
     
-  money:
-    description: aaa.
-    
-  createmerchant:
-    description: aaa.
-    
-  goal:
-    description: aaa.
-  
-  createmob:
-    description: Spawn mob here.
-    usage: "/createmob [name of mob]"
-    
-  createspecialsword:
-    description: aaa.
 
     
