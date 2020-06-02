@@ -15,5 +15,15 @@ public class TutorialUser extends User {
 	public TutorialUser(@JsonProperty("name")String name, @JsonProperty("userInfo")UserInfo userInfo) {
 		super(name, userInfo);
 	}
+	
+	public void changeToNormalModeUser() {
+		player.ifPresent(v-> new NormalModeUser(name, v, userInfo));
+		this.sendMessage("ノーマルモードになりました。");
+	}
+	
+	public void changeToHardModeUser() {
+		player.ifPresent(v-> new HardModeUser(name, v, userInfo));
+		this.sendMessage("ハードモードになりました。");
+	}
 
 }

@@ -3,7 +3,6 @@ package com.github.miniyosshi.arciamstorypluginV2;
 import java.util.Optional;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
@@ -24,35 +23,42 @@ public class NPC extends Element {
 	@JsonProperty
 	private boolean hasAI;
 	@JsonProperty
-	protected Optional<LivingEntity> target;
+	protected Optional<LivingEntity> target = Optional.empty();
 	//private Optional<Location> location;
 	
 	@JsonCreator
 	public NPC(@JsonProperty("type")EntityType type, @JsonProperty("name")String name, @JsonProperty("isInvulnerable")boolean isInvulnerable, 
-				@JsonProperty("hasAI")boolean hasAI, @JsonProperty("target")LivingEntity target) {
+				@JsonProperty("hasAI")boolean hasAI, @JsonProperty("target")Optional<LivingEntity> target) {
 		this.type =type;
 		this.name = name;
 		this.isInvulnerable = isInvulnerable;
 		this.hasAI = hasAI;
-		this.target = Optional.ofNullable(target);	
+		target.ifPresent(v -> this.target = Optional.of(v));
 		NPCs.getInstance().add(this);
 	}
 	
-	public void spawnAt(Location location) {
+	public Mob spawnAt(Location location) {
 		Mob mob = (Mob) location.getWorld().spawnEntity(location, type);
 		mob.setCustomName(name);
 		mob.setCustomNameVisible(true);
 		mob.setInvulnerable(isInvulnerable);
 		mob.setAI(hasAI);
 		target.ifPresent(v-> mob.setTarget(v));
+		return mob;
 	}
 	
-	public void spawnIn(DesignatedArea da) {
-		spawnAt(da.getRandomLocation());
+	public Mob spawnIn(DesignatedArea da) {
+		return spawnAt(da.getRandomLocation());
 	}
 	
+	/*
 	public void talk(Player player, String string) {
-		player.sendMessage(string);
+		player.sendMessage(ChatColor.BLUE + name + " : " + ChatColor.WHITE + string);
+	}
+	*/
+	
+	public void talk(User user, String string) {
+		user.sendMessage(name, string);
 	}
 	
 	//walkaround	

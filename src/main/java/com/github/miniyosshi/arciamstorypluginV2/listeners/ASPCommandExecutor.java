@@ -20,8 +20,10 @@ public class ASPCommandExecutor implements CommandExecutor{
 	// Add commands in cmd package;
 	public ASPCommandExecutor(){	
 		addCmd(new CmdAddarea());
+		addCmd(new CmdAddspot());
+		addCmd(new CmdModifyarea());
+		addCmd(new CmdSpawnNPC());
 		addCmd(new CmdCommands());
-		addCmd(new CmdSetcorners());
 		
 		//add
 		

@@ -36,8 +36,8 @@ public class OnPlayerEnterDesignatedArea implements Listener {
 					user.setHereAsPastDesignatedArea();
 					
 					//Scoreboard
-					Score s = player.getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore("場所:");
-					s.setScore(100);
+					//Score s = player.getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore("場所:");
+					//s.setScore(100);
 					
 					//StoryProcessor.eventCheck(u, "enter", presentarea.getName());
 					

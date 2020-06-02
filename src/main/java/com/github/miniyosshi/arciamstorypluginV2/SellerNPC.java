@@ -2,6 +2,7 @@ package com.github.miniyosshi.arciamstorypluginV2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
@@ -20,7 +21,7 @@ public class SellerNPC extends NPC {
 	
 	@JsonCreator
 	public SellerNPC(@JsonProperty("name")String name,
-					 @JsonProperty("hasAI")boolean hasAI, @JsonProperty("target")LivingEntity target,
+					 @JsonProperty("hasAI")boolean hasAI, @JsonProperty("target")Optional<LivingEntity> target,
 					 @JsonProperty("items")List<LLItem> items) {
 		super(EntityType.VILLAGER, name, true, hasAI, target);
 		this.items = items;

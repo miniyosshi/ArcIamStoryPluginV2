@@ -17,19 +17,22 @@ public class ArcIamStoryPluginV2 extends JavaPlugin {
 		
 		getLogger().info("This server uses "+System.getProperty("file.encoding")+" as the default char code.");
 		//Read JSON and CSV
-		ScenarioBook.getInstance().importAllFromDefaultFolder(ScenarioSentences.class);
+		//MainScenarioBook.getInstance().importAllFromDefaultFolder(ScenarioSentences.class);
+		VariousScenarioBook.getInstance().importAllFromDefaultFolder();
 		DesignatedAreas.getInstance().importAllFromDefaultFolder(DesignatedArea.class);
 		DesignatedSpots.getInstance().importAllFromDefaultFolder(DesignatedSpot.class);
-		// StorySection depends on DesignatedSpot
-		StorySections.getInstance().importAllFromDefaultFolder(StorySection.class);
 		LLItems.getInstance().importAllFromDefaultFolder(LLItem.class);
 		NPCs.getInstance().importAllFromDefaultFolder(NPC.class);
+		// StorySection depends on DesignatedSpot, NPC
+		//MainStorySections.getInstance().importAllFromDefaultFolder(StorySection.class);
+		VariousStorySections.getInstance().importAllFromDefaultFolder();
 		// User depends on StorySection and DesignatedArea
 		Users.getInstance().importAllFromDefaultFolder(User.class);
 		
 		getLogger().info("File reading process is finished.");
 		
 		//EventSet
+		new OnEntityDeath(this);
 		new OnPlayerClickEntityEvent(this);
 		new OnPlayerEnterDesignatedArea(this);
 		new OnPlayerJoin(this);

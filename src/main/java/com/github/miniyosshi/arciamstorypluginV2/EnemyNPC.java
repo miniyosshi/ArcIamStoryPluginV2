@@ -13,7 +13,7 @@ public class EnemyNPC extends NPC{
 
 	public EnemyNPC(@JsonProperty("type")EntityType type, @JsonProperty("name")String name, 
 			@JsonProperty("hasAI")boolean hasAI,
-			@JsonProperty("target")LivingEntity target) {
+			@JsonProperty("target")Optional<LivingEntity> target) {
 		super(type, name, false, hasAI, target);
 	}
 	

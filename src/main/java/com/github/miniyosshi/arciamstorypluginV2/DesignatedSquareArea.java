@@ -55,12 +55,24 @@ public class DesignatedSquareArea extends DesignatedArea {
 		return cornerA.add(vector);
 	}
 	@JsonIgnore
-	public void setCornerA(Location location) {
-		cornerA = location;
+	public boolean setCornerA(Location location) {
+		if(Objects.equals(location.getWorld(), cornerB.getWorld())) {
+			cornerA = location;
+			return true;
+		} else {
+			System.out.println("Error:Corner A and B are in different worlds from each other : DesignatedSquareArea " + name);
+			return false;
+		}
 	}
 	@JsonIgnore
-	public void setCornerB(Location location) {
-		cornerB = location;
+	public boolean setCornerB(Location location) {
+		if(Objects.equals(location.getWorld(), cornerA.getWorld())) {
+			cornerB = location;
+			return true;
+		} else {
+			System.out.println("Error:Corner A and B are in different worlds from each other : DesignatedSquareArea " + name);
+			return false;
+		}
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ public abstract class MapDataRepository<T extends Element>{
 	
 	protected Map<String, T> map = new HashMap<String, T>();
 	
-	private final String parentFolderString = "./plugins/ArcIamExternalFiles/JsonFiles/";
+	private String parentFolderString = "./plugins/ArcIamExternalFiles/JsonFiles/";
 	
 	public void add(T element) {
 		map.put(element.getName(), element);

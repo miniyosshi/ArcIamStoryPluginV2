@@ -37,8 +37,17 @@ public class OnPlayerJoin implements Listener {
 				Bukkit.broadcastMessage(player.getName()+" さんがログインしました。");
 			}
 			if(v.logoutInStoryEvent()) {
-				v.sendMessage("サーバー："+"前回話の途中でログアウトしちゃったね★もう一回聞き直せるよ★");
+				v.sendMessage("サーバー", "前回話の途中でログアウトしちゃったね★もう一回聞き直せるよ★");
+				v.setLogoutInStoryEvent(false);
+				
+				//auto start here
+				v.checkEventandReturnAxis("auto", "auto").ifPresent(axis->{
+					v.processLine(axis);
+				});
 			}
+			
+			//set abilities
+			v.setAbilityWalkspeed();
 			
 			
 			}, () -> {

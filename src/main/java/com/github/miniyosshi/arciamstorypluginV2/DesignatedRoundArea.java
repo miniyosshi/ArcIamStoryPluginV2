@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.util.Vector;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DesignatedRoundArea extends DesignatedArea {
@@ -38,6 +39,16 @@ public class DesignatedRoundArea extends DesignatedArea {
 	@Override
 	public Location getCenter() {
 		return center;
+	}
+	
+	@JsonIgnore
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+	
+	@JsonIgnore
+	public void setCenter(Location location) {
+		center = location;
 	}
 
 	@Override

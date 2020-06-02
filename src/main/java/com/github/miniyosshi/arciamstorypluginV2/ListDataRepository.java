@@ -14,7 +14,7 @@ public abstract class ListDataRepository<T extends Element>{
 	
 	protected List<T> list = new ArrayList<T>();
 	
-	private final String parentFolderString = "./plugins/ArcIamExternalFiles/JsonFiles/";
+	private String parentFolderString = "./plugins/ArcIamExternalFiles/JsonFiles/";
 	
 	public void add(T element) {
 		list.add(element);

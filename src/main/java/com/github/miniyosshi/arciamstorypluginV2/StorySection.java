@@ -1,9 +1,10 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
-import java.util.Map;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
-
-import org.bukkit.Location;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,50 +13,63 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 // read only
 public class StorySection extends Element {
 	@JsonProperty
+	private String axis = "";
+	@JsonProperty
 	private int[] chapterSection = new int[2];
 	@JsonProperty
-	private String title;
+	private String title = "";
 	@JsonProperty
-	private String goal;
+	private String goal = "";
 	@JsonProperty
-	private String triggerAction;
+	private String triggerAction = "";
 	@JsonProperty
-	private String triggerObject;
+	private String triggerObject = "";
 	@JsonIgnore
-	private ScenarioSentences sentences;
+	private ScenarioSentences sentences = new ScenarioSentences();
 	@JsonIgnore
-	private Optional<DesignatedSpot> viewpoint;
+	private Optional<DesignatedSpot> viewpoint = Optional.empty();
+	@JsonProperty
+	private List<AdditionalTask> additionalTasks = new ArrayList<AdditionalTask>();
 	
 	//private boolean isConnectedToNextSection;
 	
 	@JsonCreator
-	public StorySection(@JsonProperty("chapterSection")int[] chapterSection, @JsonProperty("title")String title, 
+	public StorySection(@JsonProperty("name")String name, @JsonProperty("axis")String axis, @JsonProperty("chapterSection")int[] chapterSection,
+						@JsonProperty("title")String title, 
 						@JsonProperty("goal")String goal, @JsonProperty("triggerAction")String triggerAction,
-						@JsonProperty("triggerObject")String triggerObject, @JsonProperty("viewpointName")Optional<String> viewpointName) {
-		this.name = String.valueOf(chapterSection[0]) + "-"+String.valueOf(chapterSection[1]);
+						@JsonProperty("triggerObject")String triggerObject, @JsonProperty("viewpointName")Optional<String> viewpointName,
+						@JsonProperty("additionalTask")Optional<List<AdditionalTask>> additionalTasks) {
+		this.name = name;
+		this.axis = axis;
 		this.chapterSection = chapterSection;
 		this.title = title;
 		this.goal = goal;
 		this.triggerAction = triggerAction;
 		this.triggerObject = triggerObject;
-		this.sentences = ScenarioBook.getInstance().getElementBy(chapterSection[0], chapterSection[1]).orElse(new ScenarioSentences());
-		this.viewpoint = viewpointName.map(v->DesignatedSpots.getInstance().getElementBy(v)).orElse(Optional.empty());
+		VariousScenarioBook.getInstance().getInstanceBy(axis).ifPresent(v-> this.sentences = v.getElementBy(chapterSection[0], chapterSection[1]).orElse(new ScenarioSentences()));
+		viewpointName.ifPresent(v-> this.viewpoint = DesignatedSpots.getInstance().getElementBy(v));
+		additionalTasks.ifPresent(v-> this.additionalTasks = v);
 	}
-	
+	/*
 	public StorySection(int chapter, int section) {
 		int[] x = new int[2];
 		x[0] = chapter;
 		x[1] = section;
-		new StorySection(x, "", "", "", "", Optional.empty());
+		new StorySection(x, "", "", "", "", Optional.empty(), Optional.empty());
+	}
+	*/
+	@JsonIgnore
+	public Entry<String, int[]> getSerializedStorySection(){
+		return new AbstractMap.SimpleEntry<String, int[]>(axis, this.getChapterSectionNumber());
 	}
 	
 	public boolean hasNext() {
-		int currentIndex = StorySections.getInstance().indexOf(this);
+		int currentIndex = MainStorySections.getInstance().indexOf(this);
 		if(currentIndex == -1) {
 			System.out.println("There is no such a story section.");
 			return false;
 		}
-		if(currentIndex >= StorySections.getInstance().size()-1) {
+		if(currentIndex >= MainStorySections.getInstance().size()-1) {
 			System.out.println("There is no more story section.");
 			return false;
 		}
@@ -66,6 +80,14 @@ public class StorySection extends Element {
 		return chapterSection;
 	}
 	
+	public boolean compareAxis(String axis) {
+		return this.axis.equalsIgnoreCase(axis);
+	}
+	
+	public String getAxis() {
+		return axis;
+	}
+	
 	public boolean compareChapterSectionWith(int chapter, int section) {
 		return (chapterSection[0]==chapter)&&(chapterSection[1]==section);
 	}
@@ -74,8 +96,11 @@ public class StorySection extends Element {
 		return (this.triggerAction.equalsIgnoreCase(triggerAction))&&(this.triggerObject.equalsIgnoreCase(triggerObject));
 	}
 	
-	public int runSentences(User user) {
-		return sentences.runSentences(user);
+	public long runSentences(User user) {
+		long ms = sentences.runSentences(user, axis);
+		viewpoint.ifPresent(v-> user.teleportTo(v));
+		additionalTasks.stream().forEach(task-> task.execute(user, ms-100));
+		return  ms;
 	}
 	
 	/*

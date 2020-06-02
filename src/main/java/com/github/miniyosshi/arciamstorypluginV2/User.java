@@ -2,9 +2,11 @@ package com.github.miniyosshi.arciamstorypluginV2;
 
 import java.util.Optional;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
@@ -84,6 +86,12 @@ public abstract class User extends Element {
 		});
 	}
 	
+	public void teleportTo(DesignatedSpot ds) {
+		player.ifPresent(v->{
+			v.teleport(ds.getLocation());
+		});
+	}
+	
 	public void teleportToRandomSpotIn(DesignatedArea da) {
 		player.ifPresent(v->{
 			v.teleport(da.getRandomLocation());
@@ -113,8 +121,12 @@ public abstract class User extends Element {
 		userInfo.setLogoutInStoryEvent(b);
 	}
 	
-	public boolean checkEvent(String triggerAction, String triggerObject) {
-		return userInfo.checkEvent(triggerAction, triggerObject);
+	public boolean checkEvent(String axis, String triggerAction, String triggerObject) {
+		return userInfo.checkEvent(axis, triggerAction, triggerObject);
+	}
+	
+	public Optional<String> checkEventandReturnAxis(String triggerAction, String triggerObject) {
+		return userInfo.checkEventAndReturnAxis(triggerAction, triggerObject);
 	}
 	
 	
@@ -122,17 +134,17 @@ public abstract class User extends Element {
 	 * Methods relating to ChapterSection StoryEvents.
 	 */
 	
-	public void setNextStorySection() {
-		userInfo.setNextStorySection();
+	public void setNextStorySection(String axis) {
+		userInfo.setNextStorySection(axis);
 	}
 	
-	public void processLine() {
-		int second = userInfo.runStorySentences(this);
+	public void processLine(String axis) {
+		long ms = userInfo.runStorySentences(this, axis);
+		int tick = (int) (20*ms/1000);
 		player.ifPresent(v->{
-			v.sendMessage("second:"+second);
-			v.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20*second, 0));
+			v.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, tick, 0));
 			//視点変更
-			
+			this.teleportTo("");
 			});
 		// when story correctly end, setNextStorySection and setIsInStoryEvent(false) are automatically done
 	}
@@ -185,6 +197,16 @@ public abstract class User extends Element {
 	
 	
 	
+	public Optional<Mob> summonNPC(NPC npc) {
+		return player.map(v->{
+			Location loc = v.getLocation().add(v.getEyeLocation().toVector().normalize().multiply(2));
+			Mob mob = npc.spawnAt(loc);
+			System.out.println("mob " +mob);
+			return mob;
+		});
+	}
+	
+	
 	
 	public void generateCustomZombie() {
 		//ゾンビ出現（プレーヤーと同じステータス）
@@ -222,7 +244,7 @@ public abstract class User extends Element {
 	}
 	
 	public void sendMessage(String person, String message) {
-		sendMessage("[" + person + "] " + message);
+		sendMessage(ChatColor.BLUE + "[" + person + "] " + ChatColor.WHITE + message);
 	}
 
 }

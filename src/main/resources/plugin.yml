@@ -10,11 +10,11 @@ commands:
     description: Primary command for LostLegacy.
 
 
-
 permissions:
   arciamstorypluginv2.ll:
     description: Only for OP.
     default: op
+    permission-message: You do not have permission to use this command.
     
     
 

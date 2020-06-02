@@ -22,6 +22,11 @@ public class DesignatedSpot extends DesignatedPosition {
 		dss.add(this);
 	}
 	
+	public DesignatedSpot(String name, Location location) {
+		this.name = name;
+		this.location = location;
+	}
+	
 	@JsonIgnore
 	public Location getLocation() {
 		return location;

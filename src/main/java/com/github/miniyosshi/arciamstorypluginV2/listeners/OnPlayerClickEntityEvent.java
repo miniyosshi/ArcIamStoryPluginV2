@@ -38,24 +38,21 @@ public class OnPlayerClickEntityEvent implements Listener {
 			//ストーリー進行中でなければ
 			if(!u.isInStoryEvent()) {
 				
-				player.sendMessage("Click:"+String.valueOf(u.checkEvent("click", customName)));
-				if(u.checkEvent("click", customName)) {
-					//ストーリー進行
-					u.processLine();
-					
-				} else {
+				Optional<String> axis = u.checkEventandReturnAxis("click", customName);
+				player.sendMessage("Click:"+ axis);
+				
+				axis.ifPresentOrElse(v-> u.processLine(v),()->{
 					//ストーリがなければ, mob会話・転入転出・ボタンクリック等(switchではnullは使えない。Unknownを設定する)
 					npc.ifPresentOrElse(v ->{
-						//NPCごとに決められたセリフ
-						v.talk(player,"決められたセリフ");
+						//NPCごとに決められた業務
+						v.talk(u,"決められたセリフ");
 						if(v instanceof SaverNPC && u instanceof NormalModeUser) {
-							((NormalModeUser) u).saveCurrentLocation();
-							v.talk(player,"セーブ完了！");
+							((SaverNPC) v).saveCurrentLocation(u);
 						}
 						
 						if(v instanceof SellerNPC) {
 							((NormalModeUser) u).saveCurrentLocation();
-							v.talk(player,"いらしゃいませ。");
+							v.talk(u,"いらしゃいませ。");
 							((SellerNPC)v).openInventoryTo(player);
 						}
 						
@@ -63,12 +60,10 @@ public class OnPlayerClickEntityEvent implements Listener {
 						
 					}, () ->{
 						if(e.getRightClicked().getType().equals(EntityType.VILLAGER)) {
-							player.sendMessage("やあ。");
+							u.sendMessage("村人", "やあ。");
 						}
 					});
-				}
-				
-				
+				});				
 			}
 		});
 
