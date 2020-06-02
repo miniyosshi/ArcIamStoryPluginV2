@@ -1,8 +1,5 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
-import java.util.Optional;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

@@ -1,12 +1,13 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
@@ -15,9 +16,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class User extends Element {
@@ -49,12 +48,12 @@ public abstract class User extends Element {
 	 */
 	
 	@JsonIgnore
-	public Optional<DesignatedArea> isIn() {
+	public Set<DesignatedArea> isIn() {
 		return player.map(v->{
 			Location location = v.getLocation();
 			DesignatedAreas das = DesignatedAreas.getInstance();
-			return das.getElementBy(location);
-		}).orElse(Optional.empty());
+			return das.getAllElementsBy(location);
+		}).orElse(new HashSet<>());
 	}
 	
 	public boolean isIn(DesignatedArea designatedArea) {
@@ -66,12 +65,20 @@ public abstract class User extends Element {
 	
 	@JsonIgnore
 	public boolean isInTheSameDesignatedArea() {
-		Optional<DesignatedArea> presentArea = this.isIn();
+		Set<DesignatedArea> presentArea = this.isIn();
 		return userInfo.pastDesignatedAreaEquals(presentArea);
 	}
 	
 	public void setHereAsPastDesignatedArea() {
 		userInfo.setPastDesignatedArea(this.isIn());
+	}
+	
+	public Set<DesignatedArea> pastDesignatedAreaRetain(Set<DesignatedArea> presentArea){
+		return userInfo.pastDesignatedAreaRetain(presentArea);
+	}
+	
+	public Set<DesignatedArea> getUserNewlyEnteringDesignatedAreas(Set<DesignatedArea> presentArea){
+		return userInfo.getUserNewlyEnteringDesignatedAreas(presentArea);
 	}
 	
 	public void teleportToLobby() {

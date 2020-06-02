@@ -28,9 +28,9 @@ public class OnPlayerClickEntityEvent implements Listener {
 		
 		// Clicked name test
 		String customName = e.getRightClicked().getCustomName();
-		String plainName = e.getRightClicked().getName();
-		String toStringName = e.getRightClicked().toString();
-		player.sendMessage("customName: "+customName+", plainName: "+plainName+"toStringName: "+toStringName);
+		//String plainName = e.getRightClicked().getName();
+		//String toStringName = e.getRightClicked().toString();
+		//player.sendMessage("customName: "+customName+", plainName: "+plainName+"toStringName: "+toStringName);
 		
 		Optional<NPC> npc = NPCs.getInstance().getElementBy(customName);
 		

@@ -1,5 +1,7 @@
 package com.github.miniyosshi.arciamstorypluginV2.listeners;
 
+import java.util.Set;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -29,10 +31,19 @@ public class OnPlayerEnterDesignatedArea implements Listener {
 			Location presentLocation = e.getTo();
 			if (pastLocation != presentLocation) {
 				if (!user.isInTheSameDesignatedArea()) {
+					Set<DesignatedArea> presentdaSet = user.isIn();
+					if(!presentdaSet.isEmpty()) {
+						user.getUserNewlyEnteringDesignatedAreas(presentdaSet).stream().forEach(area-> {
+							player.sendMessage(ChatColor.AQUA + "〈" +area.getName()+ "〉 " +"にやって来ました");
+							player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);		
+						});	
+					}
+					/*
 					user.isIn().ifPresent(da ->{
 						player.sendMessage(ChatColor.AQUA + "〈" +da.getName()+ "〉 " +"にやって来ました");
 						player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);	
 					});
+					*/
 					user.setHereAsPastDesignatedArea();
 					
 					//Scoreboard

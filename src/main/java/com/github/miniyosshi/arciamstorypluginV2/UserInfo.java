@@ -41,7 +41,7 @@ public class UserInfo {
 	@JsonProperty
 	private Ability ability = new Ability();
 	@JsonIgnore
-	private Optional<DesignatedArea> pastDesignatedArea = Optional.empty();
+	private Set<DesignatedArea> pastDesignatedArea = new HashSet<>();
 	
 	public UserInfo() {}
 	
@@ -133,14 +133,29 @@ public class UserInfo {
 	 */
 	
 	@JsonIgnore
-	public void setPastDesignatedArea(Optional<DesignatedArea> da) {
+	public void setPastDesignatedArea(Set<DesignatedArea> da) {
 		pastDesignatedArea = da;
 	}
 	
 	@JsonIgnore
-	public boolean pastDesignatedAreaEquals(Optional<DesignatedArea> presentArea) {
+	public boolean pastDesignatedAreaEquals(Set<DesignatedArea> presentArea) {
 		return Objects.equals(pastDesignatedArea, presentArea);
 	}
+	
+	@JsonIgnore
+	public Set<DesignatedArea> pastDesignatedAreaRetain(Set<DesignatedArea> presentArea) {
+		Set<DesignatedArea> result = new HashSet<>(pastDesignatedArea);
+		result.retainAll(presentArea);
+		return result;
+	}
+	
+	@JsonIgnore
+	public Set<DesignatedArea> getUserNewlyEnteringDesignatedAreas(Set<DesignatedArea> presentArea) {
+		Set<DesignatedArea> result = new HashSet<>(presentArea);
+		result.removeAll(pastDesignatedArea);
+		return result;
+	}
+	
 	
 	/*
 	 * Methods relating to StorySection and StoryEvents
@@ -151,9 +166,9 @@ public class UserInfo {
 	}
 	
 	public void setNextStorySection(String axis) {
-		Optional<StorySection> ss = this.getStorySection(axis).map(v->MainStorySections.getInstance().nextStorySection(v))
-								.orElse(Optional.empty());
-		ss.ifPresent(v-> currentVariousStorySection.put(axis, v));
+		Optional<StorySection> nextss = this.getStorySection(axis).flatMap(ss->VariousStorySections.getInstance().getInstanceBy(axis)
+										.map(sss -> sss.nextStorySection(ss))).orElse(Optional.empty());
+		nextss.ifPresent(v-> currentVariousStorySection.put(axis, v));
 	}
 	
 	public boolean checkEvent(String axis, String triggerAction, String triggerObject) {

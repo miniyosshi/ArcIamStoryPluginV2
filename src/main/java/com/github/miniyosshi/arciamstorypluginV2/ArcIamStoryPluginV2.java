@@ -1,6 +1,5 @@
 package com.github.miniyosshi.arciamstorypluginV2;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 

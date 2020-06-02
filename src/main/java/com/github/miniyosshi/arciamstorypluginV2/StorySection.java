@@ -64,16 +64,19 @@ public class StorySection extends Element {
 	}
 	
 	public boolean hasNext() {
-		int currentIndex = MainStorySections.getInstance().indexOf(this);
-		if(currentIndex == -1) {
-			System.out.println("There is no such a story section.");
-			return false;
-		}
-		if(currentIndex >= MainStorySections.getInstance().size()-1) {
-			System.out.println("There is no more story section.");
-			return false;
-		}
-		return true;
+		return VariousStorySections.getInstance().getInstanceBy(axis).map(sss ->{
+			int currentIndex = sss.indexOf(this);
+			System.out.println(axis+" index : "+ currentIndex);
+			if(currentIndex == -1) {
+				System.out.println("There is no such a story section.");
+				return false;
+			}
+			if(currentIndex >= sss.size()-1) {
+				System.out.println("There is no more story section.");
+				return false;
+			}
+			return true;
+		}).orElse(false);
 	}
 	
 	public int[] getChapterSectionNumber() {

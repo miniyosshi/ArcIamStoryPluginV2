@@ -23,7 +23,7 @@ public class OnPlayerLogout implements Listener {
 		Player player = e.getPlayer();
 		Optional<User> user = Users.getInstance().getElementBy(player);
 		user.ifPresent(v ->{
-			if(v.isIn().isPresent()) {
+			if(!v.isIn().isEmpty()) {
 				//Area内でログアウト
 				if(v instanceof NormalModeUser) {
 					((NormalModeUser) v).saveCurrentLocation();

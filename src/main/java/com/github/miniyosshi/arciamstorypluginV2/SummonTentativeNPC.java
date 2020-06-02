@@ -20,7 +20,6 @@ public class SummonTentativeNPC extends AdditionalTask {
 	
 	@Override
 	public void execute(User user, long ms) {
-		user.sendMessage("in async");
 		NPCs.getInstance().getElementBy(npcName).ifPresent(npc ->{
 			user.sendMessage("aaa");
 			Optional<Mob> mob = user.summonNPC(npc);
@@ -29,12 +28,11 @@ public class SummonTentativeNPC extends AdditionalTask {
 			TimerTask task = new TimerTask() {
 				public void run() {
 					mob.ifPresent(v->{
-						user.sendMessage("removal");
+						user.sendMessage("removal of npc");
 						v.remove();
 						});
 					}
 				};
-			user.sendMessage("waitfor"+ms);
 			timer.schedule(task, ms);
 		});
 	}

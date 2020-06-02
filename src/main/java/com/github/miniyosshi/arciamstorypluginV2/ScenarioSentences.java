@@ -51,16 +51,18 @@ public class ScenarioSentences extends Element {
 	}
 	
 	public boolean hasNext() {
-		int currentIndex = MainScenarioBook.getInstance().indexOf(this);
-		if(currentIndex == -1) {
-			System.out.println("There is no such scenario sentences.");
-			return false;
-		}
-		if(currentIndex >= MainScenarioBook.getInstance().size()-1) {
-			System.out.println("There is no more scenario sentences.");
-			return false;
-		}
-		return true;
+		return VariousScenarioBook.getInstance().getInstanceBy(axis).map(sbs ->{
+			int currentIndex = sbs.indexOf(this);
+			if(currentIndex == -1) {
+				System.out.println("There is no such scenario sentences.");
+				return false;
+			}
+			if(currentIndex >= sbs.size()-1) {
+				System.out.println("There is no more scenario sentences.");
+				return false;
+			}
+			return true;
+		}).orElse(false);
 	}
 	
 	// return milliseconds
